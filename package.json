@@ -14,5 +14,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/elcisnguyen/Educational-Web#readme"
+  "homepage": "https://github.com/elcisnguyen/Educational-Web#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6"
+  }
 }
