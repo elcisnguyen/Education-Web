@@ -13,8 +13,8 @@ app.use(express.urlencoded({
 }))
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.engine('hbs', exphbs())
-app.set('view engine', 'hbs')
+app.engine('handlebars', exphbs())
+app.set('view engine', 'handlebars')
 
 // require('./middlewares/session.mdw')(app)
 // require('./middlewares/view.mdw')(app)
@@ -29,10 +29,8 @@ app.set('view engine', 'hbs')
 // })
 
 app.get('/', (req, res) => {
-	res.render('home')
+	res.render('home', { title: 'Educational Web' })
 })
 
 const PORT = process.env.PORT || 3000
-app.listen(PORT, function () {
-	console.log(`Educational Web App is listening on port ${PORT}`)
-})
+app.listen(PORT)
