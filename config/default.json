@@ -2,7 +2,7 @@
   "mysql": {
     "user": "root",
     "password": "a520c671",
-    "database": "qlbh",
+    "database": "edu_web",
     "connectionLimit": 50
   }
 }
