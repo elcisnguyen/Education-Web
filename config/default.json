@@ -1,0 +1,8 @@
+{
+  "mysql": {
+    "user": "root",
+    "password": "a520c671",
+    "database": "qlbh",
+    "connectionLimit": 50
+  }
+}

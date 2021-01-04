@@ -13,8 +13,11 @@ app.use(express.urlencoded({
 }))
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.engine('handlebars', exphbs())
-app.set('view engine', 'handlebars')
+app.engine('hbs', exphbs({
+	extname: '.hbs',
+	defaultLayout: 'default'
+}))
+app.set('view engine', 'hbs')
 
 // require('./middlewares/session.mdw')(app)
 // require('./middlewares/view.mdw')(app)
@@ -32,5 +35,13 @@ app.get('/', (req, res) => {
 	res.render('home', { title: 'Educational Web' })
 })
 
+app.get('/test', async (req, res) => {
+	res.render('test', { title: 'Test' })
+})
+
+app.use((req, res) => {
+	res.render('404', {})
+})
+
 const PORT = process.env.PORT || 3000
-app.listen(PORT)
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
