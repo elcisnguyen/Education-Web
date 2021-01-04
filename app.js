@@ -1,13 +1,18 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-const morgan = require('morgan')
 const path = require('path')
 require('express-async-errors')
 
 
+// App instance
 const app = express()
 
-app.use(morgan('dev'))
+// Print debug message to the console (only in development)
+if (process.env.NODE_ENV === 'development') {
+	const morgan = require('morgan')
+	app.use(morgan('dev'))
+}
+
 app.use(express.urlencoded({
 	extended: true
 }))
