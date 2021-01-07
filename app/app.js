@@ -8,7 +8,7 @@ require('express-async-errors')
 const app = express()
 
 // Print debug message to the console (only in development)
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
 	const morgan = require('morgan')
 	app.use(morgan('dev'))
 }
@@ -27,8 +27,8 @@ app.set('view engine', 'hbs')
 // require('./middlewares/session.mdw')(app)
 // require('./middlewares/view.mdw')(app)
 // require('./middlewares/locals.mdw')(app)
-require('./middlewares/routes.mdw')(app)
-require('./middlewares/error_handler.mdw')(app)
+require('../middlewares/routes.mdw')(app)
+require('../middlewares/error_handler.mdw')(app)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
