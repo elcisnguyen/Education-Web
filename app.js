@@ -17,7 +17,6 @@ app.use(express.urlencoded({
 	extended: true
 }))
 app.use(express.static(path.join(__dirname, 'public')))
-
 app.engine('hbs', exphbs({
 	extname: '.hbs',
 	defaultLayout: 'default'
@@ -27,8 +26,8 @@ app.set('view engine', 'hbs')
 // require('./middlewares/session.mdw')(app)
 // require('./middlewares/view.mdw')(app)
 // require('./middlewares/locals.mdw')(app)
-require('../middlewares/routes.mdw')(app)
-require('../middlewares/error_handler.mdw')(app)
+require('./middlewares/routes.mdw')(app)
+require('./middlewares/error_handler.mdw')(app)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
