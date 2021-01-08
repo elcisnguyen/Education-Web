@@ -1,6 +1,6 @@
 module.exports = (app) => {
 	app.get('/', (req, res) => {
-		res.status(200).render('home', { title: 'Educational Web' })
+		res.status(200).render('home', { title: 'Schroom | Online Courses' })
 	})
 
 	app.use((req, res) => {
