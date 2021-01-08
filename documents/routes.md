@@ -26,7 +26,7 @@
   * **Send new profile:** POST /profile/edit
 * **Show watchlist:** /profile/watchlist
   * (Duplicate) **Remove from watchlist:** POST /course?id={ id }/watchlist
-* **Show buyed courses (student) or show owned course (teacher):** /profile/course
+* **Show bought courses (student) or show owned course (teacher):** /profile/course
 
 **Teacher add new course view:** /course/new
 
