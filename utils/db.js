@@ -1,5 +1,12 @@
 const mysql = require('mysql2')
-const mysqlOpts = require('../config/default.json').mysql
+
+
+const mysqlOpts = {
+	user: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	database: process.env.DB_DB,
+	connectionLimit: process.env.DB_CONNECTION_LIMIT
+}
 
 
 const promisePool = mysql.createPool(mysqlOpts).promise()
