@@ -11,6 +11,8 @@ const app = express()
 if (process.env.NODE_ENV !== 'production') {
 	const morgan = require('morgan')
 	app.use(morgan('dev'))
+
+	require('dotenv').config()
 }
 
 app.use(express.urlencoded({
