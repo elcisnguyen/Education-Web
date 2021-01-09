@@ -7,8 +7,6 @@ const mysqlOpts = {
 	database: process.env.DB_DB,
 	connectionLimit: process.env.DB_CONNECTION_LIMIT
 }
-
-
 const promisePool = mysql.createPool(mysqlOpts).promise()
 
 
