@@ -1,39 +1,31 @@
 **Home:** /
 
 **Search:** /search (don't need this view)
-
 * **Search by category:** /search/cat/:id?rate={ asc, desc }&price={ asc, desc }
 * **Search by name:** /search/name/:name?rate={ asc, desc }&price={ asc, desc }
 
 **View course detail:** /course/:id
+* **Add to watch list**: POST /course/:id/watchlist
+* **Buy course**: POST /course/:id/buy
+* **Rate course:** POST /course/:id/rate
 
-* **Add/remove from watch list**: POST /course?id={ id }/watchlist
-* **Buy course**: POST /course?id={ id }/buy
-* **Rate course:** POST /course?id={ id }/rate
-
-**Register view:** /register
-
-* **Register send data:** POST /register
-
-**Login view:** /login
-
-* **Login send data:** POST /login
-
-**Show profile:** /profile
-
-* **Change profile view**: /profile/edit
-  * **Send new profile:** POST /profile/edit
-* **Show watchlist:** /profile/watchlist
-  * (Duplicate) **Remove from watchlist:** POST /course?id={ id }/watchlist
-* **Show bought courses (student) or show owned course (teacher):** /profile/course
+**Account:** /account
+* **Register view:** /account/register
+* **Register send data:** POST /account/register
+* **Login view:** /account/login
+* **Login send data:** POST /account/login
+* **Show profile:** /account/profile
+  * **Change profile view**: /account/profile/edit
+  * **Send new profile:** POST /account/profile/edit
+  * **Show watchlist:** /account/profile/watchlist
+  * **Remove from watchlist:** DELETE /course/:id/watchlist
+  * **Show bought courses (student) or show owned course (teacher):** /account/profile/course
 
 **Teacher add new course view:** /course/new
-
 * **Send new course data:** POST /course/new
-
-* **Edit course view:** /course?id={ id }/edit
-  * **Send edited data:** POST /course?id={ id }/edit
-* **Delete course:** /course?id={ id }/delete
+* **Edit course view:** /course/:id/edit
+  * **Send edited data:** POST /course/:id/edit
+* **Delete course:** DELETE /course/:id
 
 
 
