@@ -2,15 +2,14 @@
 
 **Search:** /search (don't need this view)
 
-* **Search by category:** /search/cat?id=​{ id }​&rate=​{ asc, desc }​&price={ asc, desc }
-* **Search by name:** /search/name?name={ name }&rate={ asc, desc }&price={ asc, desc }
+* **Search by category:** /search/cat/:id?rate={ asc, desc }&price={ asc, desc }
+* **Search by name:** /search/name/:name?rate={ asc, desc }&price={ asc, desc }
 
-**View course detail:** /course?id={ id }
+**View course detail:** /course/:id
 
 * **Add/remove from watch list**: POST /course?id={ id }/watchlist
 * **Buy course**: POST /course?id={ id }/buy
-* **Rate course view:** /course?id={ id }/rate
-  * **Send rate:** POST /course?id={ id }/rate
+* **Rate course:** POST /course?id={ id }/rate
 
 **Register view:** /register
 
