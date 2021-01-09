@@ -4,21 +4,15 @@ const express = require('express')
 const router = express.Router()
 
 
-router.get('/:id', (req, res) => {
-	res.send(`View of course detail #${req.params.id}`)
-})
+router.use('/single', require('./course.single.route'))
 
-router.post('/:id/watchlist', (req, res) => {
-	res.send(`Post req to add course #${req.params.id} to watchlist`)
-})
-
-router.post('/:id/buy', (req, res) => {
-	res.send(`Post req to buy course #${req.params.id}`)
-})
-
-router.post('/:id/rate', (req, res) => {
-	res.send(`Post req to rate course #${req.params.id}`)
-})
+router.route('/new')
+	.get((req, res) => {
+		res.send('New course view')
+	})
+	.post((req, res) => {
+		res.send('Post req to add new course')
+	})
 
 
 module.exports = router
