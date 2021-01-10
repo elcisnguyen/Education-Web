@@ -1,3 +1,122 @@
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T164354.500.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T164248.500.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T163847.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T163632.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T160903.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T160810.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+###
+
+POST http://localhost:3000/account/login
+
+###
+
 GET http://localhost:3000/account/profile/course
 
 <> 2021-01-09T233402.200.html
@@ -197,102 +316,6 @@ GET http://localhost:3000/account/profile/edit
 GET http://localhost:3000/account/profile
 
 <> 2021-01-09T230359.200.html
-
-###
-
-GET http://localhost:3000/account/profile
-
-<> 2021-01-09T214935.200.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T214842.404.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T214756.404.html
-
-###
-
-POST http://localhost:3000/account/login
-
-<> 2021-01-09T214656.200.html
-
-###
-
-POST http://localhost:3000/account/login/profile
-
-<> 2021-01-09T214648.404.html
-
-###
-
-POST http://localhost:3000/account/login/profile
-
-<> 2021-01-09T214634.404.html
-
-###
-
-POST http://localhost:3000/account/login/profile/abc
-
-<> 2021-01-09T214629.404.html
-
-###
-
-POST http://localhost:3000/account/profile/abc
-
-<> 2021-01-09T214536.404.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T214519.404.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T214054.404.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T214017.404.html
-
-###
-
-POST http://localhost:3000/account/profile/
-
-<> 2021-01-09T214011.404.html
-
-###
-
-POST http://localhost:3000/account/login
-
-<> 2021-01-09T213954.200.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T213947.404.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T213607.404.html
-
-###
-
-POST http://localhost:3000/account/profile
-
-<> 2021-01-09T213505.404.html
 
 ###
 

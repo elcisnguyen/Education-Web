@@ -1,6 +1,6 @@
 module.exports = (app) => {
 	app.get('/', (req, res) => {
-		res.render('home', { title: 'Schroom | Online Courses' })
+		res.render('home')
 	})
 
 	app.use('/search', require('../controllers/search.route'))
