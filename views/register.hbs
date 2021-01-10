@@ -1,3 +1,59 @@
-<div>
-    <h1>Sign up site</h1>
+ {{#section 'header'}}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/icomoon/style.css">
+    <link rel="stylesheet" href="/public/owlcarousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/public/css/login-style.css">
+{{/section}}
+ 
+ {{#section 'footer'}}
+    <script src="/public/js/login.js"></script>
+ {{/section}}
+ {{!-- ----------------------------------------------- --}}
+ <!-- If you could find a way to make the footer stick at the bottom, then delete the div below-->
+<div style="margin: 1.7rem 0;"></div> 
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="/public/img/signup-screen.png" alt="Online courses" class="img-fluid">
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h3>Sign Up</h3>
+                            <p class="mb-4">Schroom - The world's largest selection of courses with  over 130000 courses and 35 million students. <br><br>
+                                            Join us now!
+                            </p>    
+                        </div>
+                        <form action="#" method="post">
+                            <div class="form-group first">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username">
+                            </div>
+                            <div class="form-group first">
+                                <label for="username">Email</label>
+                                <input type="text" class="form-control" id="email">
+                            </div>
+                            <div class="form-group last mb-4">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password">
+                            </div>
+
+                            <div class="d-flex mb-3 align-items-center">
+                               {{!-- <p>Wrong password/wrong username</p> --}}
+                            </div>
+
+                            {{!-- <input type="submit" value="Log in" class="btn btn-danger"> --}}
+                            <div class="d-grid gap-2">
+                                    <button class="btn btn-warning" type="button">Sign Up</button>                
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
