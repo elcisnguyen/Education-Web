@@ -1,5 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const exphbs_sections = require('express-handlebars-sections')
 const path = require('path')
 require('express-async-errors')
 
@@ -18,10 +19,13 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.urlencoded({
 	extended: true
 }))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use('/public', express.static(path.join(__dirname, 'public')))
 app.engine('hbs', exphbs({
 	extname: '.hbs',
-	defaultLayout: 'default'
+	defaultLayout: 'default',
+	helpers: {
+		section: exphbs_sections()
+	}
 }))
 app.set('view engine', 'hbs')
 
