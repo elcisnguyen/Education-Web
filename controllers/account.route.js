@@ -13,7 +13,7 @@ router.route('/register')
 
 router.route('/login')
 	.get((req, res) => {
-		res.send('Login view')
+		res.render('login')
 	})
 	.post((req, res) => {
 		res.send('Post req to login')
