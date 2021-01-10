@@ -1,6 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-const exphbs_sections = require('express-handlebars-sections')
+const exphbsSection = require('express-handlebars-sections')
 const path = require('path')
 require('express-async-errors')
 
@@ -24,7 +24,7 @@ app.engine('hbs', exphbs({
 	extname: '.hbs',
 	defaultLayout: 'default',
 	helpers: {
-		section: exphbs_sections()
+		section: exphbsSection()
 	}
 }))
 app.set('view engine', 'hbs')

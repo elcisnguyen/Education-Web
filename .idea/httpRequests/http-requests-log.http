@@ -1,0 +1,321 @@
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T164354.500.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T164248.500.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T163847.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T163632.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T160903.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+<> 2021-01-10T160810.200.html
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=hao
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+username=thanh
+
+###
+
+POST http://localhost:3000/account/login
+Content-Type: application/x-www-form-urlencoded
+
+###
+
+POST http://localhost:3000/account/login
+
+###
+
+GET http://localhost:3000/account/profile/course
+
+<> 2021-01-09T233402.200.html
+
+###
+
+GET http://localhost:3000/account/profile/watchlist
+
+<> 2021-01-09T233356.200.html
+
+###
+
+POST http://localhost:3000/account/profile/watchlist
+
+<> 2021-01-09T233351.404.html
+
+###
+
+POST http://localhost:3000/account/profile/edit
+
+<> 2021-01-09T233338.200.html
+
+###
+
+GET http://localhost:3000/account/profile/edit
+
+<> 2021-01-09T233333.200.html
+
+###
+
+GET http://localhost:3000/account/profile
+
+<> 2021-01-09T233323.200.html
+
+###
+
+GET http://localhost:3000/account/login
+
+<> 2021-01-09T233255.200.html
+
+###
+
+POST http://localhost:3000/account/login
+
+<> 2021-01-09T233249.200.html
+
+###
+
+POST http://localhost:3000/account/register
+
+<> 2021-01-09T233244.200.html
+
+###
+
+GET http://localhost:3000/account/register
+
+<> 2021-01-09T233239.200.html
+
+###
+
+GET http://localhost:3000/course/single/1/edit
+
+<> 2021-01-09T233218.200.html
+
+###
+
+POST http://localhost:3000/course/single/1/edit
+
+<> 2021-01-09T233213.200.html
+
+###
+
+POST http://localhost:3000/course/single/1/rate
+
+<> 2021-01-09T233207.200.html
+
+###
+
+POST http://localhost:3000/course/single/1/buy
+
+<> 2021-01-09T233202.200.html
+
+###
+
+POST http://localhost:3000/course/single/1/watchlist
+
+<> 2021-01-09T233150.200.html
+
+###
+
+DELETE http://localhost:3000/course/single/1/watchlist
+
+<> 2021-01-09T233142.200.html
+
+###
+
+DELETE http://localhost:3000/course/single/1
+
+<> 2021-01-09T233122.200.html
+
+###
+
+GET http://localhost:3000/course/single/1
+
+<> 2021-01-09T233115.200.html
+
+###
+
+POST http://localhost:3000/course/new
+
+<> 2021-01-09T233050.200.html
+
+###
+
+GET http://localhost:3000/course/new
+
+<> 2021-01-09T233044.200.html
+
+###
+
+GET http://localhost:3000/course
+
+<> 2021-01-09T233038.404.html
+
+###
+
+GET http://localhost:3000/search/name/th
+
+<> 2021-01-09T233012.200.html
+
+###
+
+GET http://localhost:3000/search/cat/15
+
+<> 2021-01-09T233004.200.html
+
+###
+
+GET http://localhost:3000
+
+<> 2021-01-09T232936.200.html
+
+###
+
+GET http://localhost:3000
+
+###
+
+GET http://localhost:3000/course/new
+
+<> 2021-01-09T231133.200.html
+
+###
+
+DELETE http://localhost:3000/course/1/watchlist
+
+<> 2021-01-09T230835.200.html
+
+###
+
+POST http://localhost:3000/course/1/watchlist
+
+<> 2021-01-09T230829.200.html
+
+###
+
+GET http://localhost:3000/course/1/watchlist
+
+<> 2021-01-09T230814.404.html
+
+###
+
+GET http://localhost:3000/account/profile/course
+
+<> 2021-01-09T230616.200.html
+
+###
+
+GET http://localhost:3000/account/profile/watchlist
+
+<> 2021-01-09T230608.200.html
+
+###
+
+POST http://localhost:3000/account/profile/edit
+
+<> 2021-01-09T230414.200.html
+
+###
+
+GET http://localhost:3000/account/profile/edit
+
+<> 2021-01-09T230408.200.html
+
+###
+
+GET http://localhost:3000/account/profile
+
+<> 2021-01-09T230359.200.html
+
+###
+
