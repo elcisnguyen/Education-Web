@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.route('/register')
 	.get((req, res) => {
-		res.send('Register view')
+		res.render('register')
 	})
 	.post((req, res) => {
 		res.send('Post req to register')
