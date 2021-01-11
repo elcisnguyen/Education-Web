@@ -14,4 +14,5 @@ router.route('/new')
 		res.send('Post req to add new course')
 	})
 
+
 module.exports = router
