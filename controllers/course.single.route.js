@@ -6,7 +6,8 @@ const router = express.Router({ mergeParams: true })
 
 router.route('/:id')
 	.get((req, res) => {
-		res.send(`View of course detail #${req.params.id}`)
+		// res.send(`View of course detail #${req.params.id}`)
+		res.render('course-detail')
 	})
 	.delete((req, res) => {
 		res.send(`Delete req to delete course #${req.params.id}`)
