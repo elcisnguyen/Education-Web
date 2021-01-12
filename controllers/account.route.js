@@ -1,16 +1,17 @@
 const express = require('express')
 const accountModel = require('../models/account.model')
 const bcrypt = require('bcrypt')
+const { redirectAuth, preventPostAuth } = require('../middlewares/utils.mdw')
 const { v4: uuidv4 } = require('uuid')
 
 
 const router = express.Router()
 
 router.route('/register')
-	.get((req, res) => {
+	.get(redirectAuth, (req, res) => {
 		res.render('register')
 	})
-	.post(async (req, res) => {
+	.post(preventPostAuth, async (req, res) => {
 		let user = await accountModel.single({ email: req.body.email })
 		if (user)
 			return res.render('register', {
@@ -38,14 +39,15 @@ router.route('/register')
 		}
 
 		await accountModel.add(newUser)
-		res.render('home')
+		req.session.auth = true
+		res.redirect(req.session.retUrl || '/')
 	})
 
 router.route('/login')
-	.get((req, res) => {
+	.get(redirectAuth, (req, res) => {
 		res.render('login')
 	})
-	.post(async (req, res) => {
+	.post(preventPostAuth, async (req, res) => {
 		const user = await accountModel.single({ username: req.body.username })
 		if (!user)
 			return res.render('login', {
@@ -58,13 +60,8 @@ router.route('/login')
 				username: req.body.username
 			})
 
-		// req.session.auth = true
-		// req.session.authUser = user
-		//
-		// const url = req.session.retUrl || '/'
-		// res.redirect(url)
-
-		res.render('home')
+		req.session.auth = true
+		res.redirect(req.session.retUrl || '/')
 	})
 
 router.use('/profile', require('./account.profile.route'))

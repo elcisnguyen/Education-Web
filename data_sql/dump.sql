@@ -5,7 +5,7 @@ create table general_credential(
     password varchar(255) not null,
     fullname varchar(50) not null,
     email varchar(50) not null unique,
-    ava_link varchar(255),
+    ava_link varchar(255) default 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470583/ava/noavatar_og91yw.png',
 
     primary key(id)
 );
@@ -28,15 +28,15 @@ create table category(
 
 create table course(
     id varchar(50) not null unique,
-    cat_id varchar(50) not null unique,
+    cat_id varchar(50) not null,
     title varchar(50) not null unique,
-    teacher_id varchar(50) not null unique,
-    ava_link varchar(255),
+    teacher_id varchar(50) not null,
+    ava_link varchar(255) default 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png',
     price float check(price > 0),
     discount float check(0 <= discount <= 100),
-    total_view int not null default 0,
-    total_sub int not null default 0,
-    status enum('INCOMPLETE', 'COMPLETE') not null default 'INCOMPLETE',
+    total_view int default 0,
+    total_sub int default 0,
+    status enum('INCOMPLETE', 'COMPLETE') default 'INCOMPLETE',
 
     primary key(id),
     foreign key(cat_id) references category(id),
@@ -46,7 +46,7 @@ create table course(
 create table course_detail(
     course_id varchar(50) not null unique,
     description varchar(16000),
-    week_view int not null default 0,
+    week_view int default 0,
     date_added date not null,
     last_modified date not null,
 
@@ -65,7 +65,7 @@ create table course_material(
 create table student_course(
     student_id varchar(50) not null unique,
     course_id varchar(50) not null unique,
-    mat_order int not null default 1,
+    mat_order int default 1,
 
     foreign key(student_id) references general_credential(id) on delete cascade on update cascade,
     foreign key(course_id, mat_order) references course_material(course_id, mat_order)
