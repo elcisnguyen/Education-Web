@@ -19,12 +19,14 @@ create table teacher(
 
 create table category(
     id varchar(50) not null unique,
-    title varchar(50) not null,
+    title varchar(50) not null unique,
     parent_cat_id varchar(50),
 
     primary key(id),
     foreign key(parent_cat_id) references category(id)
 );
+
+alter table category add fulltext(title);
 
 create table course(
     id varchar(50) not null unique,
@@ -42,6 +44,8 @@ create table course(
     foreign key(cat_id) references category(id),
     foreign key(teacher_id) references teacher(credential_id) on delete cascade on update cascade
 );
+
+alter table course add fulltext(title);
 
 create table course_detail(
     course_id varchar(50) not null unique,
