@@ -97,12 +97,38 @@ nav > .nav.nav-tabs{
     }
 } */
 
-.tab-color{
-    /* color: #272e38 !important; */
-    background-color: #272e38;
-  }
+.head{
+    background-color: #1e1e1c;
+    color: #fff;
+    padding: 0 auto;
+    margin-bottom: 1rem;
+}
+.head .head-content{
+    width: 70%; margin:0 auto;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
 
-  .tab-color-active{
-    /* color: #272e38 !important; */
+.body{
+    width: 70%;
+    margin:0 auto;
+    height: 30rem;
+    margin-bottom: 1rem;
+}
+.nav-tabs .nav-link.active {
     background-color: #e74c3c;
-  }
+    color: #fff;
+}
+.nav-tabs .nav-link {
+    background-color: #1e1e1c;
+    color: #fff;
+    margin-right: 2px;
+    border-radius: 0;
+    border: 0;
+}
+
+.footer{
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
