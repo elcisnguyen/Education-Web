@@ -39,7 +39,15 @@ router.route('/register')
 		}
 
 		await accountModel.add(newUser)
+
 		req.session.auth = true
+		req.session.user = {
+			permission: newUser.permission,
+			username: newUser.username,
+			fullname: newUser.fullname,
+			email: newUser.email
+		}
+
 		res.redirect(req.session.retUrl || '/')
 	})
 
@@ -61,6 +69,13 @@ router.route('/login')
 			})
 
 		req.session.auth = true
+		req.session.user = {
+			permission: user.permission,
+			username: user.username,
+			fullname: user.fullname,
+			email: user.email
+		}
+
 		res.redirect(req.session.retUrl || '/')
 	})
 

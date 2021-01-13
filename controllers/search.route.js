@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/cat/:id', async (req, res) => {
 	const condition = { cat_id: req.params.id }
-	const page = Math.min(Math.max(1, req.query.page), await courseModel.numPageByCat(condition))
+	const page = Math.min(Math.max(1, req.query.page || 1), await courseModel.numPageByCat(condition))
 
 	const courses = await courseModel.pageByCat(condition, page)
 

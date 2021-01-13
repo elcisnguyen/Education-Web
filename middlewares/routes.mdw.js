@@ -10,6 +10,6 @@ module.exports = (app) => {
 	app.use('/account', require('../controllers/account.route'))
 
 	app.use((req, res) => {
-		res.status(404).render('404', { title: '404 Page Not Found' })
+		res.status(404).render('404')
 	})
 }
