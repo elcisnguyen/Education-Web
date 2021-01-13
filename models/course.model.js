@@ -2,10 +2,64 @@ const db = require('../utils/db')
 
 
 module.exports = {
-	async single(condition) {
-		const [rows] = await db.load('*', 'course', condition)
+	async briefMostRegular() {
+		const [rows] = await db.query(
+			'select *\n' +
+			'from\n' +
+			'(select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'from\n' +
+			'     (\n' +
+			'         select c.id, c.title, cat.title as cat_title, g.fullname, c.price, c.discount, c.ava_link, c.total_sub\n' +
+			'         from course c, category cat, general_credential g\n' +
+			'         where c.status = \'COMPLETE\' and c.cat_id = cat.id and c.teacher_id = g.id\n' +
+			'     ) as res\n' +
+			'     left join student_feedback f\n' +
+			'     on res.id = f.course_id\n' +
+			'group by res.id) as `r.*rnr`\n' +
+			'order by total_sub desc, rate desc\n' +
+			`limit ${+process.env.BRIEF_MOST_REGULAR}`)
 		if (rows.length === 0) return null
-		return rows[0]
+		return rows
+	},
+
+	async briefMostViewed() {
+		const [rows] = await db.query(
+			'select *\n' +
+			'from\n' +
+			'(select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'from\n' +
+			'     (\n' +
+			'         select c.id, c.title, cat.title as cat_title, g.fullname, c.price, c.discount, c.ava_link, c.total_view\n' +
+			'         from course c, category cat, general_credential g\n' +
+			'         where c.status = \'COMPLETE\' and c.cat_id = cat.id and c.teacher_id = g.id\n' +
+			'     ) as res\n' +
+			'     left join student_feedback f\n' +
+			'     on res.id = f.course_id\n' +
+			'group by res.id) as `r.*rnr`\n' +
+			'order by total_view desc, rate desc\n' +
+			`limit ${+process.env.BRIEF_MOST_VIEW}`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async briefNewest() {
+		const [rows] = await db.query(
+			'select *\n' +
+			'from\n' +
+			'(select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'from\n' +
+			'     (\n' +
+			'         select c.id, c.title, cat.title as cat_title, g.fullname, c.price, c.discount, c.ava_link, d.date_added\n' +
+			'         from course c, category cat, general_credential g, course_detail d\n' +
+			'         where c.status = \'COMPLETE\' and c.cat_id = cat.id and c.teacher_id = g.id and c.id = d.course_id\n' +
+			'     ) as res\n' +
+			'     left join student_feedback f\n' +
+			'     on res.id = f.course_id\n' +
+			'group by res.id) as `r.*rnr`\n' +
+			'order by date_added desc, rate desc\n' +
+			`limit ${+process.env.BRIEF_NEWEST}`)
+		if (rows.length === 0) return null
+		return rows
 	},
 
 	async pageByCat(condition, pageNum) {

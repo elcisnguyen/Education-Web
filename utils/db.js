@@ -42,5 +42,9 @@ module.exports = {
 	update(schema, new_data, condition) {
 		const sql = `update ${schema} set ? where ?`
 		return pool.query(sql, [new_data, condition])
+	},
+
+	query(sql) {
+		return pool.query(sql)
 	}
 }
