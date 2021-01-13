@@ -1,0 +1,56 @@
+   <!--Navigation bar-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark py-3">
+        <!--Brand-->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="/public/img/brand.png" alt="brand" width="30" height="30" class="d-inline-block align-top">
+                Schroom
+            </a>
+            <!--Category dropdown list-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--Wrap collapse components in a div-->
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Category
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="category">
+                            <li>
+                                <a class="dropdown-item" href="#">IT</a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="">Java</a></li>
+                                    <li><a class="dropdown-item" href="">Python</a></li>
+                                    <li><a class="dropdown-item" href="">C++</a></li>
+                                </ul>
+                                
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Music</a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="">Guitar</a></li>
+                                    <li><a class="dropdown-item" href="">Piano</a></li>                                
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Business</a></li>
+                            <li><a class="dropdown-item" href="#">Design</a></li>
+                            <li><a class="dropdown-item" href="#">Marketing</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form method="GET" action="/search/name" class="d-flex">
+                    <input class="form-control vw-50 ms-2" type="search" placeholder="Search for anything" aria-label="Search" name="name">
+                    <button class="btn btn-danger ms-2" type="submit">Search</button>
+                </form>
+
+                {{!-- <div class="ms-auto">
+                    <a href="/account/login"><button class="btn btn-danger me-1" type="button">Log in</button></a>
+                    <a href="/account/register"><button class="btn btn-warning" type="button">Sign up</button></a>
+                </div> --}}
+              
+            </div>
+        </div>
+    </nav>
