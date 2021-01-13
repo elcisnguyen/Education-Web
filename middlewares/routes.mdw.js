@@ -1,5 +1,11 @@
+const courseModel = require('../models/course.model')
+
+
 module.exports = (app) => {
-	app.get('/', (req, res) => {
+	app.get('/', async (req, res) => {
+		res.locals.briefMostRegular = await courseModel.briefMostRegular()
+		res.locals.briefMostViewed = await courseModel.briefMostViewed()
+		res.locals.briefNewest = await courseModel.briefNewest()
 		res.render('home')
 	})
 
