@@ -45,7 +45,9 @@ nav > .nav.nav-tabs{
       transition:background 0.20s linear;
   } */
 
-  .tab .nav-tabs > li{
+
+  
+  /* .tab .nav-tabs > li{
     margin-right: 2px;
 }
 .tab .nav-tabs > li > a{
@@ -93,4 +95,14 @@ nav > .nav.nav-tabs{
     .tab .nav-tabs > li.active:after {
         border:none;
     }
-}
+} */
+
+.tab-color{
+    /* color: #272e38 !important; */
+    background-color: #272e38;
+  }
+
+  .tab-color-active{
+    /* color: #272e38 !important; */
+    background-color: #e74c3c;
+  }
