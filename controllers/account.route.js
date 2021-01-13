@@ -39,7 +39,12 @@ router.route('/register')
 		}
 
 		await accountModel.add(newUser)
+
 		req.session.auth = true
+		req.session.user = newUser
+		delete req.session.user.id
+		delete req.session.user.password
+
 		res.redirect(req.session.retUrl || '/')
 	})
 
@@ -61,6 +66,10 @@ router.route('/login')
 			})
 
 		req.session.auth = true
+		req.session.user = user
+		delete req.session.user.id
+		delete req.session.user.password
+
 		res.redirect(req.session.retUrl || '/')
 	})
 
