@@ -18,25 +18,34 @@
                             Category
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="category">
+                            {{#each categories}}
+                               <li>
+                                   <a class="dropdown-item" href="#">{{this.title}}</a>
+                                   {{#if this.children}}
+                                       <ul class="submenu dropdown-menu">
+                                           {{#each this.children}}
+                                               <li><a class="dropdown-item" href="/search/cat/{{this.id}}">{{this.title}}</a></li>
+                                           {{/each}}
+                                       </ul>
+                                   {{/if}}
+                               </li>
+                           {{/each}}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="action" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="action">
                             <li>
-                                <a class="dropdown-item" href="#">IT</a>
-                                <ul class="submenu dropdown-menu">
-                                    <li><a class="dropdown-item" href="">Java</a></li>
-                                    <li><a class="dropdown-item" href="">Python</a></li>
-                                    <li><a class="dropdown-item" href="">C++</a></li>
-                                </ul>
-                                
+                                <a class="dropdown-item" href="#">Create a new course</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">Music</a>
-                                <ul class="submenu dropdown-menu">
-                                    <li><a class="dropdown-item" href="">Guitar</a></li>
-                                    <li><a class="dropdown-item" href="">Piano</a></li>                                
-                                </ul>
+                                <a class="dropdown-item" href="#">My teaching</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Business</a></li>
-                            <li><a class="dropdown-item" href="#">Design</a></li>
-                            <li><a class="dropdown-item" href="#">Marketing</a></li>
+                             <li>
+                                <a class="dropdown-item" href="#">Profile</a>
+                            </li>                    
                         </ul>
                     </li>
                 </ul>
@@ -47,10 +56,8 @@
                 </form>
 
                 <div class="ms-auto">
-                    <a href="/account/login"><button class="btn btn-danger me-1" type="button">Log in</button></a>
-                    <a href="/account/register"><button class="btn btn-warning" type="button">Sign up</button></a>
+                    <a href="#"><button class="btn btn-outline-warning me-1" type="button">Log out</button></a>
                 </div>
-              
             </div>
         </div>
     </nav>
