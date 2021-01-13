@@ -112,7 +112,7 @@ nav > .nav.nav-tabs{
 .body{
     width: 70%;
     margin:0 auto;
-    height: 30rem;
+    /* height: 30rem; */
     margin-bottom: 1rem;
 }
 .nav-tabs .nav-link.active {
