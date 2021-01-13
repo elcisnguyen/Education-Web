@@ -18,25 +18,18 @@
                             Category
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="category">
-                            <li>
-                                <a class="dropdown-item" href="#">IT</a>
-                                <ul class="submenu dropdown-menu">
-                                    <li><a class="dropdown-item" href="">Java</a></li>
-                                    <li><a class="dropdown-item" href="">Python</a></li>
-                                    <li><a class="dropdown-item" href="">C++</a></li>
-                                </ul>
-                                
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Music</a>
-                                <ul class="submenu dropdown-menu">
-                                    <li><a class="dropdown-item" href="">Guitar</a></li>
-                                    <li><a class="dropdown-item" href="">Piano</a></li>                                
-                                </ul>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Business</a></li>
-                            <li><a class="dropdown-item" href="#">Design</a></li>
-                            <li><a class="dropdown-item" href="#">Marketing</a></li>
+                            {{#each categories}}
+                               <li>
+                                   <a class="dropdown-item" href="#">{{this.title}}</a>
+                                   {{#if this.children}}
+                                       <ul class="submenu dropdown-menu">
+                                           {{#each this.children}}
+                                               <li><a class="dropdown-item" href="/search/cat/{{this.id}}">{{this.title}}</a></li>
+                                           {{/each}}
+                                       </ul>
+                                   {{/if}}
+                               </li>
+                           {{/each}}
                         </ul>
                     </li>
                 </ul>
