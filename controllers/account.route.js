@@ -41,9 +41,12 @@ router.route('/register')
 		await accountModel.add(newUser)
 
 		req.session.auth = true
-		req.session.user = newUser
-		delete req.session.user.id
-		delete req.session.user.password
+		req.session.user = {
+			permission: newUser.permission,
+			username: newUser.username,
+			fullname: newUser.fullname,
+			email: newUser.email
+		}
 
 		res.redirect(req.session.retUrl || '/')
 	})
@@ -66,9 +69,12 @@ router.route('/login')
 			})
 
 		req.session.auth = true
-		req.session.user = user
-		delete req.session.user.id
-		delete req.session.user.password
+		req.session.user = {
+			permission: user.permission,
+			username: user.username,
+			fullname: user.fullname,
+			email: user.email
+		}
 
 		res.redirect(req.session.retUrl || '/')
 	})
