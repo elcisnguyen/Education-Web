@@ -28,56 +28,26 @@
     </script>
 
     
-<div style="width:85%; margin: 0 auto;">
+<div style="width:90%; margin: 0 auto;">
     <img src="/public/img/online-edu.jpg" class="img-fluid">
 </div>
 
 <div style="height: 1rem;"></div>
 
-<div style="width: 85%; margin: 0 auto;">
+<div style="width: 90%; margin: 0 auto;">
     <!-- Show 5-->
     <div><h3>Most regular courses in the past week</h3></div>
     <div class="owl-carousel owl-theme">
+        {{#each briefMostRegular}}
         <div class="item">
-            <a href="/course/single/:id"><img src="/public/img/thumbnail.jpg"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
+            <a href="/course/single/:id"><img src="{{this.ava_link}}"></a>
+            <b>{{this.title}}</b>
+            <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
+            <em>{{this.fullname}}</em>
+            <div>{{this.rate}}⭐ ({{this.num_rate}})</div>
+            <b style="font-size: large;">${{this.price}} {{#if this.discount}}{{this.discount}}% Off{{/if}}</b>
         </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
+        {{/each}}
     </div>
     <hr>
     <!-- Show 10-->
