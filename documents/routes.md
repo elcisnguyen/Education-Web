@@ -1,8 +1,9 @@
 **Home:** /
 
 **Search:** /search (don't need this view)
-* **Search by category:** /search/cat/:id?rate={ asc, desc }&price={ asc, desc }
-* **Search by name:** /search/name/:name?rate={ asc, desc }&price={ asc, desc }
+* **Search by category:** /search/cat/:id?page={}&rate={asc, desc}&price={asc, desc}
+* **Search by search bar:** /search/name?name={}
+  * **Search by name:** /search/name/:name?page={}&rate={asc, desc}&price={asc, desc}
 
 **View course detail:** /course/single/:id
 * **Add to watch list**: POST /course/single/:id/watchlist

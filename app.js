@@ -8,7 +8,6 @@ require('express-async-errors')
 // App instance
 const app = express()
 
-// Print debug message to the console (only in development)
 if (process.env.NODE_ENV !== 'production') {
 	const morgan = require('morgan')
 	app.use(morgan('dev'))
@@ -16,20 +15,17 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config()
 }
 
-app.use(express.urlencoded({
-	extended: true
-}))
+app.use(express.urlencoded({ extended: true }))
 app.use('/public', express.static(path.join(__dirname, 'public')))
+
 app.engine('hbs', exphbs({
 	extname: '.hbs',
 	defaultLayout: 'default',
-	helpers: {
-		section: exphbsSection()
-	}
+	helpers: { section: exphbsSection() }
 }))
 app.set('view engine', 'hbs')
 
-// require('./middlewares/session.mdw')(app)
+require('./middlewares/session.mdw')(app)
 // require('./middlewares/locals.mdw')(app)
 require('./middlewares/routes.mdw')(app)
 require('./middlewares/error_handler.mdw')(app)
