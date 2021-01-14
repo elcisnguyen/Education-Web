@@ -43,7 +43,7 @@
             <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a> <!-- w = h*1.67-->
             <b>{{this.title}}</b>
             <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
-            <em>{{this.fullname}}</em>
+            {{this.fullname}}
             <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
             <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
                 {{#if this.discount}}
@@ -64,7 +64,7 @@
                 <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a>
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
-                <em>{{this.fullname}}</em>
+                {{this.fullname}}
                 <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
                 <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
                     {{#if this.discount}}
@@ -85,7 +85,7 @@
                 <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a>
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
-                <em>{{this.fullname}}</em>
+                {{this.fullname}}
                 <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
                 <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
                     {{#if this.discount}}
