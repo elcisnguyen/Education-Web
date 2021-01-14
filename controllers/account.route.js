@@ -79,6 +79,15 @@ router.route('/login')
 		res.redirect(req.session.retUrl || '/')
 	})
 
+router.post('/logout', (req, res) => {
+	req.session.auth = false
+	req.session.user = null
+	req.session.retUrl = null
+	req.session.destroy()
+
+	res.redirect(req.headers.referer || '/')
+})
+
 router.use('/profile', require('./account.profile.route'))
 
 

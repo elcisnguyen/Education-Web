@@ -16,58 +16,19 @@
 </head>
 <body style="background-color:white;">
     {{{_sections.header}}}
-
     {{!------------------------------------------------- --}}
-    {{> admin-navbar}}
-    {{!-- <!--Navigation bar-->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark py-3">
-        <!--Brand-->
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="/public/img/brand.png" alt="brand" width="30" height="30" class="d-inline-block align-top">
-                Schroom
-            </a>
-            <!--Category dropdown list-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-            </button>
-            <!--Wrap collapse components in a div-->
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Category
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="category">
-                            {{#each categories}}
-                            <li>
-                                <a class="dropdown-item" href="#">{{this.title}}</a>
-                                {{#if this.children}}
-                                <ul class="submenu dropdown-menu">
-                                    {{#each this.children}}
-                                    <li><a class="dropdown-item" href="/search/cat/{{this.id}}">{{this.title}}</a></li>
-                                    {{/each}}
-                                </ul>
-                                {{/if}}
-                            </li>
-                            {{/each}}
-                        </ul>
-                    </li>
-                </ul>
-
-                <form method="GET" action="/search/name" class="d-flex">
-                    <input class="form-control vw-50 ms-2" type="search" placeholder="Search for anything" aria-label="Search" name="name">
-                    <button class="btn btn-danger ms-2" type="submit">Search</button>
-                </form>
-
-                <div class="ms-auto">
-                    <a href="/account/login"><button class="btn btn-danger me-1" type="button">Log in</button></a>
-                    <a href="/account/register"><button class="btn btn-warning" type="button">Sign up</button></a>
-                </div>
-              
-            </div>
-        </div>
-    </nav> --}}
+    {{#unless user.permission}}
+        {{> guest-navbar}}
+    {{/unless}}
+    {{#isEqual user.permission "STUDENT"}}
+        {{> student-navbar}}
+    {{/isEqual}}
+    {{#isEqual user.permission "TEACHER"}}
+        {{> admin-navbar}}
+    {{/isEqual}}
+    {{#isEqual user.permission "ADMIN"}}
+        {{> student-navbar}}
+    {{/isEqual}}
     {{!------------------------------------------------- --}}
     {{{body}}}
     {{!------------------------------------------------- --}}

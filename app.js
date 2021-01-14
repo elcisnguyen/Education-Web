@@ -2,6 +2,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const exphbsSection = require('express-handlebars-sections')
 const path = require('path')
+const numeral = require('numeral')
 require('express-async-errors')
 
 
@@ -21,7 +22,14 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 app.engine('hbs', exphbs({
 	extname: '.hbs',
 	defaultLayout: 'default',
-	helpers: { section: exphbsSection() }
+	helpers: {
+		section: exphbsSection(),
+		formatRate(val) { return numeral(val).format('0,0') },
+		isEqual(a, b, opts) {
+			if (a === b) return opts.fn(this)
+			return opts.inverse(this)
+		}
+	}
 }))
 app.set('view engine', 'hbs')
 

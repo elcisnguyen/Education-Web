@@ -12,9 +12,10 @@
 
 **Account:** /account (don't need this view)
 * **Register view:** /account/register
-* **Register send data:** POST /account/register
+  * **Register send data:** POST /account/register
 * **Login view:** /account/login
-* **Login send data:** POST /account/login
+  * **Login send data:** POST /account/login
+* **Logout:** POST /account/logout 
 * **Show profile:** /account/profile
   * **Change profile view**: /account/profile/edit
   * **Send new profile:** POST /account/profile/edit

@@ -23,6 +23,7 @@
     "express-mysql-session": "^2.1.5",
     "express-session": "^1.17.1",
     "mysql2": "^2.2.5",
+    "numeral": "^2.0.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
