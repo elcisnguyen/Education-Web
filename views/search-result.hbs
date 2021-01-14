@@ -12,43 +12,45 @@
                 <a href="?sort=price"><button type="button" class="btn btn-light border-dark">Cheapest Courses</button></a>
             </div>
 
-            <center>
-                     <p>No course matches your searching.</p>
-            <center>
-
-            {{#each courses}}
-            <div class="search-result-item">
-                <div class="search-result-item-body">
-                    <div class="row">
-                        <div class="col-3">
-                            <a href="/course/single/{{this.id}}"><img class="img-fluid" src="{{this.ava_link}}" width="170" height="100"></a>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="search-result-item-heading"><a href="/course/single/{{this.id}}">{{this.title}}</a></h4>
-                            <span class="field">{{this.cat_title}} | </span>
-                            <span class="lecturer">{{this.fullname}}</span>
-                            <div>{{formatRate this.rate}} ⭐ ({{this.num_rate}} rating)</div>
-                        </div>
-                        <div class="col">
-                            <span class="badge bg-warning fw-bold">Bestseller</span>
-                            <span class="badge bg-danger fw-bold">New</span>
-                            <h3>
-                                {{#if this.discount}}
-                                    ${{discountPrice this.price this.discount}} | {{this.discount}}%off
-                                {{else}}
-                                    ${{this.price}}
-                                {{/if}}
-                            </h3>
+            {{#if this.courses}}
+                {{#each courses}}
+                <div class="search-result-item">
+                    <div class="search-result-item-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <a href="/course/single/{{this.id}}"><img class="img-fluid" src="{{this.ava_link}}" width="170" height="100"></a>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="search-result-item-heading"><a href="/course/single/{{this.id}}">{{this.title}}</a></h4>
+                                <span class="field">{{this.cat_title}} | </span>
+                                <span class="lecturer">{{this.fullname}}</span>
+                                <div>{{formatRate this.rate}} ⭐ ({{this.num_rate}} rating)</div>
+                            </div>
+                            <div class="col">
+                                <span class="badge bg-warning fw-bold">Bestseller</span>
+                                <span class="badge bg-danger fw-bold">New</span>
+                                <h3>
+                                    {{#if this.discount}}
+                                        ${{discountPrice this.price this.discount}} | {{this.discount}}%off
+                                    {{else}}
+                                        ${{this.price}}
+                                    {{/if}}
+                                </h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            {{/each}}
+                <hr>
+                {{/each}}
+            {{else}}
+                <center>
+                    <p>No course matches your searching.</p>
+                <center>
+            {{/if}}
 
             <nav class="pagination-margin">
                 <ul class="pagination pagination-lg justify-content-center">
-                    <li class="page-item {{#if this.is_first}}disabled{{/if}}">
+                    <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_first}}disabled{{/if}}">
                         <a class="page-link" href="?page={{this.prev_page}}{{#if this.sort}}&sort={{this.sort}}{{/if}}">Previous</a>
                     </li>
                     {{#each page_numbers}}
@@ -56,7 +58,7 @@
                             <a class="page-link active" href="{{#unless this.isCurrentPage}}?page={{value}}{{#if ../sort}}&sort={{../sort}}{{/if}}{{/unless}}">{{this.value}}</a>
                         </li>
                     {{/each}}
-                    <li class="page-item {{#if this.is_last}}disabled{{/if}}">
+                    <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_last}}disabled{{/if}}">
                         <a class="page-link" href="?page={{this.next_page}}{{#if this.sort}}&sort={{this.sort}}{{/if}}">Next</a>
                     </li>
                 </ul>
