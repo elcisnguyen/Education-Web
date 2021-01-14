@@ -20,15 +20,6 @@ module.exports = {
 		return pool.query(sql, condition)
 	},
 
-	loadLimit(columns, schema, condition, limit, offset) {
-		let sql
-
-		if (condition) sql = `select ${columns} from ${schema} where ? limit ${limit} offset ${offset}`
-		else sql = `select ${columns} from ${schema} limit ${limit} offset ${offset}`
-
-		return pool.query(sql, condition)
-	},
-
 	insert(schema, entity) {
 		const sql = `insert into ${schema} set ?`
 		return pool.query(sql, entity)

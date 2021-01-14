@@ -160,10 +160,22 @@ module.exports = {
 		return rows
 	},
 
-	async pageByCat(condition, pageNum) {
-		const [rows] = await db.loadLimit('*', 'course', condition, +process.env.PAGINATE, (pageNum - 1) * +process.env.PAGINATE)
+	// async pageByCat(condition, pageNum) {
+	// 	const [rows] = await db.query('')
+	// 	if (rows.length === 0) return null
+	// 	return rows
+	//
+	// 	// '*', 'course', condition, +process.env.PAGINATE, (pageNum - 1) * +process.env.PAGINATE
+	// },
+
+	async numByCat(cat_id) {
+		const [rows] = await db.query('' +
+			'select count(*) as num\n' +
+			'\t\tfrom category c, course co\n' +
+			`\t\twhere c.id = '${cat_id}' and c.id = co.cat_id\n` +
+			'\t\tgroup by c.id')
 		if (rows.length === 0) return null
-		return rows
+		return rows[0]
 	},
 
 	async numPageByCat(condition) {
