@@ -19,8 +19,19 @@ router.get('/name', (req, res) => {
 	res.redirect(`/search/name/${req.query.name}`)
 })
 
-router.get('/name/:name', (req, res) => {
+router.get('/name/:name', async (req, res) => {
 	// req.query.rate && req.query.price
+	const booleanCourses = await courseModel.searchBoolean(req.params.name)
+	let expansionCourses = await courseModel.searchExpansion(req.params.name) || []
+
+	for (let i = 0; i < expansionCourses.length; ++i)
+		for (let j = 0; j < booleanCourses.length; ++j)
+			if (expansionCourses[i].id === booleanCourses[j].id) {
+				expansionCourses.splice(i, 1)
+				break
+			}
+
+	res.send({ booleanCourses, expansionCourses })
 })
 
 
