@@ -32,10 +32,18 @@ module.exports = {
 	},
 
 	async update(id, newUser) {
-		const [rows] = await db.query('' +
-			`update general_credential set fullname='${newUser.fullname}', email='${newUser.email}', username='${newUser.username}', password='${newUser.password}' where id='${id}'`)
-		if (rows.length === 0) return null
-		return rows[0]
+		if (newUser.password) {
+			const [rows] = await db.query('' +
+				`update general_credential set fullname='${newUser.fullname}', email='${newUser.email}', username='${newUser.username}', password='${newUser.password}' where id='${id}'`)
+			if (rows.length === 0) return null
+			return rows[0]
+		}
+		else {
+			const [rows] = await db.query('' +
+				`update general_credential set fullname='${newUser.fullname}', email='${newUser.email}', username='${newUser.username}' where id='${id}'`)
+			if (rows.length === 0) return null
+			return rows[0]
+		}
 	},
 
 	async pageWatchlist(id, pageNum) {

@@ -5,7 +5,8 @@
 {{!-- ----------------------------------------------- --}}
 <hr>
 <div class="container">
-    <div style="width: 90%; margin: 20px auto 0 auto;">     
+    <div style="width: 90%; margin: 20px auto 0 auto;">
+        {{#if watchlist}}
             <div class="search-result-item">
                 <div class="search-result-item-body">
                     {{#each watchlist}}
@@ -37,6 +38,11 @@
             </div>
 
            <hr>
+        {{else}}
+        <center>
+            <p>You currently have no wishes course.</p>
+        <center>
+        {{/if}}
 
         <nav class="pagination-margin">
             <ul class="pagination pagination-lg justify-content-center">

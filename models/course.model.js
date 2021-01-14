@@ -228,5 +228,12 @@ module.exports = {
 			`where student_id = '${student_id}' and course_id = '${course_id}'`)
 		if (rows.length === 0) return null
 		return rows
+	},
+
+	async addToWatchlist(course_id, student_id) {
+		const [rows] = await db.query('' +
+			`insert into student_watchlist set student_id='${student_id}', course_id='${course_id}'`)
+		if (rows.length === 0) return null
+		return rows
 	}
 }

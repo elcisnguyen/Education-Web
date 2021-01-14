@@ -20,22 +20,41 @@ router.route('/')
 			err: 'Username already registered, please use another username.'
 		})
 
-		if (!bcrypt.compareSync(req.body.current_password, req.session.user.password) || req.body.new_password !== req.body.confirm_password) return res.render('profile', {
+		if (!bcrypt.compareSync(req.body.current_password, req.session.user.password)) return res.render('profile', {
 			err: 'Invalid password.'
 		})
 
-		const newUser = {
+		let newUser
+
+		if (req.body.new_password) {
+			if (!req.body.confirm_password) return res.render('profile', {
+				err: 'Please confirm your password.'
+			})
+			else if (req.body.new_password !== req.body.confirm_password) return res.render('profile', {
+				err: 'Invalid password.'
+			})
+			else {
+				newUser = {
+					fullname: req.body.fullname,
+					email: req.body.email,
+					username: req.body.username,
+					password: bcrypt.hashSync(req.body.new_password, +process.env.BCRYPT_SALT)
+				}
+			}
+		}
+		else newUser = {
 			fullname: req.body.fullname,
 			email: req.body.email,
 			username: req.body.username,
-			password: bcrypt.hashSync(req.body.new_password, +process.env.BCRYPT_SALT)
 		}
+
 		await accountModel.update(req.session.user.id, newUser)
 
 		req.session.user.fullname = newUser.fullname
 		req.session.user.email = newUser.email
 		req.session.user.username = newUser.username
-		req.session.user.password = newUser.password
+
+		if (req.body.new_password) req.session.user.password = newUser.password
 
 		res.redirect('/account/profile')
 	})

@@ -20,8 +20,9 @@ router.route('/:id')
 	})
 
 router.route('/:id/watchlist')
-	.post((req, res) => {
-		res.send(`Post req to add course #${req.params.id} to watchlist`)
+	.post(async (req, res) => {
+		await courseModel.addToWatchlist(req.params.id, req.session.user.id)
+		res.render('watchlist')
 	})
 
 router.route('/:id/watchlist/del')
