@@ -1,0 +1,70 @@
+ {{#section 'header'}}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/icomoon/style.css">
+    <link rel="stylesheet" href="/public/owlcarousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/public/css/login-style.css">
+{{/section}}
+ 
+ {{#section 'footer'}}
+    <script src="/public/js/login.js"></script>
+ {{/section}}
+{{!-- ----------------------------------------------- --}}
+<!-- If you could find a way to make the footer stick at the bottom, then delete the div below-->
+<div style="margin: 1.7rem 0;"></div> 
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="/public/img/profile-screen.png" alt="Online courses" class="img-fluid">
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h3>Your Profile</h3>
+                            <p class="mb-4" style="color: #393e46">Your profile is how other users see you accross the site. It's up to you how much or how little information you choose to provide.</p>    
+                        </div>
+                        <form action="/account/register" method="post">
+                            <div class="form-group first">
+                                <label for="fullname">Full name</label>
+                                <input type="text" class="form-control" id="fullname" name="fullname" {{#if fullname}}value={{fullname}}{{/if}} required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" {{#if email}}value={{email}}{{/if}} required>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" {{#if username}}value={{username}}{{/if}} required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Current Password</label>
+                                <input type="password" class="form-control" id="current-password" name="current-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">New Password</label>
+                                <input type="password" class="form-control" id="new-password" name="new-password" required>
+                            </div>
+                            <div class="form-group last mb-4">
+                                <label for="password">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
+                            </div>
+
+                            <!-- {{#if err}}
+                            <div class="d-flex mb-3 align-items-center">
+                                <p style="color: red !important;">{{err}}</p>
+                            </div>
+                            {{/if}}
+
+                            {{!-- <input type="submit" value="Log in" class="btn btn-danger"> --}} -->
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-info" type="submit">Save Profile</button>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

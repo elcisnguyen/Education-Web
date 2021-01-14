@@ -16,9 +16,9 @@
 * **Login view:** /account/login
   * **Login send data:** POST /account/login
 * **Logout:** POST /account/logout 
-* **Show profile:** /account/profile
-  * **Change profile view**: /account/profile/edit
-  * **Send new profile:** POST /account/profile/edit
+
+* **Profile:** /account/profile
+  * **Send new profile:** POST /account/profile
   * **Show watchlist:** /account/profile/watchlist
   * **Remove from watchlist:** DELETE /course/single/:id/watchlist
   * **Show bought courses (student) or show owned course (teacher):** /account/profile/course
