@@ -11,7 +11,17 @@ router.get('/cat/:id', async (req, res) => {
 
 	res.locals.id = req.params.id
 	res.locals.courses = await courseModel.pageByCat(condition, page)
-	res.locals.total_courses = await courseModel.numByCat(req.params.id)
+	res.locals.is_empty = res.locals.courses.length === 0
+
+	const nPage = await courseModel.numPageByCat(req.params.id)
+	const pageNumbers = []
+	for (let i = 1; i <= nPage; ++i) {
+		pageNumbers.push({
+			value: i,
+			isCurrentPage: i === +page
+		})
+	}
+	res.locals.page_numbers = pageNumbers
 
 	// req.query.rate && req.query.price
 	res.render('search-result')
