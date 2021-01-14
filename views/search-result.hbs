@@ -7,14 +7,14 @@
 <div class="container">
     <div style="width: 90%; margin: 0 auto;">
             <div>
-                <p>Filter By</p>
+                <h5>Filter By</h5>
                 <a href="?sort=rate"><button type="button" class="btn btn-light border-dark">Highest Rated</button></a>
                 <a href="?sort=price"><button type="button" class="btn btn-light border-dark">Cheapest Courses</button></a>
             </div>
 
-            <center>
+            {{!-- <center>
                      <p>No course matches your searching.</p>
-            <center>
+            <center> --}}
 
             {{#each courses}}
             <div class="search-result-item">
