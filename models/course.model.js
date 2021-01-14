@@ -62,6 +62,18 @@ module.exports = {
 		return rows
 	},
 
+	async searchBoolean() {
+		const [rows] = await db.query()
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async searchExpansion() {
+		const [rows] = await db.query()
+		if (rows.length === 0) return null
+		return rows
+	},
+
 	async pageByCat(condition, pageNum) {
 		const [rows] = await db.loadLimit('*', 'course', condition, +process.env.PAGINATE, (pageNum - 1) * +process.env.PAGINATE)
 		if (rows.length === 0) return null

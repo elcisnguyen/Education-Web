@@ -20,7 +20,7 @@ router.get('/name', (req, res) => {
 })
 
 router.get('/name/:name', (req, res) => {
-	res.send(`${req.params.name} ${req.query.rate} ${req.query.price}`)
+	// req.query.rate && req.query.price
 })
 
 

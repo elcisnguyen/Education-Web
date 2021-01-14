@@ -18,7 +18,7 @@ module.exports = (app) => {
 	app.use(session({
 		secret: process.env.SESSION_SECRET,
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: false,
 		store: sessionStore,
 		cookie: {
 			maxAge: +process.env.COOKIE_MAX_AGE,

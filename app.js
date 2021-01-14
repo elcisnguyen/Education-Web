@@ -28,7 +28,8 @@ app.engine('hbs', exphbs({
 		isEqual(a, b, opts) {
 			if (a === b) return opts.fn(this)
 			return opts.inverse(this)
-		}
+		},
+		discountPrice(price, discount) { return +price / 100 * (100 - +discount) }
 	}
 }))
 app.set('view engine', 'hbs')

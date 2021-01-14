@@ -1,4 +1,5 @@
 const courseModel = require('../models/course.model')
+const categoryModel = require('../models/category.model')
 
 
 module.exports = (app) => {
@@ -6,6 +7,7 @@ module.exports = (app) => {
 		res.locals.briefMostRegular = await courseModel.briefMostRegular()
 		res.locals.briefMostViewed = await courseModel.briefMostViewed()
 		res.locals.briefNewest = await courseModel.briefNewest()
+		res.locals.mostRegistered = await categoryModel.mostRegistered()
 		res.render('home')
 	})
 

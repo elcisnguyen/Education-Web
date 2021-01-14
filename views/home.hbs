@@ -40,12 +40,18 @@
     <div class="owl-carousel owl-theme">
         {{#each briefMostRegular}}
         <div class="item">
-            <a href="/course/single/:id"><img src="{{this.ava_link}}"></a>
+            <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}"></a>
             <b>{{this.title}}</b>
             <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
             <em>{{this.fullname}}</em>
             <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
-            <b style="font-size: large;">${{this.price}} {{#if this.discount}}{{this.discount}}% Off{{/if}}</b>
+            <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
+                {{#if this.discount}}
+                    ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% off
+                {{else}}
+                    ${{this.price}}
+                {{/if}}
+            </b>
         </div>
         {{/each}}
     </div>
@@ -55,12 +61,18 @@
     <div class="owl-carousel owl-theme">
         {{#each briefMostViewed}}
             <div class="item">
-                <a href="/course/single/:id"><img style="height: 60% !important;" src="{{this.ava_link}}"></a>
+                <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}"></a>
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 <em>{{this.fullname}}</em>
                 <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
-                <b style="font-size: large;">${{this.price}} {{#if this.discount}}{{this.discount}}% Off{{/if}}</b>
+                <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
+                    {{#if this.discount}}
+                        ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% Off
+                    {{else}}
+                        ${{this.price}}
+                    {{/if}}
+                </b>
             </div>
         {{/each}}
     </div>
@@ -70,12 +82,18 @@
     <div class="owl-carousel owl-theme">
         {{#each briefNewest}}
             <div class="item">
-                <a href="/course/single/:id"><img src="{{this.ava_link}}"></a>
+                <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}"></a>
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 <em>{{this.fullname}}</em>
-                <div>{{this.rate}}⭐ ({{this.num_rate}})</div>
-                <b style="font-size: large;">${{this.price}} {{#if this.discount}}{{this.discount}}% Off{{/if}}</b>
+                <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
+                <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
+                    {{#if this.discount}}
+                        ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% Off
+                    {{else}}
+                        ${{this.price}}
+                    {{/if}}
+                </b>
             </div>
         {{/each}}
     </div>
@@ -83,26 +101,12 @@
     <!-- Show 5-->
     <div><h3>Most registered fields in the past week</h3></div>
     <div class="owl-carousel owl-theme">
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail2.jpg"></a>
-            <b>Information Technology</b>
+        {{#each mostRegistered}}
+        <div class="item" style="text-align: center;">
+            <a href="/search/cat/{{this.id}}"><img src="{{this.ava_link}}"></a>
+            <b>{{this.title}}</b>
         </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail2.jpg"></a>
-            <b>Information Technology</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail2.jpg"></a>
-            <b>Information Technology</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail2.jpg"></a>
-            <b>Information Technology</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail2.jpg"></a>
-            <b>Information Technology</b>
-        </div>
+        {{/each}}
     </div>
 
     <div style="height: 2rem;"></div>
