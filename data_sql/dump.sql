@@ -35,7 +35,7 @@ create table course(
     title varchar(50) not null unique,
     teacher_id varchar(50) not null,
     ava_link varchar(255) default 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png',
-    price float check(price > 0),
+    price float check(price > 0) not null,
     discount float check(0 <= discount <= 100),
     total_view int default 0,
     total_sub int default 0,
@@ -50,7 +50,7 @@ alter table course add fulltext(title);
 
 create table course_detail(
     course_id varchar(50) not null unique,
-    description varchar(16000),
+    description varchar(16000) not null,
     week_view int default 0,
     date_added date not null,
     last_modified date not null,
@@ -61,6 +61,7 @@ create table course_detail(
 create table course_material(
     course_id varchar(50) not null,
     mat_order int not null check(mat_order > 0),
+    title varchar(50) not null,
     vid_link varchar(255) not null,
 
     primary key(course_id, mat_order),
@@ -114,18 +115,20 @@ INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('64be6b1d-7ecd-4
 INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('a10bc917-3053-44de-b87e-237234ed6443', 'Android Development', '89deb919-b075-499f-abe9-f6ebd4b87ea3');
 
 
-INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('165cbc43-9ca0-4f44-acac-64bc8c3a0da1', '64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'Build Your First Website', '53fdd2d8-add2-4d9e-8f07-42321a32ae8d', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', null, null, 0, 0, 'INCOMPLETE');
-INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('53cb35c2-cadb-4c14-a541-6e2db00643ec', 'a10bc917-3053-44de-b87e-237234ed6443', 'Build Your First Android App', 'c5534e62-144d-4760-acee-ec0f76f8e41a', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 450, 0, 0, 0, 'COMPLETE');
-INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('a44665c2-2f9d-4f52-b4ec-281eade9ab6c', '64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'ExpressJS Basic', '53fdd2d8-add2-4d9e-8f07-42321a32ae8d', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 500, 10, 0, 0, 'COMPLETE');
-INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('e11b0727-8a67-40ef-a9d1-02605c46ae27', 'a10bc917-3053-44de-b87e-237234ed6443', 'Security In Android App', 'c5534e62-144d-4760-acee-ec0f76f8e41a', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', null, null, 0, 0, 'INCOMPLETE');
+INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('165cbc43-9ca0-4f44-acac-64bc8c3a0da1', '64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'Build Your First Website', '53fdd2d8-add2-4d9e-8f07-42321a32ae8d', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 150, null, 0, 0, 'INCOMPLETE');
+INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('53cb35c2-cadb-4c14-a541-6e2db00643ec', 'a10bc917-3053-44de-b87e-237234ed6443', 'Build Your First Android App', 'c5534e62-144d-4760-acee-ec0f76f8e41a', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 400, 0, 0, 0, 'COMPLETE');
+INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('a44665c2-2f9d-4f52-b4ec-281eade9ab6c', '64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'ExpressJS Basic', '53fdd2d8-add2-4d9e-8f07-42321a32ae8d', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 450, 10, 0, 0, 'COMPLETE');
+INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('e11b0727-8a67-40ef-a9d1-02605c46ae27', 'a10bc917-3053-44de-b87e-237234ed6443', 'Security In Android App', 'c5534e62-144d-4760-acee-ec0f76f8e41a', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 500, 5, 0, 0, 'INCOMPLETE');
 
 
 INSERT INTO edu_web.course_detail (course_id, description, week_view, date_added, last_modified) VALUES ('53cb35c2-cadb-4c14-a541-6e2db00643ec', 'Learn all the basic steps to create an Android app on your own.', 0, '2021-01-13', '2021-01-13');
 INSERT INTO edu_web.course_detail (course_id, description, week_view, date_added, last_modified) VALUES ('a44665c2-2f9d-4f52-b4ec-281eade9ab6c', 'Learn how to use ExpressJS to build a server for your dream website.', 0, '2021-01-13', '2021-01-13');
+INSERT INTO edu_web.course_detail (course_id, description, week_view, date_added, last_modified) VALUES ('165cbc43-9ca0-4f44-acac-64bc8c3a0da1', 'Learn how to build your first static website from scratch.', 0, '2021-01-13', '2021-01-13');
+INSERT INTO edu_web.course_detail (course_id, description, week_view, date_added, last_modified) VALUES ('e11b0727-8a67-40ef-a9d1-02605c46ae27', 'Secure your application and enhance user\'s privacy.', 0, '2021-01-13', '2021-01-13');
 
 
-INSERT INTO edu_web.course_material (course_id, mat_order, vid_link) VALUES ('53cb35c2-cadb-4c14-a541-6e2db00643ec', 1, 'https://www.youtube.com/watch?v=boPyHl3iptQ');
-INSERT INTO edu_web.course_material (course_id, mat_order, vid_link) VALUES ('a44665c2-2f9d-4f52-b4ec-281eade9ab6c', 1, 'https://www.youtube.com/watch?v=boPyHl3iptQ');
+INSERT INTO edu_web.course_material (course_id, mat_order, vid_link, title) VALUES ('53cb35c2-cadb-4c14-a541-6e2db00643ec', 1, 'https://www.youtube.com/watch?v=boPyHl3iptQ', 'Introduction');
+INSERT INTO edu_web.course_material (course_id, mat_order, vid_link, title) VALUES ('a44665c2-2f9d-4f52-b4ec-281eade9ab6c', 1, 'https://www.youtube.com/watch?v=boPyHl3iptQ', 'Introduction');
 
 
 INSERT INTO edu_web.student_course (student_id, course_id, mat_order) VALUES ('66119c34-334f-4fd2-9071-08707b1ed606', '53cb35c2-cadb-4c14-a541-6e2db00643ec', 1);
