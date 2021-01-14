@@ -10,7 +10,7 @@ router.get('/cat/:id', async (req, res) => {
 	const page = Math.min(Math.max(1, req.query.page || 1), await courseModel.numPageByCat(condition))
 
 	res.locals.id = req.params.id
-	res.locals.courses = await courseModel.pageByCat(condition, page)
+	res.locals.courses = await courseModel.pageByCat(req.params.id, page)
 	res.locals.is_empty = res.locals.courses.length === 0
 
 	const nPage = await courseModel.numPageByCat(req.params.id)

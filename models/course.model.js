@@ -160,13 +160,22 @@ module.exports = {
 		return rows
 	},
 
-	// async pageByCat(condition, pageNum) {
-	// 	const [rows] = await db.query('')
-	// 	if (rows.length === 0) return null
-	// 	return rows
-	//
-	// 	// '*', 'course', condition, +process.env.PAGINATE, (pageNum - 1) * +process.env.PAGINATE
-	// },
+	async pageByCat(cat_id, pageNum) {
+		const offset = (pageNum - 1) * +process.env.PAGINATE
+		const [rows] = await db.query('' +
+			'select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'from(\n' +
+			'    select c.id, c.title, cat.title as cat_title, cat.id as cat_id, g.fullname, c.price, c.discount, c.ava_link, c.total_view\n' +
+			'    from course c, category cat, general_credential g\n' +
+			`    where c.cat_id = cat.id and c.cat_id = '${cat_id}' and c.teacher_id = g.id\n` +
+			') as res\n' +
+			'left join student_feedback f\n' +
+			'on res.id = f.course_id\n' +
+			'group by res.id\n' +
+			`limit ${+process.env.PAGINATE} offset ${offset}`)
+		if (rows.length === 0) return null
+		return rows
+	},
 
 	async numPageByCat(condition) {
 		const [rows] = await db.load('count(*) as length', 'course', condition)

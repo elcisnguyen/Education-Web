@@ -7,8 +7,8 @@
     <div style="width: 90%; margin: 0 auto;">
             <div>
                 <p>Filter By</p>
-                <a href="#"><button type="button" class="btn btn-light border-dark">Highest Rated</button></a>
-                <a href="#"><button type="button" class="btn btn-light border-dark">Cheapest Courses</button></a>
+                <a href="/search/cat/{{this.id}}?sort=rate"><button type="button" class="btn btn-light border-dark">Highest Rated</button></a>
+                <a href="/search/cat/{{this.id}}?sort=price"><button type="button" class="btn btn-light border-dark">Cheapest Courses</button></a>
             </div>
 
             {{#each courses}}
@@ -16,19 +16,24 @@
                 <div class="search-result-item-body">
                     <div class="row">
                         <div class="col-3">
-                            <a href="#"><img class="img-fluid" src="/public/img/thumbnail.jpg"></a>
+                            <a href="#"><img class="img-fluid" src="{{this.ava_link}}" width="170" height="100"></a>
                         </div>
                         <div class="col-7">
-                            <h4 class="search-result-item-heading"><a href="#">Complete 2020 Python bootcamp from nothing to everything</a></h4>
-                            <span class="field">Python | </span>
-                            <span class="lecturer">Johnny Sin</span>
-                            <div>4.6 ⭐⭐⭐⭐⭐ (341,056 ratings)</div>
-                            <p>Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games</p>
+                            <h4 class="search-result-item-heading"><a href="#">{{this.title}}</a></h4>
+                            <span class="field">{{this.cat_title}} | </span>
+                            <span class="lecturer">{{this.fullname}}</span>
+                            <div>{{formatRate this.rate}} ⭐ ({{this.num_rate}} rating)</div>
                         </div>
                         <div class="col">
-                                <span class="badge bg-warning fw-bold">Bestseller</span>
-                                <span class="badge bg-danger fw-bold">New</span>
-                                <h3>$119.99</h3>
+                            <span class="badge bg-warning fw-bold">Bestseller</span>
+                            <span class="badge bg-danger fw-bold">New</span>
+                            <h3>
+                                {{#if this.discount}}
+                                    ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% off
+                                {{else}}
+                                    ${{this.price}}
+                                {{/if}}
+                            </h3>
                         </div>
                     </div>
                 </div>
