@@ -5,13 +5,10 @@
 {{!-- ----------------------------------------------- --}}
 <div class="container">
     <div style="width: 90%; margin: 0 auto;">
-            <div style="width: 15%">
+            <div>
                 <p>Filter By</p>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled>Sort</option>
-                    <option><a href="/search/cat/{{id}}?sort=rate">Highest Rated</a></option>
-                    <option><a href="/search/cat/{{id}}?sort=price">Cheapest Courses</a></option>
-                </select>
+                <a href="#"><button type="button" class="btn btn-light border-dark">Highest Rated</button></a>
+                <a href="#"><button type="button" class="btn btn-light border-dark">Cheapest Courses</button></a>
             </div>
 
             {{#each courses}}
