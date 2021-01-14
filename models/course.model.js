@@ -120,47 +120,67 @@ module.exports = {
 		return rows
 	},
 
-	async searchBoolean(name) {
+	async pageByNameRateOrder(name, pageNum) {
+		const offset = Math.max((pageNum - 1) * +process.env.PAGINATE, 0)
 		const [rows] = await db.query('' +
 			'select *\n' +
 			'from(\n' +
-			'    select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'\tselect res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
 			'\tfrom(\n' +
 			'\t\tselect c.id, c.title, cat.title as cat_title, g.fullname, c.price, c.discount, c.ava_link, c.total_view\n' +
 			'\t\tfrom course c, category cat, general_credential g\n' +
 			'\t\twhere c.cat_id = cat.id and c.teacher_id = g.id\n' +
 			`\t\t  and match(c.title) against('${name}*' in boolean mode)\n` +
 			'\t) as res\n' +
-			'\tleft join student_feedback f\n' +
-			'\ton res.id = f.course_id\n' +
-			'    group by res.id\n' +
+			'\tleft join student_feedback f on res.id = f.course_id\n' +
+			'\tgroup by res.id\n' +
 			') as `r.*rnr`\n' +
-			'order by rate desc, total_view desc')
+			'order by rate desc, total_view desc\n' +
+			`limit ${+process.env.PAGINATE} offset ${offset}`)
 		if (rows.length === 0) return null
 		return rows
 	},
 
-	async searchExpansion(name) {
+	async pageByNamePriceOrder(name, pageNum) {
+		const offset = (pageNum - 1) * +process.env.PAGINATE
 		const [rows] = await db.query('' +
 			'select *\n' +
 			'from(\n' +
-			'    select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'\tselect res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
 			'\tfrom(\n' +
 			'\t\tselect c.id, c.title, cat.title as cat_title, g.fullname, c.price, c.discount, c.ava_link, c.total_view\n' +
 			'\t\tfrom course c, category cat, general_credential g\n' +
 			'\t\twhere c.cat_id = cat.id and c.teacher_id = g.id\n' +
-			`\t\t  and match(c.title) against('${name}' with query expansion)\n` +
+			`\t\t  and match(c.title) against('${name}*' in boolean mode)\n` +
 			'\t) as res\n' +
-			'\tleft join student_feedback f\n' +
-			'\ton res.id = f.course_id\n' +
-			'    group by res.id\n' +
+			'\tleft join student_feedback f on res.id = f.course_id\n' +
+			'\tgroup by res.id\n' +
 			') as `r.*rnr`\n' +
-			'order by rate desc, total_view desc')
+			'order by price asc, total_view desc\n' +
+			`limit ${+process.env.PAGINATE} offset ${offset}`)
 		if (rows.length === 0) return null
 		return rows
 	},
 
-	async pageByCat(cat_id, pageNum) {
+	async numPageByName(name) {
+		const [rows] = await db.query('' +
+			'select count(*) as length\n' +
+			'from(\n' +
+			'\tselect res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'\tfrom(\n' +
+			'\t\tselect c.id, c.title, cat.title as cat_title, g.fullname, c.price, c.discount, c.ava_link, c.total_view\n' +
+			'\t\tfrom course c, category cat, general_credential g\n' +
+			'\t\twhere c.cat_id = cat.id and c.teacher_id = g.id\n' +
+			`\t\t  and match(c.title) against('${name}*' in boolean mode)\n` +
+			'\t) as res\n' +
+			'\tleft join student_feedback f on res.id = f.course_id\n' +
+			'\tgroup by res.id\n' +
+			') as `r.*rnr`')
+		if (rows.length === 0) return null
+		return Math.ceil(rows[0].length / +process.env.PAGINATE)
+	},
+
+	async pageByCatRateOrder(cat_id, pageNum) {
 		const offset = (pageNum - 1) * +process.env.PAGINATE
 		const [rows] = await db.query('' +
 			'select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
@@ -172,6 +192,25 @@ module.exports = {
 			'left join student_feedback f\n' +
 			'on res.id = f.course_id\n' +
 			'group by res.id\n' +
+			'order by rate desc\n' +
+			`limit ${+process.env.PAGINATE} offset ${offset}`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async pageByCatPriceOrder(cat_id, pageNum) {
+		const offset = (pageNum - 1) * +process.env.PAGINATE
+		const [rows] = await db.query('' +
+			'select res.*, avg(f.rate) as rate, count(f.rate) as num_rate\n' +
+			'from(\n' +
+			'    select c.id, c.title, cat.title as cat_title, cat.id as cat_id, g.fullname, c.price, c.discount, c.ava_link, c.total_view\n' +
+			'    from course c, category cat, general_credential g\n' +
+			`    where c.cat_id = cat.id and c.cat_id = '${cat_id}' and c.teacher_id = g.id\n` +
+			') as res\n' +
+			'left join student_feedback f\n' +
+			'on res.id = f.course_id\n' +
+			'group by res.id, res.price\n' +
+			'order by res.price asc\n' +
 			`limit ${+process.env.PAGINATE} offset ${offset}`)
 		if (rows.length === 0) return null
 		return rows

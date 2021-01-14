@@ -1,7 +1,7 @@
 const express = require('express')
 const accountModel = require('../models/account.model')
 const bcrypt = require('bcrypt')
-const { redirectAuth, preventPostAuth } = require('../middlewares/utils.mdw')
+const { redirectAuth, preventPostAuth, auth } = require('../middlewares/utils.mdw')
 const { v4: uuidv4 } = require('uuid')
 
 
@@ -88,7 +88,7 @@ router.post('/logout', (req, res) => {
 	res.redirect(req.headers.referer || '/')
 })
 
-router.use('/profile', require('./account.profile.route'))
+router.use('/profile', auth, require('./account.profile.route'))
 
 
 module.exports = router
