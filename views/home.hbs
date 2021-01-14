@@ -28,19 +28,19 @@
     </script>
 
     
-<div style="width:90%; margin: 0 auto;">
+<div style="width:80%; margin: 0 auto;">
     <img src="/public/img/online-edu.jpg" class="img-fluid">
 </div>
 
 <div style="height: 1rem;"></div>
 
-<div style="width: 90%; margin: 0 auto;">
+<div style="width: 80%; margin: 0 auto;">
     <!-- Show 5-->
     <div><h3>Most regular courses in the past week</h3></div>
     <div class="owl-carousel owl-theme">
         {{#each briefMostRegular}}
         <div class="item">
-            <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}"></a>
+            <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a> <!-- w = h*1.67-->
             <b>{{this.title}}</b>
             <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
             <em>{{this.fullname}}</em>
@@ -61,7 +61,7 @@
     <div class="owl-carousel owl-theme">
         {{#each briefMostViewed}}
             <div class="item">
-                <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}"></a>
+                <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a>
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 <em>{{this.fullname}}</em>
@@ -82,7 +82,7 @@
     <div class="owl-carousel owl-theme">
         {{#each briefNewest}}
             <div class="item">
-                <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}"></a>
+                <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a>
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 <em>{{this.fullname}}</em>
@@ -103,7 +103,7 @@
     <div class="owl-carousel owl-theme">
         {{#each mostRegistered}}
         <div class="item" style="text-align: center;">
-            <a href="/search/cat/{{this.id}}"><img src="{{this.ava_link}}"></a>
+            <a href="/search/cat/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a>
             <b>{{this.title}}</b>
         </div>
         {{/each}}
