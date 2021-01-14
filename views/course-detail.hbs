@@ -10,20 +10,25 @@
     <div class="head-content">
         <div class="row">
              <div class="col-7">
-                <h1>Complete 2020 Python bootcamp from nothing to everything</h1>
+                <h1>{{course.title}}</h1>
                 <div class="row">
-                    <div class="col-auto">4.6 ⭐⭐⭐⭐⭐</div>
-                    <div class="col-auto">(341,056 ratings)</div>
-                    <div class="col-auto">1,199,690 students</div>
+                    <div class="col-auto">{{#if course.rate}}{{formatRate course.rate}}{{else}}0{{/if}} ⭐</div>
+                    <div class="col-auto">({{#if course.num_rate}}{{course.num_rate}}{{else}}0{{/if}} ratings)</div>
+                    <div class="col-auto">{{#if course.num_student}}{{course.num_student}}{{else}}0{{/if}} student</div>
                 </div>
-                <h3>$119.99</h3>
-                {{!-- <p>Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games</p> --}}
+                <h3>
+                    {{#if course.discount}}
+                        ${{discountPrice course.price course.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{course.discount}}% off
+                    {{else}}
+                        ${{course.price}}
+                    {{/if}}
+                </h3>
                 <div class="row">
                     <div class="col-6 sm-margin">
-                        <p><strong>Field: </strong>Python</p>
-                        <p><strong>Lecturer: </strong>Johnny Sin</p>
-                        <p><strong>Contact: </strong>friendly_neighbour@gmail.com</p>
-                        <p><strong>Last updated: </strong>14/01/2021</p>
+                        <p><strong>Field: </strong>{{course.cat_title}}</p>
+                        <p><strong>Lecturer: </strong>{{course.fullname}}</p>
+                        <p><strong>Contact: </strong>{{course.email}}</p>
+                        <p><strong>Last updated: </strong>{{course.last_modified}}</p>
                     </div>
                     <div class="col d-grid col-3 mx-auto">
                         <a href="#"></a><button class="btn btn-warning btn-lg" type="button">Purchase <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-minecart" viewBox="0 0 16 16">
@@ -37,7 +42,7 @@
                
             </div>
             <div class="col">
-                <img src="/public/img/python-ava.jpg" alt="Course avatar" width="400px"; height="240px">
+                <img src="/public/img/python-ava.jpg" alt="Course avatar" width=350px"; height="260px">
             </div>
         </div>
     </div>
@@ -63,58 +68,25 @@
     </ul>
     <div class="tab-content p-4" id="myTabContent">
         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            {{course.description}}
         </div>
         <div class="tab-pane fade" id="syllabus" role="tabpanel" aria-labelledby="syllabus-tab">
             <ul>
+                {{#each syllabus}}
                 <li>
-                    <h6>Course Overview</h6>
-                    <a href="#">Preview video</a>
+                    <h6>{{this.title}}</h6>
+                    {{#isPreview @index}}<a href="{{this.vid_link}}">Preview video</a>{{/isPreview}}
                 </li>
-                <li>
-                    <h6>Python Setup</h6>
-                    <a href="#">Preview video</a>
-                </li>
-                <li>
-                    <h6>Python objects and data structure basics</h6>
-                    <a href="#">Preview video</a>
-                </li>
-                <li>
-                    <h6>Python comparision operators</h6>
-                </li>
-                <li>
-                    <h6>Python statement</h6>
-                </li>
-                <li>
-                    <h6>Methods and functions</h6>
-                </li>
-                <li>
-                    <h6>Milestone project - 1</h6>
-                </li>
-                <li>
-                    <h6>Object oriented programming</h6>
-                </li>
-                <li>
-                    <h6>Modules and packages</h6>
-                </li>
-                <li>
-                    <h6>Errors and exceptions handling</h6>
-                </li>
+                {{/each}}
             </ul>
         </div>
         <div class="tab-pane fade" id="feedback" role="tabpanel" aria-labelledby="feedback-tab">
+            {{#each feedback}}
             <div class="shadow p-4"> <!-- Each comment is a div-->
-                <h6>John Constantine</h6>
-                <p>Bloody hell, this course is lit!</p>
+                <h6>{{this.fullname}} {{this.rate}}⭐</h6>
+                <p>{{this.feedback}}</p>
             </div>
-            <div class="shadow p-4"> <!-- Each comment is a div-->
-                <h6>Mephisto</h6>
-                <p>I will catch you up soon, John.</p>
-            </div>
-            <div class="shadow p-4"> <!-- Each comment is a div-->
-                <h6>Batman who laughs</h6>
-                <p>Hahahahahahahahahaha</p>
-            </div>
+            {{/each}}
         </div>
     </div>
 </div>
@@ -143,48 +115,26 @@
 
 <div class="footer">
     <!-- Show 5-->
+    {{#if briefMostRegularSameCat}}
     <div><h3>Most regular courses in the same category</h3></div>
     <div class="owl-carousel owl-theme">
+        {{#each briefMostRegularSameCat}}
         <div class="item">
-            <a href="/course/single/:id"><img src="/public/img/thumbnail.jpg" height="150px" width="250px"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
+            <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a>
+            <b>{{this.title}}</b>
+            <h6 style="margin-bottom: 0;">{{this.cat_title}}<br></h6>
+            <em>{{this.fullname}}</em>
+            <div>{{this.rate}}⭐ ({{this.num_rate}})</div>
+            <b style="font-size: large;">
+                {{#if this.discount}}
+                    ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% off
+                {{else}}
+                    ${{this.price}}
+                {{/if}}
+            </b>
         </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg" height="150px" width="250px"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg" height="150px" width="250px"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg" height="150px" width="250px"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
-        <div class="item">
-            <a href=""><img src="/public/img/thumbnail.jpg" height="150px" width="250px"></a>
-            <b>Artificial Intelligence with Python</b>
-            <h6 style="margin-bottom: 0;">Python <br></h6>
-            <em>Johnny Sin</em>
-            <div>⭐⭐⭐⭐⭐ (1895)</div>
-            <b style="font-size: large;">$100.0</b>
-        </div>
+        {{/each}}
     </div>
+    {{/if}}
     <hr>
 </div>
