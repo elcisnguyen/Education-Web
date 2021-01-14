@@ -27,7 +27,7 @@ router.route('/:id/watchlist')
 
 router.route('/:id/watchlist/del')
 	.post(async (req, res) => {
-		await courseModel.removeFromWatchlist(req.params.id, req.session.user.id)
+		const r = await courseModel.removeFromWatchlist(req.params.id, req.session.user.id)
 		res.render('watchlist')
 	})
 

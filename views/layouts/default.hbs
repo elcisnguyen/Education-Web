@@ -24,10 +24,10 @@
         {{> student-navbar}}
     {{/isEqual}}
     {{#isEqual user.permission "TEACHER"}}
-        {{> admin-navbar}}
+        {{> lecturer-navbar}}
     {{/isEqual}}
     {{#isEqual user.permission "ADMIN"}}
-        {{> student-navbar}}
+        {{> admin-navbar}}
     {{/isEqual}}
     {{!------------------------------------------------- --}}
     {{!-- {{> search-result}} --}}
