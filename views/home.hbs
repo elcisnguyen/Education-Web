@@ -45,9 +45,9 @@
             <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
             {{this.fullname}}
             <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
-            <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
+            <b style="font-size: large;">
                 {{#if this.discount}}
-                    ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% off
+                    ${{discountPrice this.price this.discount}} | <span style="color: #f32121;">{{this.discount}}%off</span>
                 {{else}}
                     ${{this.price}}
                 {{/if}}
@@ -66,9 +66,9 @@
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 {{this.fullname}}
                 <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
-                <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
+                <b style="font-size: large;">
                     {{#if this.discount}}
-                        ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% off
+                        ${{discountPrice this.price this.discount}} | <span style="color: #f32121;">{{this.discount}}%off</span>
                     {{else}}
                         ${{this.price}}
                     {{/if}}
@@ -87,9 +87,9 @@
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 {{this.fullname}}
                 <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
-                <b style="font-size: large; {{#if this.discount}}font-style: italic; color: red;{{/if}}">
+                <b style="font-size: large;">
                     {{#if this.discount}}
-                        ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% off
+                        ${{discountPrice this.price this.discount}} | <span style="color: #f32121;">{{this.discount}}%off</span>
                     {{else}}
                         ${{this.price}}
                     {{/if}}

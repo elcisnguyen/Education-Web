@@ -3,6 +3,7 @@
 {{/section}}
  
 {{!-- ----------------------------------------------- --}}
+<hr>
 <div class="container">
     <div style="width: 90%; margin: 0 auto;">
             <div>
@@ -18,7 +19,7 @@
                         <div class="col-3">
                             <a href="#"><img class="img-fluid" src="{{this.ava_link}}" width="170" height="100"></a>
                         </div>
-                        <div class="col-7">
+                        <div class="col-6">
                             <h4 class="search-result-item-heading"><a href="#">{{this.title}}</a></h4>
                             <span class="field">{{this.cat_title}} | </span>
                             <span class="lecturer">{{this.fullname}}</span>
@@ -29,7 +30,7 @@
                             <span class="badge bg-danger fw-bold">New</span>
                             <h3>
                                 {{#if this.discount}}
-                                    ${{discountPrice this.price this.discount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.discount}}% off
+                                    ${{discountPrice this.price this.discount}} | {{this.discount}}%off
                                 {{else}}
                                     ${{this.price}}
                                 {{/if}}
@@ -38,6 +39,7 @@
                     </div>
                 </div>
             </div>
+            <hr>
             {{/each}}
 
             <nav class="pagination-margin">
@@ -51,3 +53,4 @@
             </nav>
     </div>
 </div>
+<hr>
