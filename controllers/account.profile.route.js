@@ -1,4 +1,6 @@
 const express = require('express')
+const accountModel = require('../models/account.model')
+const bcrypt = require('bcrypt')
 
 
 const router = express.Router({ mergeParams: true })
@@ -7,11 +9,55 @@ router.route('/')
 	.get((req, res) => {
 		res.render('profile')
 	})
-	.post((req, res) => {
-		res.send('Post req to edit prrofile')
+	.post(async (req, res) => {
+		let user = await accountModel.singleByEmailExclude(req.body.email, req.session.user.id)
+		if (user) return res.render('profile', {
+			err: 'Email already registered, please use another email address.'
+		})
+
+		user = await accountModel.singleByUsernameExclude(req.body.username, req.session.user.id)
+		if (user) return res.render('profile', {
+			err: 'Username already registered, please use another username.'
+		})
+
+		if (!bcrypt.compareSync(req.body.current_password, req.session.user.password) || req.body.new_password !== req.body.confirm_password) return res.render('profile', {
+			err: 'Invalid password.'
+		})
+
+		const newUser = {
+			fullname: req.body.fullname,
+			email: req.body.email,
+			username: req.body.username,
+			password: bcrypt.hashSync(req.body.new_password, +process.env.BCRYPT_SALT)
+		}
+		await accountModel.update(req.session.user.id, newUser)
+
+		req.session.user.fullname = newUser.fullname
+		req.session.user.email = newUser.email
+		req.session.user.username = newUser.username
+		req.session.user.password = newUser.password
+
+		res.redirect('/account/profile')
 	})
 
-router.get('/watchlist', (req, res) => {
+router.get('/watchlist', async (req, res) => {
+	const page = Math.min(Math.max(1, req.query.page || 1), await accountModel.numPageWatchlist(req.session.user.id))
+	res.locals.watchlist = await accountModel.pageWatchlist(req.session.user.id, page)
+
+	const nPage = await accountModel.numPageWatchlist(req.session.user.id)
+	const pageNumbers = []
+	for (let i = 1; i <= nPage; ++i) {
+		pageNumbers.push({
+			value: i,
+			isCurrentPage: i === +page
+		})
+	}
+	res.locals.page_numbers = pageNumbers
+	res.locals.is_first = (page === 1)
+	res.locals.is_last = (page === nPage)
+	res.locals.next_page = +page + 1
+	res.locals.prev_page = +page - 1
+
 	res.render('watchlist')
 })
 

@@ -220,5 +220,13 @@ module.exports = {
 		const [rows] = await db.load('count(*) as length', 'course', condition)
 		if (rows.length === 0) return null
 		return Math.ceil(rows[0].length / process.env.PAGINATE)
+	},
+
+	async removeFromWatchlist(course_id, student_id) {
+		const [rows] = await db.query('' +
+			'delete from student_watchlist\n' +
+			`where student_id = '${student_id}' and course_id = '${course_id}'`)
+		if (rows.length === 0) return null
+		return rows
 	}
 }

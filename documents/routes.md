@@ -19,9 +19,9 @@
 
 * **Profile:** /account/profile
   * **Send new profile:** POST /account/profile
-  * **Show watchlist:** /account/profile/watchlist
-  * **Remove from watchlist:** DELETE /course/single/:id/watchlist
-  * **Show bought courses (student) or show owned course (teacher):** /account/profile/course
+  * **Show watchlist:** /account/profile/watchlist?page={}
+  * **Remove from watchlist:** POST /course/single/:id/watchlist/del
+  * **Show bought courses (student) or show owned course (teacher):** /account/profile/course?page={}
 
 **Teacher add new course view:** /course/new
 * **Send new course data:** POST /course/new

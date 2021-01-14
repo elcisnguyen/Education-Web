@@ -12,6 +12,7 @@
                 <a href="?sort=price"><button type="button" class="btn btn-light border-dark">Cheapest Courses</button></a>
             </div>
 
+            {{#if courses}}
             {{#each courses}}
             <div class="search-result-item">
                 <div class="search-result-item-body">
@@ -39,7 +40,8 @@
                     </div>
                 </div>
                 <hr>
-                {{/each}}
+            </div>
+            {{/each}}
             {{else}}
                 <center>
                     <p>No course matches your searching.</p>

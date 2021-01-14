@@ -23,8 +23,11 @@ router.route('/:id/watchlist')
 	.post((req, res) => {
 		res.send(`Post req to add course #${req.params.id} to watchlist`)
 	})
-	.delete((req, res) => {
-		res.send(`Delete req to remove course #${req.params.id} from watchlist`)
+
+router.route('/:id/watchlist/del')
+	.post(async (req, res) => {
+		await courseModel.removeFromWatchlist(req.params.id, req.session.user.id)
+		res.render('watchlist')
 	})
 
 router.post('/:id/buy', (req, res) => {
