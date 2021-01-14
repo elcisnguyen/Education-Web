@@ -21,6 +21,7 @@ create table category(
     id varchar(50) not null,
     title varchar(50) not null unique,
     parent_cat_id varchar(50),
+    ava_link varchar(255) default 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610594973/ava/thumbnail2_eba4nc.jpg',
 
     primary key(id),
     foreign key(parent_cat_id) references category(id)
@@ -109,13 +110,13 @@ INSERT INTO edu_web.teacher (credential_id, work_place) VALUES ('c5534e62-144d-4
 INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('44166555-b47c-4868-8abe-3abeb5b35cd3', 'Business', null);
 INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('89deb919-b075-499f-abe9-f6ebd4b87ea3', 'IT', null);
 INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('decebd85-01c8-4ad4-b65e-7c5d0481f593', 'Design', null);
-INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'Web', '89deb919-b075-499f-abe9-f6ebd4b87ea3');
-INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('a10bc917-3053-44de-b87e-237234ed6443', 'Android', '89deb919-b075-499f-abe9-f6ebd4b87ea3');
+INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'Web Development', '89deb919-b075-499f-abe9-f6ebd4b87ea3');
+INSERT INTO edu_web.category (id, title, parent_cat_id) VALUES ('a10bc917-3053-44de-b87e-237234ed6443', 'Android Development', '89deb919-b075-499f-abe9-f6ebd4b87ea3');
 
 
 INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('165cbc43-9ca0-4f44-acac-64bc8c3a0da1', '64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'Build Your First Website', '53fdd2d8-add2-4d9e-8f07-42321a32ae8d', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', null, null, 0, 0, 'INCOMPLETE');
-INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('53cb35c2-cadb-4c14-a541-6e2db00643ec', 'a10bc917-3053-44de-b87e-237234ed6443', 'Build Your First Android App', 'c5534e62-144d-4760-acee-ec0f76f8e41a', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 450000, 0, 0, 0, 'COMPLETE');
-INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('a44665c2-2f9d-4f52-b4ec-281eade9ab6c', '64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'ExpressJS Basic', '53fdd2d8-add2-4d9e-8f07-42321a32ae8d', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 500000, 10, 0, 0, 'COMPLETE');
+INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('53cb35c2-cadb-4c14-a541-6e2db00643ec', 'a10bc917-3053-44de-b87e-237234ed6443', 'Build Your First Android App', 'c5534e62-144d-4760-acee-ec0f76f8e41a', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 450, 0, 0, 0, 'COMPLETE');
+INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('a44665c2-2f9d-4f52-b4ec-281eade9ab6c', '64be6b1d-7ecd-4a64-ac7b-55d1362eab3f', 'ExpressJS Basic', '53fdd2d8-add2-4d9e-8f07-42321a32ae8d', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', 500, 10, 0, 0, 'COMPLETE');
 INSERT INTO edu_web.course (id, cat_id, title, teacher_id, ava_link, price, discount, total_view, total_sub, status) VALUES ('e11b0727-8a67-40ef-a9d1-02605c46ae27', 'a10bc917-3053-44de-b87e-237234ed6443', 'Security In Android App', 'c5534e62-144d-4760-acee-ec0f76f8e41a', 'https://res.cloudinary.com/eduwebcloud/image/upload/v1610470874/ava/nocourseava_slbrfp.png', null, null, 0, 0, 'INCOMPLETE');
 
 
