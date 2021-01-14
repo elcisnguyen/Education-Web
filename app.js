@@ -29,7 +29,12 @@ app.engine('hbs', exphbs({
 			if (a === b) return opts.fn(this)
 			return opts.inverse(this)
 		},
-		discountPrice(price, discount) { return +price / 100 * (100 - +discount) }
+		discountPrice(price, discount) { return +price / 100 * (100 - +discount) },
+		isPreview(i, opts) {
+			if (i < +process.env.PREVIEW_MATERIAL)
+				return opts.fn(this)
+			return opts.inverse(this)
+		}
 	}
 }))
 app.set('view engine', 'hbs')

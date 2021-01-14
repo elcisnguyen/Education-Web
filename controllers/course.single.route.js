@@ -1,12 +1,18 @@
 const express = require('express')
+const courseModel = require('../models/course.model')
 
 
 const router = express.Router({ mergeParams: true })
 
 
 router.route('/:id')
-	.get((req, res) => {
-		// res.send(`View of course detail #${req.params.id}`)
+	.get(async (req, res) => {
+		res.locals.course = await courseModel.single(req.params.id)
+		res.locals.course.last_modified = new Date(res.locals.course.last_modified).toLocaleDateString('en-US')
+		res.locals.syllabus = await courseModel.syllabus(req.params.id)
+		res.locals.feedback = await courseModel.feedback(req.params.id)
+		res.locals.briefMostRegularSameCat = await courseModel.briefMostRegularSameCat(res.locals.course.id, res.locals.course.cat_id)
+		console.log(res.locals.briefMostRegularSameCat)
 		res.render('course-detail')
 	})
 	.delete((req, res) => {

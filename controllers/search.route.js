@@ -9,10 +9,12 @@ router.get('/cat/:id', async (req, res) => {
 	const condition = { cat_id: req.params.id }
 	const page = Math.min(Math.max(1, req.query.page || 1), await courseModel.numPageByCat(condition))
 
+	res.locals.id = req.params.id
 	res.locals.courses = await courseModel.pageByCat(condition, page)
+	res.locals.total_courses = await courseModel.numByCat(req.params.id)
 
 	// req.query.rate && req.query.price
-	res.send(res.locals.courses)
+	res.render('search-result')
 })
 
 router.get('/name', (req, res) => {
