@@ -12,10 +12,6 @@
                 <a href="?sort=price"><button type="button" class="btn btn-light border-dark">Cheapest Courses</button></a>
             </div>
 
-            {{!-- <center>
-                     <p>No course matches your searching.</p>
-            <center> --}}
-
             {{#each courses}}
             <div class="search-result-item">
                 <div class="search-result-item-body">
@@ -42,13 +38,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            {{/each}}
+                <hr>
+                {{/each}}
+            {{else}}
+                <center>
+                    <p>No course matches your searching.</p>
+                <center>
+            {{/if}}
 
             <nav class="pagination-margin">
                 <ul class="pagination pagination-lg justify-content-center">
-                    <li class="page-item {{#if this.is_first}}disabled{{/if}}">
+                    <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_first}}disabled{{/if}}">
                         <a class="page-link" href="?page={{this.prev_page}}{{#if this.sort}}&sort={{this.sort}}{{/if}}">Previous</a>
                     </li>
                     {{#each page_numbers}}
@@ -56,7 +56,7 @@
                             <a class="page-link active" href="{{#unless this.isCurrentPage}}?page={{value}}{{#if ../sort}}&sort={{../sort}}{{/if}}{{/unless}}">{{this.value}}</a>
                         </li>
                     {{/each}}
-                    <li class="page-item {{#if this.is_last}}disabled{{/if}}">
+                    <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_last}}disabled{{/if}}">
                         <a class="page-link" href="?page={{this.next_page}}{{#if this.sort}}&sort={{this.sort}}{{/if}}">Next</a>
                     </li>
                 </ul>
