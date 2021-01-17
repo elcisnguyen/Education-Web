@@ -25,5 +25,13 @@ function isAdmin(req, res, next) {
 	next()
 }
 
+function isAuth(req, res, next) {
+	if (!req.session.user) {
+		req.session.returnUrl = req.headers.referer
+		return res.redirect('/account/login')
+	}
+	next()
+}
 
-module.exports = { isStudent, isTeacher, isAdmin }
+
+module.exports = { isStudent, isTeacher, isAdmin, isAuth }

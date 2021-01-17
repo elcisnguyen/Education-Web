@@ -36,37 +36,13 @@ module.exports = {
 		return rows
 	},
 
-	async singleByEmailExclude(email, id) {
-		const [rows] = await db.query('' +
-			'select *\n' +
-			'from general_credential g\n' +
-			`where g.id != '${id}' and g.email = '${email}'`)
-		if (rows.length === 0) return null
-		return rows[0]
-	},
-
-	async singleByUsernameExclude(username, id) {
-		const [rows] = await db.query('' +
-			'select *\n' +
-			'from general_credential g\n' +
-			`where g.id != '${id}' and g.username = '${username}'`)
-		if (rows.length === 0) return null
-		return rows[0]
-	},
-
-	async update(id, newUser) {
-		if (newUser.password) {
-			const [rows] = await db.query('' +
-				`update general_credential set fullname='${newUser.fullname}', email='${newUser.email}', username='${newUser.username}', password='${newUser.password}' where id='${id}'`)
-			if (rows.length === 0) return null
-			return rows[0]
-		}
-		else {
-			const [rows] = await db.query('' +
-				`update general_credential set fullname='${newUser.fullname}', email='${newUser.email}', username='${newUser.username}' where id='${id}'`)
-			if (rows.length === 0) return null
-			return rows[0]
-		}
+	async update(username, newUser) {
+		if (newUser.password) await db.query(`
+			update general_credential set fullname='${newUser.fullname}', email='${newUser.email}', password_hash='${newUser.password}' where username='${username}'
+		`)
+		else await db.query(`
+			update general_credential set fullname='${newUser.fullname}', email='${newUser.email}' where username='${username}'
+		`)
 	},
 
 	async wishlist(username) {

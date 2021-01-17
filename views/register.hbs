@@ -9,7 +9,7 @@
     <script src="/public/js/login.js"></script>
     <script>
         $(document).ready(function() {
-            $('form').on('submit', function(e) {
+            $('#register-form').on('submit', function(e) {
                 e.preventDefault()
                 failed = false
 
@@ -63,7 +63,7 @@
                                             Join us now!
                             </p>    
                         </div>
-                        <form method="post" action="/account/register">
+                        <form id="register-form" method="post" action="/account/register">
                             <div class="form-group first">
                                 <label for="fullname">Full name</label>
                                 <input type="text" class="form-control" id="fullname" name="fullname" required>

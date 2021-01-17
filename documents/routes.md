@@ -22,6 +22,8 @@
 * **Logout:** POST /account/logout 
 
 * **Profile:** /account/profile
+  * **Is the new username available:** POST /account/profile/check/available/username
+  * **Is the new email available:** POST /account/profile/check/available/email
   * **Send new profile:** POST /account/profile
   * **Show wishlist:** /account/profile/wishlist?page={}
   * **Remove from wishlist:** /account/profileDELETE /course/single/:id/wishlist

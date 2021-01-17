@@ -1,63 +1,45 @@
 const express = require('express')
 const accountModel = require('../models/account.model')
+const { isAuth } = require('../middlewares/utils.mdw')
 const bcrypt = require('bcrypt')
 
 
 const router = express.Router({ mergeParams: true })
 
-router.route('/')
-	.get((req, res) => {
-		res.render('profile')
-	})
-	.post(async (req, res) => {
-		let user = await accountModel.singleByEmailExclude(req.body.email, req.session.user.id)
-		if (user) return res.render('profile', {
-			err: 'Email already registered, please use another email address.'
-		})
 
-		user = await accountModel.singleByUsernameExclude(req.body.username, req.session.user.id)
-		if (user) return res.render('profile', {
-			err: 'Username already registered, please use another username.'
-		})
+router.post('/check/available/email', async (req, res) => {
+	if (req.session.user.email === req.body.email) return res.json({ status: true })
+	const user = await accountModel.singleByEmail(req.body.email)
+	if (user) return res.json({ status: false })
+	return res.json({ status: true })
+})
 
-		if (!bcrypt.compareSync(req.body.current_password, req.session.user.password)) return res.render('profile', {
-			err: 'Invalid password.'
-		})
+router.post('/check/correct/password', async (req, res) => {
+	if (!bcrypt.compareSync(req.body.password, req.session.user.password_hash)) return res.json({ status: false })
+	return res.json({ status: true })
+})
 
-		let newUser
+router.get('/', isAuth, (req, res) => {
+	res.locals.user = req.session.user
+	res.render('profile')
+})
 
-		if (req.body.new_password) {
-			if (!req.body.confirm_password) return res.render('profile', {
-				err: 'Please confirm your password.'
-			})
-			else if (req.body.new_password !== req.body.confirm_password) return res.render('profile', {
-				err: 'Invalid password.'
-			})
-			else {
-				newUser = {
-					fullname: req.body.fullname,
-					email: req.body.email,
-					username: req.body.username,
-					password: bcrypt.hashSync(req.body.new_password, +process.env.BCRYPT_SALT)
-				}
-			}
-		}
-		else newUser = {
-			fullname: req.body.fullname,
-			email: req.body.email,
-			username: req.body.username,
-		}
+router.post('/', async (req, res) => {
+	let newUser = {
+		fullname: req.body.fullname,
+		email: req.body.email,
+		username: req.body.username,
+	}
+	if (req.body.new_password) newUser.password = bcrypt.hashSync(req.body.new_password, +process.env.BCRYPT_SALT)
 
-		await accountModel.update(req.session.user.id, newUser)
+	await accountModel.update(req.session.user.username, newUser)
 
-		req.session.user.fullname = newUser.fullname
-		req.session.user.email = newUser.email
-		req.session.user.username = newUser.username
+	req.session.user.fullname = newUser.fullname
+	req.session.user.email = newUser.email
+	if (req.body.new_password) req.session.user.password = newUser.password
 
-		if (req.body.new_password) req.session.user.password = newUser.password
-
-		res.redirect('/account/profile')
-	})
+	res.redirect('/account/profile')
+})
 
 router.get('/watchlist', async (req, res) => {
 	const page = Math.min(Math.max(1, req.query.page || 1), await accountModel.numPageWatchlist(req.session.user.id))
