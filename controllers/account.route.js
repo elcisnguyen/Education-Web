@@ -1,84 +1,92 @@
 const express = require('express')
 const accountModel = require('../models/account.model')
 const bcrypt = require('bcrypt')
-const { redirectAuth, preventPostAuth, auth } = require('../middlewares/utils.mdw')
+const mailer = require('../utils/mailer')
 const { v4: uuidv4 } = require('uuid')
 
 
 const router = express.Router()
 
-router.route('/register')
-	.get(redirectAuth, (req, res) => {
-		res.render('register')
-	})
-	.post(preventPostAuth, async (req, res) => {
-		let user = await accountModel.single({ email: req.body.email })
-		if (user)
-			return res.render('register', {
-				err: 'Email already registered, please login instead.',
-				fullname: req.body.fullname,
-				username: req.body.username
-			})
+router.post('/check/exist/username', async (req, res) => {
+	let user = await accountModel.singleByUsername(req.body.username)
+	if (user) return res.json({ status: true })
+	return res.json({ status: false })
+})
 
-		user = await accountModel.single({ username: req.body.username })
-		if (user)
-			return res.render('register', {
-				err: 'Username already registered, please use another username.',
-				fullname: req.body.fullname,
-				email: req.body.email
-			})
+router.post('/check/exist/email', async (req, res) => {
+	let user = await accountModel.singleByEmail(req.body.email)
+	if (user) return res.json({ status: true })
+	return res.json({ status: false })
+})
 
-		const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT)
-		const newUser = {
-			id: uuidv4(),
-			permission: 'STUDENT',
-			username: req.body.username,
-			password: hash,
-			fullname: req.body.fullname,
-			email: req.body.email,
-		}
+router.post('/check/correct/password', async (req, res) => {
+	const user = await accountModel.singleByUsername(req.body.username)
+	if (!bcrypt.compareSync(req.body.password, user.password_hash)) return res.json({ status: false })
+	return res.json({ status: true })
+})
 
-		await accountModel.add(newUser)
+router.post('/check/verify', async (req, res) => {
+	const user = await accountModel.singleByUsername(req.body.username)
+	if (user.secret_key !== 'OK') return res.json({ status: false })
+	return res.json({ status: true })
+})
 
-		req.session.auth = true
-		req.session.user = user
+router.get('/confirm/:username/:secret_key', async (req, res) => {
+	const user = await accountModel.singleByUsername(req.params.username)
+	if (!user || user.secret_key !== req.params.secret_key) return res.send('Can not verify.')
+	await accountModel.verify(req.params.username)
+	return res.send('You are verified.')
+})
 
-		res.redirect(req.session.retUrl || '/')
-	})
+router.get('/register', (req, res) => {
+	res.render('register')
+})
 
-router.route('/login')
-	.get(redirectAuth, (req, res) => {
-		res.render('login')
-	})
-	.post(preventPostAuth, async (req, res) => {
-		const user = await accountModel.single({ username: req.body.username })
-		if (!user)
-			return res.render('login', {
-				err: 'Invalid username.'
-			})
+router.post('/register', async (req, res) => {
+	const hash = bcrypt.hashSync(req.body.password, +process.env.BCRYPT_SALT)
+	const user = {
+		username: req.body.username,
+		permission: 'STUDENT',
+		password_hash: hash,
+		fullname: req.body.fullname,
+		email: req.body.email,
+		secret_key: uuidv4()
+	}
 
-		if (!bcrypt.compareSync(req.body.password, user.password))
-			return res.render('login', {
-				err: 'Invalid password.',
-				username: req.body.username
-			})
+	await accountModel.add(user)
 
-		req.session.auth = true
-		req.session.user = user
+	const mailOpts = {
+		from: process.env.EMAIL_USER,
+		to: user.email,
+		subject: 'Schroom - Confirm Your Registration',
+		text: `Thank you for using Schroom, please copy and paste the link below to your web browser to finish your registration.
+\nlocalhost:3000/account/confirm/${user.username}/${user.secret_key}`
+	}
+	mailer.transporter.sendMail(mailOpts)
+		.then(() => console.log('Mail sent successfully to ' + user.email))
+		.catch(err => console.log('Error occur when try to send email: ' + err))
 
-		res.redirect(req.session.retUrl || '/')
-	})
+	res.redirect('/account/login')
+})
+
+router.get('/login', (req, res) => {
+	res.render('login')
+})
+
+router.post('/login', async (req, res) => {
+	req.session.user = await accountModel.singleByUsername(req.body.username)
+	res.redirect(req.session.returnUrl || '/')
+})
 
 router.post('/logout', (req, res) => {
-	req.session.auth = false
 	req.session.user = null
-	req.session.retUrl = null
+	req.session.returnUrl = null
 	req.session.destroy()
 
 	res.redirect(req.headers.referer || '/')
 })
 
-router.use('/profile', auth, require('./account.profile.route'))
+router.use('/profile', require('./account.profile.route'))
 
 
 module.exports = router

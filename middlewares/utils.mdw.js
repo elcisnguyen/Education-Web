@@ -1,19 +1,29 @@
-function redirectAuth(req, res, next) {
-	if (req.session.auth) return res.redirect(req.headers.referrer || '/')
-	next()
-}
-
-function preventPostAuth(req, res, next) {
-	if (!req.session.auth) next()
-}
-
-function auth(req, res, next) {
-	if (!req.session.auth) {
-		req.session.retUrl = req.originalUrl
+function isStudent(req, res, next) {
+	if (!req.session.user) {
+		req.session.returnUrl = req.headers.referer
 		return res.redirect('/account/login')
 	}
+	else if (req.session.user.permission !== 'STUDENT') return
+	next()
+}
+
+function isTeacher(req, res, next) {
+	if (!req.session.user) {
+		req.session.returnUrl = req.headers.referer
+		return res.redirect('/account/login')
+	}
+	else if (req.session.user.permission !== 'TEACHER') return
+	next()
+}
+
+function isAdmin(req, res, next) {
+	if (!req.session.user) {
+		req.session.returnUrl = req.headers.referer
+		return res.redirect('/account/login')
+	}
+	else if (req.session.user.permission !== 'ADMIN') return
 	next()
 }
 
 
-module.exports = { redirectAuth, preventPostAuth, auth }
+module.exports = { isStudent, isTeacher, isAdmin }

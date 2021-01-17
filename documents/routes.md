@@ -2,25 +2,30 @@
 
 **Search:** /search (don't need this view)
 * **Search by category:** /search/cat/:id?page={}&sort={rate, price}
-* **Search by search bar:** /search/name?name={}
-  * **Search by name:** /search/name/:name?page={}&sort={rate, price}
+* **Search by name:** /search/name/:name?page={}&sort={rate, price}
 
 **View course detail:** /course/single/:id
-* **Add to watch list**: POST /course/single/:id/watchlist
+
+* **Add to wishlist**: POST /course/single/:id/wishlist
 * **Buy course**: POST /course/single/:id/buy
 * **Rate course:** POST /course/single/:id/rate
 
 **Account:** /account (don't need this view)
 * **Register view:** /account/register
+  * **Is username exist:** POST /account/check/exist/username
+  * **Is email exist:** POST /account/check/exist/email
   * **Register send data:** POST /account/register
+  * **Confirm register email:** /account/confirm/:username/:secret_key
 * **Login view:** /account/login
+  * **Is password correct:** POST /account/check/correct/password
+  * **Is account verified:** POST /account/check/verify
   * **Login send data:** POST /account/login
 * **Logout:** POST /account/logout 
 
 * **Profile:** /account/profile
   * **Send new profile:** POST /account/profile
-  * **Show watchlist:** /account/profile/watchlist?page={}
-  * **Remove from watchlist:** POST /course/single/:id/watchlist/del
+  * **Show wishlist:** /account/profile/wishlist?page={}
+  * **Remove from wishlist:** /account/profileDELETE /course/single/:id/wishlist
   * **Show bought courses (student) or show owned course (teacher):** /account/profile/course?page={}
 
 **Teacher add new course view:** /course/new
@@ -28,3 +33,16 @@
 * **Edit course view:** /course/single/:id/edit
   * **Send edited data:** POST /course/single/:id/edit
 * **Delete course:** DELETE /course/single/:id
+
+**Admin routes:** /admin
+* **List of student:** /admin/student
+  * **Block account**: POST /admin/student/:username/block
+* **List of teachers:** /admin/teacher
+  * **Block account**: POST /admin/teacher/:username/block
+  * **Add new teacher view:** /admin/teacher/new
+    * **Add a new teacher:** POST /admin/teacher/new
+* **Block course:** POST /admin/course/:id/block
+* **Category view:** /admin/cat
+  * **Add a new category:** POST /admin/cat/new
+  * **Edit category:** POST /admin/cat/:id
+  * **Delete category:** DELETE /admin/cat/:id

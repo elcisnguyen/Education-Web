@@ -15,6 +15,7 @@
   "license": "ISC",
   "homepage": "https://github.com/elcisnguyen/Educational-Web#readme",
   "dependencies": {
+    "@supercharge/strings": "^1.17.1",
     "bcrypt": "^5.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -22,7 +23,9 @@
     "express-handlebars-sections": "^1.0.1",
     "express-mysql-session": "^2.1.5",
     "express-session": "^1.17.1",
+    "moment": "^2.29.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.17",
     "numeral": "^2.0.6",
     "uuid": "^8.3.2"
   },

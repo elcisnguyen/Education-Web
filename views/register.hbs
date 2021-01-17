@@ -7,6 +7,42 @@
  
  {{#section 'footer'}}
     <script src="/public/js/login.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                e.preventDefault()
+                failed = false
+
+                $.ajax({
+                    url: '/account/check/exist/email',
+                    type: 'POST',
+                    data: { email: $('#email').val() },
+                    async: false,
+                    success: (data) => {
+                        if (data.status) {
+                        	failed = true
+                        	return $('#msg').text('Email ' + $('#email').val() + ' is already registered.')
+                        }
+                    }
+                })
+
+                $.ajax({
+                    url: '/account/check/exist/username',
+                    type: 'POST',
+                    data: { username: $('#username').val() },
+                    async: false,
+                    success: (data) => {
+                        if (data.status) {
+                            failed = true
+                        	return $('#msg').text('Username ' + $('#username').val() + ' is already existed.')
+                        }
+                    }
+                })
+
+                if (!failed) $('form').off('submit').submit()
+            })
+        })
+    </script>
  {{/section}}
 {{!-- ----------------------------------------------- --}}
 <!-- If you could find a way to make the footer stick at the bottom, then delete the div below-->
@@ -27,31 +63,28 @@
                                             Join us now!
                             </p>    
                         </div>
-                        <form action="/account/register" method="post">
+                        <form method="post" action="/account/register">
                             <div class="form-group first">
                                 <label for="fullname">Full name</label>
-                                <input type="text" class="form-control" id="fullname" name="fullname" {{#if fullname}}value={{fullname}}{{/if}} required>
+                                <input type="text" class="form-control" id="fullname" name="fullname" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" {{#if email}}value={{email}}{{/if}} required>
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" {{#if username}}value={{username}}{{/if}} required>
+                                <input type="text" class="form-control" id="username" name="username" required>
                             </div>
                             <div class="form-group last mb-4">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
 
-                            {{#if err}}
                             <div class="d-flex mb-3 align-items-center">
-                                <p style="color: red !important;">{{err}}</p>
+                                <p style="color: red !important;" id="msg"></p>
                             </div>
-                            {{/if}}
 
-                            {{!-- <input type="submit" value="Log in" class="btn btn-danger"> --}}
                             <div class="d-grid gap-2">
                                 <button class="btn btn-warning" type="submit">Sign Up</button>
                             </div> 

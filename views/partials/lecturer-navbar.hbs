@@ -38,20 +38,20 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="action">
                             <li>
-                                <a class="dropdown-item" href="#">Create a new course</a>
+                                <a class="dropdown-item" href="/course/new">Create a new course</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">My teaching</a>
+                                <a class="dropdown-item" href="/account/profile/course/teaching">My teaching</a>
                             </li>
                              <li>
-                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="/account/profile">Profile</a>
                             </li>                    
                         </ul>
                     </li>
                 </ul>
 
-                <form method="GET" action="/search/name" class="d-flex">
-                    <input class="form-control vw-50 ms-2" type="search" placeholder="Search for anything" aria-label="Search" name="name">
+                <form method="GET" class="d-flex" id="search-form">
+                    <input class="form-control vw-50 ms-2" type="search" placeholder="Search for anything" aria-label="Search" name="name" id="name">
                     <button class="btn btn-danger ms-2" type="submit">Search</button>
                 </form>
 
@@ -63,3 +63,12 @@
             </div>
         </div>
     </nav>
+
+   <script>
+       $(document).ready(() => {
+           $('#search-form').on('submit', e => {
+               e.preventDefault()
+               $('#search-form').attr('action', `/search/name/${$('#name').val()}`).off('submit').submit()
+           })
+       })
+   </script>

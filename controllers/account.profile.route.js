@@ -84,5 +84,9 @@ router.get('/course', (req, res) => {
 	res.render('my-courses')
 })
 
+router.get('/course/teaching', (req, res) => {
+	res.render('my-teaching')
+})
+
 
 module.exports = router

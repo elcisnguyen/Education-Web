@@ -2,14 +2,37 @@ const db = require('../utils/db')
 
 
 module.exports = {
-	async single(condition) {
-		const [rows] = await db.load('*', 'general_credential', condition)
+	async verify(username) {
+		await db.query(`
+			update general_credential set secret_key = 'OK' where username = '${username}'
+		`)
+	},
+
+	async singleByUsername(username) {
+		const [rows] = await db.query(`
+			select * 
+			from general_credential
+			where username = '${username}'
+		`)
+		if (rows.length === 0) return null
+		return rows[0]
+	},
+
+	async singleByEmail(email) {
+		const [rows] = await db.query(`
+			select * 
+			from general_credential
+			where email = '${email}'
+		`)
 		if (rows.length === 0) return null
 		return rows[0]
 	},
 
 	async add(user) {
-		const [rows] = await db.insert('general_credential', user)
+		const [rows] = await db.query(`
+			insert into general_credential(username, permission, password_hash, fullname, email, secret_key)
+			values ('${user.username}', 'STUDENT', '${user.password_hash}', '${user.fullname}', '${user.email}', '${user.secret_key}')
+		`)
 		return rows
 	},
 
@@ -46,7 +69,17 @@ module.exports = {
 		}
 	},
 
-	async pageWatchlist(id, pageNum) {
+	async wishlist(username) {
+		const [rows] = await db.query(`
+			select *
+			from student_wishlist
+			where student = '${username}'
+		`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async pageWishlist(id, pageNum) {
 		const offset = Math.max((pageNum - 1) * +process.env.PAGINATE, 0)
 		const [rows] = await db.query('' +
 			'select *\n' +
@@ -66,7 +99,7 @@ module.exports = {
 		return rows
 	},
 
-	async numPageWatchlist(id) {
+	async numPageWishlist(id) {
 		const [rows] = await db.query('' +
 			'select count(*) as length\n' +
 			'from student_watchlist w \n' +

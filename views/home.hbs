@@ -38,19 +38,15 @@
     <!-- Show 5-->
     <div><h3>Most regular courses in the past week</h3></div>
     <div class="owl-carousel owl-theme">
-        {{#each briefMostRegular}}
+        {{#each briefHighlightsPastWeek}}
         <div class="item">
             <a href="/course/single/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a> <!-- w = h*1.67-->
             <b>{{this.title}}</b>
             <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
             {{this.fullname}}
-            <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
+            <div>{{formatNum this.rate}}⭐ ({{this.num_rate}} ratings)</div>
             <b style="font-size: large;">
-                {{#if this.discount}}
-                    ${{discountPrice this.price this.discount}} | <span style="color: #f32121;">{{this.discount}}%off</span>
-                {{else}}
-                    ${{this.price}}
-                {{/if}}
+                ${{this.final_price}} {{#if this.discount}}| <span style="color: #f32121;">{{this.discount}}%off</span>{{/if}}
             </b>
         </div>
         {{/each}}
@@ -65,13 +61,9 @@
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 {{this.fullname}}
-                <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
+                <div>{{formatNum this.rate}}⭐ ({{this.num_rate}} ratings)</div>
                 <b style="font-size: large;">
-                    {{#if this.discount}}
-                        ${{discountPrice this.price this.discount}} | <span style="color: #f32121;">{{this.discount}}%off</span>
-                    {{else}}
-                        ${{this.price}}
-                    {{/if}}
+                    ${{this.final_price}} {{#if this.discount}}| <span style="color: #f32121;">{{this.discount}}%off</span>{{/if}}
                 </b>
             </div>
         {{/each}}
@@ -86,13 +78,9 @@
                 <b>{{this.title}}</b>
                 <h6 style="margin-bottom: 0;">{{this.cat_title}} <br></h6>
                 {{this.fullname}}
-                <div>{{formatRate this.rate}}⭐ ({{this.num_rate}})</div>
+                <div>{{formatNum this.rate}}⭐ ({{this.num_rate}} ratings)</div>
                 <b style="font-size: large;">
-                    {{#if this.discount}}
-                        ${{discountPrice this.price this.discount}} | <span style="color: #f32121;">{{this.discount}}%off</span>
-                    {{else}}
-                        ${{this.price}}
-                    {{/if}}
+                    ${{this.final_price}} {{#if this.discount}}| <span style="color: #f32121;">{{this.discount}}%off</span>{{/if}}
                 </b>
             </div>
         {{/each}}
@@ -101,7 +89,7 @@
     <!-- Show 5-->
     <div><h3>Most registered fields in the past week</h3></div>
     <div class="owl-carousel owl-theme">
-        {{#each mostRegistered}}
+        {{#each mostRegisteredCat}}
         <div class="item" style="text-align: center;">
             <a href="/search/cat/{{this.id}}"><img src="{{this.ava_link}}" height="150px" width="250px"></a>
             <b>{{this.title}}</b>

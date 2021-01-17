@@ -9,33 +9,7 @@ const mysqlOpts = {
 }
 const pool = mysql.createPool(mysqlOpts)
 
+function query(sql) { return pool.query(sql) }
 
-module.exports = {
-	load(columns, schema, condition) {
-		let sql
 
-		if (condition) sql = `select ${columns} from ${schema} where ?`
-		else sql = `select ${columns} from ${schema}`
-
-		return pool.query(sql, condition)
-	},
-
-	insert(schema, entity) {
-		const sql = `insert into ${schema} set ?`
-		return pool.query(sql, entity)
-	},
-
-	delete(schema, condition) {
-		const sql = `delete from ${schema} where ?`
-		return pool.query(sql, condition)
-	},
-
-	update(schema, new_data, condition) {
-		const sql = `update ${schema} set ? where ?`
-		return pool.query(sql, [new_data, condition])
-	},
-
-	query(sql) {
-		return pool.query(sql)
-	}
-}
+module.exports = { query }

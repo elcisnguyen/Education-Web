@@ -8,7 +8,7 @@ router.use('/single', require('./course.single.route'))
 
 router.route('/new')
 	.get((req, res) => {
-		res.send('New course view')
+		res.render('create-new-course')
 	})
 	.post((req, res) => {
 		res.send('Post req to add new course')
