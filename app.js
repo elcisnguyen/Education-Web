@@ -34,6 +34,10 @@ app.engine('hbs', exphbs({
 			if (a > b) return opts.fn(this)
 			return opts.inverse(this)
 		},
+		isPreviewable(idx, opts) {
+			if (idx < +process.env.PREVIEW_MATERIAL) return opts.fn(this)
+			return opts.inverse(this)
+		}
 	}
 }))
 app.set('view engine', 'hbs')

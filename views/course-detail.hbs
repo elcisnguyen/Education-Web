@@ -82,19 +82,50 @@ l
                 {{#each syllabus}}
                 <li>
                     <h6>{{this.title}}</h6>
-                    <a href="#{{this.randomID}}" data-bs-toggle="modal" data-target="#{{this.randomID}}">View</a>
-                    <hr>
+                    {{#if ../user}}
+                        {{#if ../is_purchased}}
+                            <a href="#{{this.randomID}}" data-bs-toggle="modal" data-target="#{{this.randomID}}">View</a>
 
-                    <div class="modal fade" id="{{this.randomID}}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                                <div class="vid">
-                                    <iframe width="560" height="315" src="{{this.vid_link}}" allowfullscreen=""></iframe>
+                            <div class="modal fade" id="{{this.randomID}}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="vid">
+                                            <iframe width="560" height="315" src="{{this.vid_link}}" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div>
                                 </div>
-                        </div>
-                        </div>
-                    </div>
+                            </div>
+                        {{else}}
+                            {{#isPreviewable @index}}
+                                <a href="#{{this.randomID}}" data-bs-toggle="modal" data-target="#{{this.randomID}}">View</a>
 
+                                <div class="modal fade" id="{{this.randomID}}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <div class="vid">
+                                                <iframe width="560" height="315" src="{{this.vid_link}}" allowfullscreen=""></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/isPreviewable}}
+                        {{/if}}
+                    {{else}}
+                        {{#isPreviewable @index}}
+                            <a href="#{{this.randomID}}" data-bs-toggle="modal" data-target="#{{this.randomID}}">View</a>
+
+                            <div class="modal fade" id="{{this.randomID}}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="vid">
+                                            <iframe width="560" height="315" src="{{this.vid_link}}" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/isPreviewable}}
+                    {{/if}}
+                    <hr>
                 </li>
                 {{/each}}
             </ul>
