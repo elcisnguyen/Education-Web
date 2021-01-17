@@ -243,5 +243,11 @@ module.exports = {
 		await db.query(`
 			insert into student_wishlist(student, course_id) values('${student}', '${course_id}')
 		`)
+	},
+
+	async purchase(student, course_id) {
+		await db.query(`
+			insert into student_course(student, course_id) values('${student}', '${course_id}')
+		`)
 	}
 }

@@ -19,6 +19,11 @@ router.get('/:id', async (req, res) => {
 		if (wishlist) wishlist.forEach(e => {
 			if (e.course_id === req.params.id) res.locals.is_wished = true
 		})
+
+		const purchaseList = await accountModel.purchaseList(req.session.user.username)
+		if (purchaseList) purchaseList.forEach(e => {
+			if (e.course_id === req.params.id) res.locals.is_purchased = true
+		})
 	}
 	res.locals.briefHighlightsSameCat = await courseModel.briefHighlightsSameCat(res.locals.course.id, res.locals.course.cat_id)
 	await courseModel.addView(req.params.id)
@@ -39,11 +44,12 @@ router.post('/:id/wishlist', isStudent, async (req, res) => {
 // 		await courseModel.removeFromWatchlist(req.params.id, req.session.user.id)
 // 		res.render('watchlist')
 // 	})
-//
-// router.post('/:id/buy', (req, res) => {
-// 	res.send(`Post req to buy course #${req.params.id}`)
-// })
-//
+
+router.post('/:id/purchase', isStudent, async (req, res) => {
+	await courseModel.purchase(req.session.user.username, req.params.id)
+	return res.redirect(`/course/single/${req.params.id}`)
+})
+
 // router.post('/:id/rate', (req, res) => {
 // 	res.send(`Post req to rate course #${req.params.id}`)
 // })

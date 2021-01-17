@@ -79,6 +79,16 @@ module.exports = {
 		return rows
 	},
 
+	async purchaseList(username) {
+		const [rows] = await db.query(`
+			select *
+			from student_course
+			where student = '${username}'
+		`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
 	async pageWishlist(id, pageNum) {
 		const offset = Math.max((pageNum - 1) * +process.env.PAGINATE, 0)
 		const [rows] = await db.query('' +

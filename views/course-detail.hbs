@@ -32,8 +32,8 @@
                         <p><strong>Last updated: </strong>{{course.last_modified}}</p>
                     </div>
                     <div class="col d-grid col-3 mx-auto">
-                        <form action="/course/single/{{course.id}}/buy" method="post">
-                            <button class="btn btn-warning btn-lg" type="submit">Purchase<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-minecart" viewBox="0 0 16 16">
+                        <form action="/course/single/{{course.id}}/purchase" method="post">
+                            <button class="btn btn-warning btn-lg {{#if is_purchased}}disabled{{/if}}" type="submit">Purchase<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-minecart" viewBox="0 0 16 16">
                                 <path d="M4 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM.115 3.18A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 14 12H2a.5.5 0 0 1-.491-.408l-1.5-8a.5.5 0 0 1 .106-.411zm.987.82l1.313 7h11.17l1.313-7H1.102z"/>
                             </svg></button>
                         </form>

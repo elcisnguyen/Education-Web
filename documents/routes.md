@@ -5,9 +5,8 @@
 * **Search by name:** /search/name/:name?page={}&sort={rate, price}
 
 **View course detail:** /course/single/:id
-
 * **Add to wishlist**: POST /course/single/:id/wishlist
-* **Buy course**: POST /course/single/:id/buy
+* **Buy course**: POST /course/single/:id/purchase
 * **Rate course:** POST /course/single/:id/rate
 
 **Account:** /account (don't need this view)
