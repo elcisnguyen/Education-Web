@@ -36,18 +36,17 @@ router.get('/:id', async (req, res) => {
 
 router.post('/:id/wishlist', isStudent, async (req, res) => {
 	await courseModel.addToWishlist(req.session.user.username, req.params.id)
-	return res.redirect(`/course/single/${req.params.id}`)
+	return res.json({ status: true })
 })
 
-// router.route('/:id/watchlist/del')
-// 	.post(auth, async (req, res) => {
-// 		await courseModel.removeFromWatchlist(req.params.id, req.session.user.id)
-// 		res.render('watchlist')
-// 	})
+router.delete('/:id/wishlist', async (req, res) => {
+	await courseModel.removeFromWishlist(req.params.id, req.session.user.username)
+	return res.json({ status: true })
+})
 
 router.post('/:id/purchase', isStudent, async (req, res) => {
 	await courseModel.purchase(req.session.user.username, req.params.id)
-	return res.redirect(`/course/single/${req.params.id}`)
+	return res.json({ status: true })
 })
 
 // router.post('/:id/rate', (req, res) => {

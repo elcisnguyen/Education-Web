@@ -1,0 +1,78 @@
+{{#section 'header'}}
+    <link rel="stylesheet" href="/public/css/search-result.css">
+{{/section}}
+ 
+{{!-- ----------------------------------------------- --}}
+<hr>
+<div class="container">
+    <div style="width: 90%; margin: 20px auto 0 auto;">
+        {{#if wishlist}}
+            <div class="search-result-item">
+                <div class="search-result-item-body">
+                    {{#each wishlist}}
+                        <div class="row">
+                            <div class="col-3">
+                                <a href="/course/single/{{this.id}}"><img class="img-fluid" src="{{this.ava_link}}" alt=""></a>
+                            </div>
+                            <div class="col-7">
+                                <h4 class="search-result-item-heading"><a href="/course/single/{{this.id}}">{{this.title}}</a></h4>
+                                <span class="field">{{this.cat_title}} | </span>
+                                <span class="lecturer">{{this.fullname}}</span>
+                                <div>{{this.small_description}}</div>
+                                <div>{{formatNum this.rate}} ⭐ ({{this.num_rate}} ratings)</div>
+                            </div>
+
+                            <div class="col">
+                                <div>
+                                    {{#isGreater this.rate 3}}
+                                        <span class="badge bg-warning fw-bold">Bestseller</span>
+                                    {{/isGreater}}
+                                    {{#if this.is_new}}
+                                        <span class="badge bg-danger fw-bold">New</span>
+                                    {{/if}}
+                                </div>
+                                <div style="margin-top: 0.5rem;">
+                                    <button id="{{this.randomID}}" data-id="{{this.id}}" type="button" class="btn btn-secondary rounded-pill">Remove</button>
+
+                                    <script>
+                                        $('#{{this.randomID}}').on('click', (e) => {
+                                            $.ajax({
+                                                url: '/course/single/' + $('#{{this.randomID}}').data('id') + '/wishlist',
+                                                type: 'DELETE',
+                                                async: false,
+                                            })
+                                            location.reload()
+                                        })
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    {{/each}}
+                </div>
+            </div>
+
+        {{else}}
+            <div style="text-align: center;">
+                <p>You currently have no wishes course.</p>
+            </div>
+        {{/if}}
+
+        <nav class="pagination-margin">
+            <ul class="pagination pagination-lg justify-content-center">
+                <li class="page-item {{#unless this.wishlist}}disabled{{/unless}} {{#if this.is_first}}disabled{{/if}}">
+                    <a class="page-link" href="?page={{this.prev_page}}">Previous</a>
+                </li>
+                {{#each page_numbers}}
+                    <li class="page-item {{#if this.isCurrentPage}}disabled{{/if}}">
+                    <a class="page-link active" href="{{#unless this.isCurrentPage}}?page={{value}}{{/unless}}">{{this.value}}</a>
+                    </li>
+                {{/each}}
+                <li class="page-item {{#unless this.wishlist}}disabled{{/unless}} {{#if this.is_last}}disabled{{/if}}">
+                    <a class="page-link" href="?page={{this.next_page}}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<hr>

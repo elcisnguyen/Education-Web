@@ -1,7 +1,9 @@
 const express = require('express')
 const accountModel = require('../models/account.model')
-const { isAuth } = require('../middlewares/utils.mdw')
+const { isAuth, isStudent } = require('../middlewares/utils.mdw')
+const moment = require('moment')
 const bcrypt = require('bcrypt')
+const Str = require('@supercharge/strings')
 
 
 const router = express.Router({ mergeParams: true })
@@ -28,7 +30,6 @@ router.post('/', async (req, res) => {
 	let newUser = {
 		fullname: req.body.fullname,
 		email: req.body.email,
-		username: req.body.username,
 	}
 	if (req.body.new_password) newUser.password = bcrypt.hashSync(req.body.new_password, +process.env.BCRYPT_SALT)
 
@@ -38,14 +39,18 @@ router.post('/', async (req, res) => {
 	req.session.user.email = newUser.email
 	if (req.body.new_password) req.session.user.password = newUser.password
 
-	res.redirect('/account/profile')
+	return res.json({ status: true })
 })
 
-router.get('/watchlist', async (req, res) => {
-	const page = Math.min(Math.max(1, req.query.page || 1), await accountModel.numPageWatchlist(req.session.user.id))
-	res.locals.watchlist = await accountModel.pageWatchlist(req.session.user.id, page)
+router.get('/wishlist', isStudent, async (req, res) => {
+	const page = Math.min(Math.max(1, req.query.page || 1), await accountModel.numPageWishlist(req.session.user.username))
+	res.locals.wishlist = await accountModel.pageWishlist(req.session.user.username, page)
+	if (res.locals.wishlist) res.locals.wishlist.forEach(c => {
+		c.is_new = c.date_created > moment().subtract(7, 'days')
+		c.randomID = Str.random()
+	})
 
-	const nPage = await accountModel.numPageWatchlist(req.session.user.id)
+	const nPage = await accountModel.numPageWishlist(req.session.user.username)
 	const pageNumbers = []
 	for (let i = 1; i <= nPage; ++i) {
 		pageNumbers.push({
@@ -59,7 +64,7 @@ router.get('/watchlist', async (req, res) => {
 	res.locals.next_page = +page + 1
 	res.locals.prev_page = +page - 1
 
-	res.render('watchlist')
+	res.render('wishlist')
 })
 
 router.get('/course', (req, res) => {

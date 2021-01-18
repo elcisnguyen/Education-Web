@@ -26,7 +26,7 @@
   * **Is the new email available:** POST /account/profile/check/available/email
   * **Send new profile:** POST /account/profile
   * **Show wishlist:** /account/profile/wishlist?page={}
-  * **Remove from wishlist:** /account/profileDELETE /course/single/:id/wishlist
+  * **Remove from wishlist:** DELETE /course/single/:id/wishlist
   * **Show bought courses (student) or show owned course (teacher):** /account/profile/course?page={}
 
 **Teacher add new course view:** /course/new

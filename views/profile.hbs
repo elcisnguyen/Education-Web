@@ -44,7 +44,19 @@
                     return $('#msg').text('Incorrect confirming password.')
                 }
 
-                if (!failed) $('form').off('submit').submit()
+                if (!failed) {
+                    $.ajax({
+                        url: '/account/profile',
+                        type: 'POST',
+                        data: {
+                        	fullname: $('#fullname').val(),
+                            email: $('#email').val(),
+                            new_password: $('#new-password').val()
+                        },
+                        async: false,
+                    })
+                    location.reload()
+                }
             })
         })
     </script>
@@ -66,7 +78,7 @@
                             <h3>Your Profile</h3>
                             <p class="mb-4" style="color: #393e46">Your profile is how other users see you accross the site. It's up to you how much or how little information you choose to provide.</p>    
                         </div>
-                        <form id="edit-form" action="/account/profile" method="post">
+                        <form id="edit-form">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" value="{{user.username}}" disabled>

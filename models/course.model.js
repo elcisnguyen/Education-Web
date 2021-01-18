@@ -231,13 +231,12 @@ module.exports = {
 		`)
 	},
 
-	// async removeFromWatchlist(course_id, student_id) {
-	// 	const [rows] = await db.query('' +
-	// 		'delete from student_watchlist\n' +
-	// 		`where student_id = '${student_id}' and course_id = '${course_id}'`)
-	// 	if (rows.length === 0) return null
-	// 	return rows
-	// },
+	async removeFromWishlist(course_id, username) {
+		await db.query(`
+			delete from student_wishlist
+			where student = '${username}' and course_id = '${course_id}'
+		`)
+	},
 
 	async addToWishlist(student, course_id) {
 		await db.query(`
