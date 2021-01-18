@@ -15,18 +15,24 @@
 <div class="head">
   <div class="head-content">
       <div class="row">
-           <div class="col-5">
-              <h1>Course infomations</h1>
+          <h1>Course infomations</h1>
+          <div class="col-7">
               <form action="" method="post">
-                  <div class="mb-sm-2">
+                  <div class="mb-sm-2 w-75">
                       <input type="text" name="course-name"  class="form-control" id="course-name" placeholder="Course name">
                   </div>
 
-                  <div class="mb-sm-2">
+                  <div class="mb-sm-2 w-75">
                     <input type="url" name="avatar" id="avatar"  class="form-control" placeholder="Avatar URL">
                   </div>
 
-                  <div class="row">
+                  <select class="form-select mb-sm-2 w-50">
+                    <option selected disabled>Category</option>
+                    <option value="1">Android Development</option>
+                    <option value="2">Business analytics & Intelligence</option>
+                  </select>
+
+                  <div class="row w-50">
                     <div class="col-7 mb-sm-2">
                       <input type="number"  min="0.00" step="1.00" name="price" id="price"  class="form-control" placeholder="Price in number">
                     </div>
@@ -36,18 +42,19 @@
                   </div>
 
                   <div class="mb-sm-2">
-                      <input type="text" name="short-description" class="form-control" id="short-description" placeholder="Short description">
+                      <input type="text" name="short-description" class="form-control w-75" id="short-description" placeholder="Short description">
                   </div>
               </form>
 
-              <select class="form-select">
+              <select class="form-select w-25">
+                <option selected disabled>Status</option>
                 <option value="1">On going</option>
                 <option value="2">Complete</option>
               </select>
           </div>
 
-          <div class="col-2">
-          </div>
+          {{!-- <div class="col-1">
+          </div> --}}
 
           <div class="col">
               <img src="/public/img/python-ava.jpg" alt="Course avatar" width="350px"; height="260px">
