@@ -1,4 +1,5 @@
 const db = require('../utils/db')
+const moment = require('moment')
 
 
 module.exports = {
@@ -247,6 +248,12 @@ module.exports = {
 	async purchase(student, course_id) {
 		await db.query(`
 			insert into student_course(student, course_id) values('${student}', '${course_id}')
+		`)
+	},
+
+	async rate(student, course_id, data) {
+		await db.query(`
+			insert into student_feedback(student_id, course_id, rate, feedback, date_created) values('${student}', '${course_id}', ${data.rate}, '${data.feedback}', '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}')
 		`)
 	}
 }

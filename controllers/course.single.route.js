@@ -24,6 +24,11 @@ router.get('/:id', async (req, res) => {
 		if (purchaseList) purchaseList.forEach(e => {
 			if (e.course_id === req.params.id) res.locals.is_purchased = true
 		})
+
+		const rateList = await accountModel.rateList(req.session.user.username)
+		if (rateList) rateList.forEach(e => {
+			if (e.course_id === req.params.id) res.locals.is_rated = true
+		})
 	}
 	res.locals.briefHighlightsSameCat = await courseModel.briefHighlightsSameCat(res.locals.course.id, res.locals.course.cat_id)
 	await courseModel.addView(req.params.id)
@@ -49,10 +54,11 @@ router.post('/:id/purchase', isStudent, async (req, res) => {
 	return res.json({ status: true })
 })
 
-// router.post('/:id/rate', (req, res) => {
-// 	res.send(`Post req to rate course #${req.params.id}`)
-// })
-//
+router.post('/:id/rate', isStudent, async (req, res) => {
+	await courseModel.rate(req.session.user.username, req.params.id, req.body)
+	return res.json({ status: true })
+})
+
 // router.route('/:id/edit')
 // 	.get((req, res) => {
 // 		res.send(`Edit course #${req.params.id} view`)
