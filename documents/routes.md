@@ -41,7 +41,8 @@
   * **Block account**: POST /admin/teacher/:username/block
   * **Add new teacher view:** /admin/teacher/new
     * **Add a new teacher:** POST /admin/teacher/new
-* **Block course:** POST /admin/course/:id/block
+* **List of course:** /admin/course
+  * **Block course:** POST /admin/course/:id/block
 * **Category view:** /admin/cat
   * **Add a new category:** POST /admin/cat/new
   * **Edit category:** POST /admin/cat/:id

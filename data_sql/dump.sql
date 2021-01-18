@@ -209,6 +209,7 @@ CREATE TABLE `general_credential` (
 -- Dumping data for table `general_credential`
 --
 
+INSERT INTO `general_credential` VALUES ('admin','ADMIN','$2b$10$64dSkbvnmfiEOPTAHmDzD.6DZTxdeptG5A0rlolAsmyWOzhodKvpS','admin','admin@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610470583/ava/noavatar_og91yw.png',0,'OK');
 INSERT INTO `general_credential` VALUES ('dbt','TEACHER','$2b$10$Zdk29qJfSBw.LMBfndt9fuRAUCXsCHiIOG/leZFgn8ETD0wA5W86S','Dinh Ba Tien','dbt@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610470583/ava/noavatar_og91yw.png',0,'OK');
 INSERT INTO `general_credential` VALUES ('giahuy','STUDENT','$2b$10$/ziD9njgNhKy5ydYgB6YheqcmK/Alc2KgflHzDAMSARgnjA1gxL1q','Pham Gia Huy','giahuy@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610470583/ava/noavatar_og91yw.png',0,'OK');
 INSERT INTO `general_credential` VALUES ('htt','TEACHER','$2b$10$dUVIIYLsKVkEeNnu2ZseWOGhWP4uD6XiGQLZzE/JhNDx7Iz2B7AH.','Ho Tuan Thanh','htt@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610470583/ava/noavatar_og91yw.png',0,'OK');
@@ -340,4 +341,4 @@ CREATE TABLE `student_wishlist` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-18 10:08:08
+-- Dump completed on 2021-01-18 13:02:49
