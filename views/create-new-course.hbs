@@ -3,70 +3,112 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-    <link rel="stylesheet" href="/public/owlcarousel/assets/owl.carousel.min.css">
+    {{!-- <link rel="stylesheet" href="/public/owlcarousel/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="/public/owlcarousel/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 
-    <script src="/public/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/public/owlcarousel/owl.carousel.min.js"></script> --}}
     <link rel="stylesheet" href="/public/css/course-detail.css">
 {{/section}}
 {{!-- --------------------------------------------------------------- --}}
 <!-- Course brief-->
 <div class="head">
   <div class="head-content">
-      <h4>Course infomations</h4>
       <div class="row">
-           <div class="col-6">
+           <div class="col-5">
+              <h1>Course infomations</h1>
               <form action="" method="post">
-                  <div class="form-group mb-sm-2">
-                      <input type="text" name="name"  class="form-control my-input" id="name" placehoflder="Name">
+                  <div class="mb-sm-2">
+                      <input type="text" name="course-name"  class="form-control" id="course-name" placeholder="Course name">
                   </div>
-                  <div class="form-group mb-sm-2">
-                      <input type="text" name="short-description" class="form-control my-input" id="short-description" placeholder="Short description">
+
+                  <div class="mb-sm-2">
+                    <input type="url" name="avatar" id="avatar"  class="form-control" placeholder="Avatar URL">
+                  </div>
+
+                  <div class="row">
+                    <div class="col-7 mb-sm-2">
+                      <input type="number"  min="0.00" step="1.00" name="price" id="price"  class="form-control" placeholder="Price in number">
+                    </div>
+                    <div class="col mb-sm-2">
+                      <input type="number"  min="0" step="1" name="discount" id="discount"  class="form-control" placeholder="% Discount">
+                    </div>
+                  </div>
+
+                  <div class="mb-sm-2">
+                      <input type="text" name="short-description" class="form-control" id="short-description" placeholder="Short description">
                   </div>
               </form>
-             
+
+              <select class="form-select">
+                <option value="1">On going</option>
+                <option value="2">Complete</option>
+              </select>
           </div>
+
+          <div class="col-2">
+          </div>
+
           <div class="col">
-            <form action="" method="post">
-              <div class="form-group mb-sm-2">
-                <input type="number" name="price" id="price"  class="form-control my-input" placeholder="Price in number">
-              </div>
-              <div class="form-group mb-sm-2">
-                <input type="url" name="avatar" id="avatar"  class="form-control my-input" placeholder="Avatar URL">
-              </div>
-            </form>
+              <img src="/public/img/python-ava.jpg" alt="Course avatar" width="350px"; height="260px">
           </div>
       </div>
   </div>
 </div>
 <!--Course detail-->
+<!-- Tab name-->
+
 <div class="body border shadow-lg">
   <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
           <a class="nav-link active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-</svg> Description</a>
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+          </svg> Description</a>
       </li>
        <li class="nav-item" role="presentation">
           <a class="nav-link" id="syllabus-tab" data-bs-toggle="tab" href="#syllabus" role="tab" aria-controls="syllabus" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-fill" viewBox="0 0 16 16">
-<path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-</svg> Syllabus</a>
+          <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+          </svg> Syllabus</a>
       </li>
   </ul>
-
+<!-- Tab content-->
   <div class="tab-content p-4" id="myTabContent">
       <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
           <div id="summernote"></div>
+
       </div>
 
       <div class="tab-pane fade" id="syllabus" role="tabpanel" aria-labelledby="syllabus-tab">
-          <h4>Courses content</h4>
-              <button type="submit" class="btn" style="background-color: #e74c3c; color: #fff">Add new</button>
+          <div style="width:50%">
+            <h4>Courses content</h4>
+            <form>
+              <ul>
+                <li>
+                  <input type="text" name="lesson-title" class="form-control mb-sm-2" id="lesson-title1" placeholder="Lesson title">
+                  <input type="text" name="video-url" class="form-control mb-sm-2" id="video-url1" placeholder="Video url">
+                </li>
+                <li>
+                  <input type="text" name="lesson-title" class="form-control mb-sm-2" id="lesson-title2" placeholder="Lesson title">
+                  <input type="text" name="video-url" class="form-control mb-sm-2" id="video-url2" placeholder="Video url">
+                </li>
+                <li>
+                  <input type="text" name="lesson-title" class="form-control mb-sm-2" id="lesson-title3" placeholder="Lesson title">
+                  <input type="text" name="video-url" class="form-control mb-sm-2" id="video-url3" placeholder="Video url">
+                </li>
+                <a href=""><button type="submit" class="btn mb-sm-2" style="background-color: #e74c3c; color: #fff;">New lesson</button></a>
+              </ul>
+            </form>
+           </div>
+
       </div>
-      
-  </div>
+  </div> <!--End of tab content-->
+  
 </div>
+
+<div class="body">
+  <a href=""><button type="submit" class="btn" style="background-color: #e74c3c; color: #fff;">Save</button></a>
+</div>
+
 
 {{!-- --------------------------------------------------------------- --}}
 
@@ -74,7 +116,7 @@
   $('#summernote').summernote({
     placeholder: 'Course description',
     tabsize: 2,
-    height: 120,
+    height: 208,
     toolbar: [
       ['style', ['style']],
       ['font', ['bold', 'underline', 'clear']],
