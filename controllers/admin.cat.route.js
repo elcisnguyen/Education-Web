@@ -17,19 +17,20 @@ router.get('/', async (req, res) => {
 		if (c.children) c.children.forEach(child => {
 			child.sub_cat_name_id = uuidv4()
 			child.sub_cat_btn_id = uuidv4()
+			child.sub_cat_msg_id = uuidv4()
 		})
 	})
 	res.render('manage-categories')
 })
 
 router.post('/check/available/parentcat', async (req, res) => {
-	const cat = await categoryModel.singleParentByName(req.body.name)
+	const cat = await categoryModel.singleParentByName(req.body.name, req.body.excludeID)
 	if (cat) return res.json({ status: false })
 	return res.json({ status: true })
 })
 
 router.post('/check/available/subcat', async (req, res) => {
-	const cat = await categoryModel.singleSubByName(req.body.name, req.body.parentID)
+	const cat = await categoryModel.singleSubByName(req.body.name, req.body.parentID, req.body.excludeID)
 	if (cat) return res.json({ status: false })
 	return res.json({ status: true })
 })
@@ -41,8 +42,22 @@ router.post('/new', async (req, res) => {
 })
 
 router.post('/:id', async (req, res) => {
-	console.log(req.body.name)
-	console.log(req.body.child)
+	await categoryModel.update(req.params.id, {
+		name: req.body.name,
+		children: req.body.children
+	})
+	return res.json({ status: true })
+})
+
+router.post('/check/deletable', async (req, res) => {
+	const cat = await categoryModel.allCourses(req.body.id)
+	if (cat) return res.json({ status: false })
+	return res.json({ status: true })
+})
+
+router.delete('/:id', async (req, res) => {
+	await categoryModel.delete(req.params.id)
+	return res.json({ status: true })
 })
 
 

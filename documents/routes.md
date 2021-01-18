@@ -49,4 +49,5 @@
   * **Is a new sub cat available:** POST /admin/cat/check/available/subcat
   * **Add a new category:** POST /admin/cat/new
   * **Edit category:** POST /admin/cat/:id
+  * **Is a course deletable:** POST /admin/cat/check/deletable
   * **Delete category:** DELETE /admin/cat/:id

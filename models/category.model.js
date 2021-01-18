@@ -31,22 +31,38 @@ module.exports = {
 		return rows
 	},
 
-	async singleParentByName(name) {
-		const [rows] = await db.query(`
+	async singleParentByName(name, excludeID) {
+		let rows
+
+		if (excludeID) [rows] = await db.query(`
+			select *
+			from category
+			where parent_cat_id is null and title = '${name}' and id != '${excludeID}'
+		`)
+		else [rows] = await db.query(`
 			select *
 			from category
 			where parent_cat_id is null and title = '${name}'
 		`)
+
 		if (rows.length === 0) return null
 		return rows[0]
 	},
 
-	async singleSubByName(name, parentID) {
-		const [rows] = await db.query(`
+	async singleSubByName(name, parentID, excludeID) {
+		let rows
+
+		if (excludeID) [rows] = await db.query(`
+			select c1.*
+			from category c1 left join category c2 on c2.parent_cat_id = c1.id
+			where c2.id is null and c1.parent_cat_id = '${parentID}' and c1.title = '${name}' and c1.id != '${excludeID}'
+		`)
+		else [rows] = await db.query(`
 			select c1.*
 			from category c1 left join category c2 on c2.parent_cat_id = c1.id
 			where c2.id is null and c1.parent_cat_id = '${parentID}' and c1.title = '${name}'
 		`)
+
 		if (rows.length === 0) return null
 		return rows[0]
 	},
@@ -62,6 +78,32 @@ module.exports = {
 		await db.query(`
 			insert into category(id, title, parent_cat_id)
 			values ('${id}', '${name}', '${parentID}')
+		`)
+	},
+
+	async allCourses(id) {
+		const [rows] = await db.query(`
+			select *
+			from course
+			where cat_id = '${id}'
+		`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async delete(id) {
+		await db.query(`
+			delete from category where id = '${id}'
+		`)
+	},
+
+	async update(id, data) {
+		if (data.children) {
+			await db.query(`update category set title = '${data.name}' where id = '${id}'`)
+			data.children.forEach(async (c) => await db.query(`update category set title = '${c.name}' where id = '${c.id}'`))
+		}
+		else await db.query(`
+			update category set title = '${data.name}' where id = '${id}'
 		`)
 	}
 }
