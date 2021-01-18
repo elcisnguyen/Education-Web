@@ -67,12 +67,37 @@ router.get('/wishlist', isStudent, async (req, res) => {
 	res.render('wishlist')
 })
 
-router.get('/course', (req, res) => {
-	res.render('my-courses')
-})
+router.get('/course', isAuth, async (req, res) => {
+	let nPage
+	if (req.session.user.permission === 'STUDENT') nPage = await accountModel.numPageCourseStudent(req.session.user.username)
+	else if (req.session.user.permission === 'TEACHER') nPage = await accountModel.numPageCourseTeacher(req.session.user.username)
 
-router.get('/course/teaching', (req, res) => {
-	res.render('my-teaching')
+	const page = Math.min(Math.max(1, req.query.page || 1), nPage)
+
+	if (req.session.user.permission === 'STUDENT') res.locals.courses = await accountModel.pageCoursesStudent(req.session.user.username, page)
+	else if (req.session.user.permission === 'TEACHER') res.locals.courses = await accountModel.pageCoursesTeacher(req.session.user.username, page)
+
+	if (res.locals.courses) res.locals.courses.forEach(c => {
+		c.is_new = c.date_created > moment().subtract(7, 'days')
+		c.ongoing = c.status === 'INCOMPLETE'
+	})
+
+	const pageNumbers = []
+	for (let i = 1; i <= nPage; ++i) {
+		pageNumbers.push({
+			value: i,
+			isCurrentPage: i === +page
+		})
+	}
+	res.locals.page_numbers = pageNumbers
+	res.locals.is_first = (page === 1)
+	res.locals.is_last = (page === nPage)
+	res.locals.next_page = +page + 1
+	res.locals.prev_page = +page - 1
+
+	if (req.session.user.permission === 'STUDENT') res.render('my-courses')
+	else if (req.session.user.permission === 'TEACHER') res.render('my-teaching')
+
 })
 
 
