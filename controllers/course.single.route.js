@@ -51,6 +51,7 @@ router.delete('/:id/wishlist', async (req, res) => {
 
 router.post('/:id/purchase', isStudent, async (req, res) => {
 	await courseModel.purchase(req.session.user.username, req.params.id)
+	await courseModel.addSub(req.params.id)
 	return res.json({ status: true })
 })
 

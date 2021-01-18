@@ -232,6 +232,12 @@ module.exports = {
 		`)
 	},
 
+	async addSub(id) {
+		await db.query(`
+			update course set total_sub = total_sub + 1 where id = '${id}';
+		`)
+	},
+
 	async removeFromWishlist(course_id, username) {
 		await db.query(`
 			delete from student_wishlist
@@ -247,7 +253,7 @@ module.exports = {
 
 	async purchase(student, course_id) {
 		await db.query(`
-			insert into student_course(student, course_id) values('${student}', '${course_id}')
+			insert into student_course(student, course_id) values('${student}', '${course_id}');
 		`)
 	},
 

@@ -33,7 +33,6 @@
 * **Send new course data:** POST /course/new
 * **Edit course view:** /course/single/:id/edit
   * **Send edited data:** POST /course/single/:id/edit
-* **Delete course:** DELETE /course/single/:id
 
 **Admin routes:** /admin
 * **List of student:** /admin/student
