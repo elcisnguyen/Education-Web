@@ -55,6 +55,19 @@
                     }
                 })
 
+                $.ajax({
+                    url: '/account/check/block',
+                    type: 'POST',
+                    data: { username: $('#username').val() },
+                    async: false,
+                    success: (data) => {
+                        if (data.status) {
+                            failed = true
+                            return $('#msg').text('This account is temporarily blocked.')
+                        }
+                    }
+                })
+
                 if (!failed) $('#login-form').off('submit').submit()
             })
         })

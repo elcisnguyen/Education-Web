@@ -1,93 +1,202 @@
-<hr>
+<script>
+    $(document).ready(() => {
+        $('#new-cat-btn').on('click', (e) => {
+            let failed = false
 
+            if ($('#new-cat-name').val() === '') {
+                failed = true
+                return $('#new-cat-msg').text('Category can not be empty.')
+            }
+
+            if (!failed) $.ajax({
+                url: '/admin/cat/check/available/parentcat',
+                type: 'POST',
+                data: { name: $('#new-cat-name').val() },
+                async: false,
+                success: (data) => {
+                    if (!data.status) {
+                        failed = true
+                        return $('#new-cat-msg').text('Category ' + $('#new-cat-name').val() + ' is already existed.')
+                    }
+                }
+            })
+
+            if (!failed) {
+                $.ajax({
+                    url: '/admin/cat/new',
+                    type: 'POST',
+                    data: { name: $('#new-cat-name').val() },
+                    async: false,
+                })
+                location.reload()
+            }
+        })
+    })
+</script>
+
+<hr>
 <div class="container">
     <div class="row" style="width: 90%; margin: 0 auto;">
             <div class="col-2 border-end">
                 <h4>New category</h4>
-                <form action="" method="post">
-                    <div class="form-group mb-sm-2">
-                        <input type="text" name="name"  class="form-control" id="name" placeholder="Name">
-                    </div>
-                    <div class="text-center ">
-                        <button type="submit" class="btn" style="background-color: #e74c3c; color: #fff">Add</button>
-                    </div>
-                </form>
+                <div class="form-group mb-sm-2">
+                    <input type="text" name="name" class="form-control" id="new-cat-name" placeholder="Name">
+                </div>
+                <div style="color: red;" id="new-cat-msg"></div>
+                <div class="text-center ">
+                    <button id="new-cat-btn" type="button" class="btn" style="background-color: #e74c3c; color: #fff">Add</button>
+                </div>
             </div>
 
             <div class="col">
-                <div class="search-result-item">
-                    <div class="search-result-item-body">
-                        <div class="row">
+                {{#each categories}}
+                    <div class="search-result-item">
+                        <div class="search-result-item-body">
+                            <div class="row">
 
-                            <div class="col-3 border-end">
-                                <h4 class="fw-bold">Category</h4>
-                                <form action="" method="post">
-                                    <div class="form-group first">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Category name">
+                                <div class="col-3 border-end">
+                                    <h4 class="fw-bold">Category</h4>
+                                    <input type="text" class="form-control" id="{{this.cat_name_id}}" value="{{this.title}}">
+                                </div>
+
+                                <div class="col-5">
+                                    <h4>Sub-categories</h4>
+                                    {{#if this.children}}
+                                        {{#each this.children}}
+                                            <div class="form-group mb-sm-2 d-flex">
+                                                <input type="text" class="form-control {{../cat_name_id}}" id="{{this.sub_cat_name_id}}" value="{{this.title}}">
+                                                <button data-action="/admin/cat/{{this.id}}" type="button" class=" btn btn-danger" id="{{this.sub_cat_btn_id}}">-</button>
+                                            </div>
+
+                                            <script>
+                                                $('#{{this.sub_cat_btn_id}}').on('click', (e) => {
+                                                    $.ajax({
+                                                        url: $('#{{this.sub_cat_btn_id}}').data('action'),
+                                                        type: 'DELETE',
+                                                        async: false,
+                                                    })
+                                                    location.reload()
+                                                })
+                                            </script>
+                                        {{/each}}
+                                    {{/if}}
+
+                                    <div class="form-group mb-sm-2 d-flex">
+                                        <input type="text" class="form-control" id="{{this.new_sub_cat_name_id}}" placeholder="Sub-category name">
+                                        <button type="button" class="btn btn-success" id="{{this.new_sub_cat_btn_id}}">+</button>
                                     </div>
-                                </form>
+                                    <span style="color: red" id="{{this.new_sub_cat_msg_id}}"></span>
+
+                                    <script>
+                                        $('#{{this.new_sub_cat_btn_id}}').on('click', (e) => {
+                                            let failed = false
+
+                                            if ($('#{{this.new_sub_cat_name_id}}').val() === '') {
+                                                failed = true
+                                                return $('#{{this.new_sub_cat_msg_id}}').text('Category can not be empty.')
+                                            }
+
+                                            $.ajax({
+                                                url: '/admin/cat/check/available/subcat',
+                                                type: 'POST',
+                                                data: {
+                                                	name: $('#{{this.new_sub_cat_name_id}}').val(),
+                                                    parentID: '{{this.id}}'
+                                                },
+                                                async: false,
+                                                success: (data) => {
+                                                    if (!data.status) {
+                                                        failed = true
+                                                        return $('#{{this.new_sub_cat_msg_id}}').text('Category ' + $('#{{this.new_sub_cat_name_id}}').val() + ' is already existed.')
+                                                    }
+                                                }
+                                            })
+
+                                            if (!failed) {
+                                                $.ajax({
+                                                    url: '/admin/cat/new',
+                                                    type: 'POST',
+                                                    data: {
+                                                    	name: $('#{{this.new_sub_cat_name_id}}').val(),
+                                                        parentID: '{{this.id}}'
+                                                    },
+                                                    async: false,
+                                                })
+                                                location.reload()
+                                            }
+                                        })
+                                    </script>
+                                </div>
                             </div>
+                            <button id="{{this.save_btn_id}}" type="button" class="btn" style="background-color: #e74c3c; color: #fff">Save</button>
+                            <div style="color: red" id="{{this.save_msg_id}}"></div>
 
-                            <div class="col-5">
-                                <h4>Sub-categories</h4>
-                                <form action="" method="post">
-                                    <div class="form-group mb-sm-2 d-flex">
-                                        <input type="text" name="name"  class="form-control" id="name" placeholder="Sub-category name">
-                                        <button type="submit" class=" btn btn-danger">x</button>
-                                    </div>
-                                    <div class="form-group mb-sm-2 d-flex">
-                                        <input type="text" name="name"  class="form-control" id="name" placeholder="Sub-category name">
-                                        <button type="submit" class=" btn btn-danger">x</button>
-                                    </div>
-                                    <div class="form-group mb-sm-2 d-flex">
-                                        <input type="text" name="name"  class="form-control" id="name" placeholder="Sub-category name">
-                                        <button type="submit" class="btn btn-success">+</button>
-                                    </div>
-                                </form>
-                                <button type="submit" class="btn" style="background-color: #e74c3c; color: #fff">Save</button>
-                            </div>
+                            <script>
+                                $('#{{this.save_btn_id}}').on('click', (e) => {
+                                	let failed = false
 
+                                    if ($('#{{this.cat_name_id}}').val() === '') {
+                                        failed = true
+                                        return $('#{{this.save_msg_id}}').text('Category can not be empty.')
+                                    }
+
+                                    $.ajax({
+                                        url: '/admin/cat/check/available/parentcat',
+                                        type: 'POST',
+                                        data: { name: $('#{{this.cat_name_id}}').val() },
+                                        async: false,
+                                        success: (data) => {
+                                            if (!data.status) {
+                                                failed = true
+                                                return $('#{{this.save_msg_id}}').text('Category ' + $('#{{this.cat_name_id}}').val() + ' is already existed.')
+                                            }
+                                        }
+                                    })
+
+                                    const child = $('.{{this.cat_name_id}}')
+                                    child.forEach(c => {
+                                    	if (failed) return
+
+                                        if ($(c).val() === '') {
+                                            failed = true
+                                            return $('#{{this.save_msg_id}}').text('Category can not be empty.')
+                                        }
+
+                                        $.ajax({
+                                            url: '/admin/cat/check/available/subcat',
+                                            type: 'POST',
+                                            data: {
+                                            	name: $(c).val(),
+                                                parentID: '{{this.id}}'
+                                            },
+                                            async: false,
+                                            success: (data) => {
+                                                if (!data.status) {
+                                                    failed = true
+                                                    return $('#{{this.save_msg_id}}').text('Category ' + $(c).val() + ' is already existed.')
+                                                }
+                                            }
+                                        })
+
+                                        c = c.title
+                                    })
+
+                                    $.ajax({
+                                        url: '/admin/cat/{{this.id}}',
+                                        type: 'POST',
+                                        data: {
+                                            name: $('#{{this.cat_name_id}}').val(),
+                                            children: child
+                                        },
+                                        async: false,
+                                    })
+                                    location.reload()
+                                })
+                            </script>
                         </div>
                     </div>
-                </div>
-                <hr>
-                
-                <div class="search-result-item">
-                    <div class="search-result-item-body">
-                        <div class="row">
-
-                            <div class="col-3 border-end">
-                                <h4 class="fw-bold">Category</h4>
-                                <form action="" method="post">
-                                    <div class="form-group first">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Category name">
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="col-5">
-                                <h4>Sub-categories</h4>
-                                <form action="" method="post">
-                                    <div class="form-group mb-sm-2 d-flex">
-                                        <input type="text" name="name"  class="form-control" id="name" placeholder="Sub-category name">
-                                        <button type="submit" class=" btn btn-danger">x</button>
-                                    </div>
-                                    <div class="form-group mb-sm-2 d-flex">
-                                        <input type="text" name="name"  class="form-control" id="name" placeholder="Sub-category name">
-                                        <button type="submit" class=" btn btn-danger">x</button>
-                                    </div>
-                                    <div class="form-group mb-sm-2 d-flex">
-                                        <input type="text" name="name"  class="form-control" id="name" placeholder="Sub-category name">
-                                        <button type="submit" class="btn btn-success">+</button>
-                                    </div>
-                                </form>
-                                <button type="submit" class="btn" style="background-color: #e74c3c; color: #fff">Save</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <hr>
+                    <hr>
+                {{/each}}
 
             </div>
     </div>

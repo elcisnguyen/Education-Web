@@ -31,6 +31,12 @@ router.post('/check/verify', async (req, res) => {
 	return res.json({ status: true })
 })
 
+router.post('/check/block', async (req, res) => {
+	const user = await accountModel.singleByUsername(req.body.username)
+	if (user.disabled) return res.json({ status: true })
+	return res.json({ status: false })
+})
+
 router.get('/confirm/:username/:secret_key', async (req, res) => {
 	const user = await accountModel.singleByUsername(req.params.username)
 	if (!user || user.secret_key !== req.params.secret_key) return res.send('Can not verify.')

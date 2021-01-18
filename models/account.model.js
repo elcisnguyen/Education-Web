@@ -167,4 +167,56 @@ module.exports = {
 		if (rows.length === 0) return null
 		return rows
 	},
+
+	async numPageStudent() {
+		const [rows] = await db.query(`
+			select count(*) as length
+			from general_credential
+			where permission = 'STUDENT'
+		`)
+		if (rows.length === 0) return null
+		return Math.ceil(rows[0].length / +process.env.PAGINATE)
+	},
+
+	async pageStudent(pageNum) {
+		const offset = Math.max((pageNum - 1) * +process.env.PAGINATE, 0)
+		const [rows] = await db.query(`
+			select *
+			from general_credential g
+			where g.permission = 'STUDENT'
+			limit ${+process.env.PAGINATE} offset ${offset}
+		`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async numPageTeacher() {
+		const [rows] = await db.query(`
+			select count(*) as length
+			from general_credential
+			where permission = 'TEACHER'
+		`)
+		if (rows.length === 0) return null
+		return Math.ceil(rows[0].length / +process.env.PAGINATE)
+	},
+
+	async pageTeacher(pageNum) {
+		const offset = Math.max((pageNum - 1) * +process.env.PAGINATE, 0)
+		const [rows] = await db.query(`
+			select *
+			from general_credential g
+			where g.permission = 'TEACHER'
+			limit ${+process.env.PAGINATE} offset ${offset}
+		`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async block(username) {
+		await db.query(`update general_credential set disabled = 1 where username = '${username}'`)
+	},
+
+	async unblock(username) {
+		await db.query(`update general_credential set disabled = 0 where username = '${username}'`)
+	}
 }

@@ -29,5 +29,39 @@ module.exports = {
 		`)
 		if (rows.length === 0) return null
 		return rows
+	},
+
+	async singleParentByName(name) {
+		const [rows] = await db.query(`
+			select *
+			from category
+			where parent_cat_id is null and title = '${name}'
+		`)
+		if (rows.length === 0) return null
+		return rows[0]
+	},
+
+	async singleSubByName(name, parentID) {
+		const [rows] = await db.query(`
+			select c1.*
+			from category c1 left join category c2 on c2.parent_cat_id = c1.id
+			where c2.id is null and c1.parent_cat_id = '${parentID}' and c1.title = '${name}'
+		`)
+		if (rows.length === 0) return null
+		return rows[0]
+	},
+
+	async addParentCat(id, name) {
+		await db.query(`
+			insert into category(id, title)
+			values ('${id}', '${name}')
+		`)
+	},
+
+	async addSubCat(id, name, parentID) {
+		await db.query(`
+			insert into category(id, title, parent_cat_id)
+			values ('${id}', '${name}', '${parentID}')
+		`)
 	}
 }

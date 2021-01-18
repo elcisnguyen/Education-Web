@@ -37,13 +37,16 @@
 **Admin routes:** /admin
 * **List of student:** /admin/student
   * **Block account**: POST /admin/student/:username/block
+  * **Unblock account**: POST /admin/student/:username/unblock
 * **List of teachers:** /admin/teacher
   * **Block account**: POST /admin/teacher/:username/block
-  * **Add new teacher view:** /admin/teacher/new
-    * **Add a new teacher:** POST /admin/teacher/new
+  * **Unblock account**: POST /admin/teacher/:username/block
+  * **Add a new teacher:** POST /admin/teacher/new
 * **List of course:** /admin/course
   * **Block course:** POST /admin/course/:id/block
 * **Category view:** /admin/cat
+  * **Is a new parent cat available:** POST /admin/cat/check/available/parentcat
+  * **Is a new sub cat available:** POST /admin/cat/check/available/subcat
   * **Add a new category:** POST /admin/cat/new
   * **Edit category:** POST /admin/cat/:id
   * **Delete category:** DELETE /admin/cat/:id
