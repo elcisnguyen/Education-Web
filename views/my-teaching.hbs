@@ -51,7 +51,7 @@
 
         <nav class="pagination-margin">
             <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item {{#unless this.wishlist}}disabled{{/unless}} {{#if this.is_first}}disabled{{/if}}">
+                <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_first}}disabled{{/if}}">
                     <a class="page-link" href="?page={{this.prev_page}}">Previous</a>
                 </li>
                 {{#each page_numbers}}
@@ -59,7 +59,7 @@
                     <a class="page-link active" href="{{#unless this.isCurrentPage}}?page={{value}}{{/unless}}">{{this.value}}</a>
                     </li>
                 {{/each}}
-                <li class="page-item {{#unless this.wishlist}}disabled{{/unless}} {{#if this.is_last}}disabled{{/if}}">
+                <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_last}}disabled{{/if}}">
                     <a class="page-link" href="?page={{this.next_page}}">Next</a>
                 </li>
             </ul>

@@ -59,20 +59,28 @@ router.post('/register', async (req, res) => {
 		secret_key: uuidv4()
 	}
 
+	if (req.body.verified) {
+		user.permission = 'TEACHER'
+		user.secret_key = 'OK'
+	}
+
 	await accountModel.add(user)
 
-	const mailOpts = {
-		from: process.env.EMAIL_USER,
-		to: user.email,
-		subject: 'Schroom - Confirm Your Registration',
-		text: `Thank you for using Schroom, please copy and paste the link below to your web browser to finish your registration.
+	if (!req.body.verified) {
+		const mailOpts = {
+			from: process.env.EMAIL_USER,
+			to: user.email,
+			subject: 'Schroom - Confirm Your Registration',
+			text: `Thank you for using Schroom, please copy and paste the link below to your web browser to finish your registration.
 \nlocalhost:3000/account/confirm/${user.username}/${user.secret_key}`
-	}
-	mailer.transporter.sendMail(mailOpts)
-		.then(() => console.log('Mail sent successfully to ' + user.email))
-		.catch(err => console.log('Error occur when try to send email: ' + err))
+		}
+		mailer.transporter.sendMail(mailOpts)
+			.then(() => console.log('Mail sent successfully to ' + user.email))
+			.catch(err => console.log('Error occur when try to send email: ' + err))
 
-	res.redirect('/account/login')
+		res.redirect('/account/login')
+	}
+	else return res.json({ status: true})
 })
 
 router.get('/login', (req, res) => {

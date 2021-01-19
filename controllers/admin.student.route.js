@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 	for (let i = 1; i <= nPage; ++i) {
 		pageNumbers.push({
 			value: i,
-			isCurrentPage: i === +page
+			isCurrentPage: i === page
 		})
 	}
 	res.locals.page_numbers = pageNumbers

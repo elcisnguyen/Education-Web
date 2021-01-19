@@ -210,8 +210,9 @@ CREATE TABLE `general_credential` (
 
 INSERT INTO `general_credential` VALUES ('admin','ADMIN','$2b$10$64dSkbvnmfiEOPTAHmDzD.6DZTxdeptG5A0rlolAsmyWOzhodKvpS','admin','admin@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',0,'OK');
 INSERT INTO `general_credential` VALUES ('dbt','TEACHER','$2b$10$Zdk29qJfSBw.LMBfndt9fuRAUCXsCHiIOG/leZFgn8ETD0wA5W86S','Dinh Ba Tien','dbt@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',0,'OK');
-INSERT INTO `general_credential` VALUES ('giahuy','STUDENT','$2b$10$/ziD9njgNhKy5ydYgB6YheqcmK/Alc2KgflHzDAMSARgnjA1gxL1q','Pham Gia Huy','giahuy@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',0,'OK');
+INSERT INTO `general_credential` VALUES ('giahuy','STUDENT','$2b$10$/ziD9njgNhKy5ydYgB6YheqcmK/Alc2KgflHzDAMSARgnjA1gxL1q','Pham Gia Huy','giahuy@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',1,'OK');
 INSERT INTO `general_credential` VALUES ('htt','TEACHER','$2b$10$dUVIIYLsKVkEeNnu2ZseWOGhWP4uD6XiGQLZzE/JhNDx7Iz2B7AH.','Ho Tuan Thanh','htt@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',0,'OK');
+INSERT INTO `general_credential` VALUES ('mat','TEACHER','$2b$10$Sr2BbNftaD22/KFBHKKYvO6lmOdvX3d1pqymNAeXE/ryebInRLYBW','Mai Anh Tuan','mat@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',1,'OK');
 INSERT INTO `general_credential` VALUES ('nndk','TEACHER','$2b$10$UyHDgVMJTBmnvieWcrZkiuca6QCaTved05C0yztjTObLLjOHf5KyC','Ngo Ngoc Dang Khoa','nndk@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',0,'OK');
 INSERT INTO `general_credential` VALUES ('ntmt','TEACHER','$2b$10$Qq7HBzWnfzJCP9.J4SlmvOttZSvjOtCjSpE4QFTIp9UWY0YmPtl0C','Nguyen Thi Minh Tuyen','ntmt@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',0,'OK');
 INSERT INTO `general_credential` VALUES ('tad','TEACHER','$2b$10$AV1Zd0hCryhfXSGVf9THGeCA5epFZl/XBko8zaopj3wKe5KHSRtse','Tran Anh Duy','tad@gmail.com','https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg',0,'OK');
@@ -237,8 +238,6 @@ CREATE TABLE `sessions` (
 -- Dumping data for table `sessions`
 --
 
-INSERT INTO `sessions` VALUES ('8hey1xf6lRBVios7PeUI5B8QN17Uq5YR',1610990943,'{\"cookie\":{\"originalMaxAge\":3600000,\"expires\":\"2021-01-18T17:14:04.854Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"returnUrl\":\"http://localhost:3000/admin/cat?name=IT\",\"user\":{\"username\":\"admin\",\"permission\":\"ADMIN\",\"password_hash\":\"$2b$10$64dSkbvnmfiEOPTAHmDzD.6DZTxdeptG5A0rlolAsmyWOzhodKvpS\",\"fullname\":\"admin\",\"email\":\"admin@gmail.com\",\"ava_link\":\"https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg\",\"disabled\":0,\"secret_key\":\"OK\"}}');
-INSERT INTO `sessions` VALUES ('Q5HH_cRaFxYHAr1A0nfaqPokjN2nKM9_',1610994800,'{\"cookie\":{\"originalMaxAge\":3600000,\"expires\":\"2021-01-18T18:23:11.342Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"user\":{\"username\":\"admin\",\"permission\":\"ADMIN\",\"password_hash\":\"$2b$10$64dSkbvnmfiEOPTAHmDzD.6DZTxdeptG5A0rlolAsmyWOzhodKvpS\",\"fullname\":\"admin\",\"email\":\"admin@gmail.com\",\"ava_link\":\"https://res.cloudinary.com/eduwebcloud/image/upload/v1610965049/ava/avatar_rhiz4u.jpg\",\"disabled\":0,\"secret_key\":\"OK\"}}');
 
 --
 -- Table structure for table `student_course`
@@ -342,4 +341,4 @@ CREATE TABLE `student_wishlist` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-19  0:36:52
+-- Dump completed on 2021-01-19  8:13:07

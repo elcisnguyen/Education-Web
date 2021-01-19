@@ -5,21 +5,71 @@
         {{#if is_teacher}}
             <div class="col-2">
                 <h4>New lecturer account</h4>
-                <form action="" method="post" name="login">
                     <div class="form-group mb-sm-2">
-                        <input type="text" name="name"  class="form-control my-input" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group mb-sm-2">
-                        <input type="email" name="email"  class="form-control my-input" id="email" placeholder="Email">
+                        <input type="text" class="form-control my-input" id="fullname" placeholder="Full name">
                     </div>
                     <div class="form-group mb-sm-2">
-                        <input type="password" name="password" id="phone"  class="form-control my-input" placeholder="Password">
+                        <input type="text" class="form-control my-input" id="username" placeholder="Username">
                     </div>
-                    <div class="text-center ">
-                        <button type="submit" class=" btn btn-info text-light">Create</button>
+                    <div class="form-group mb-sm-2">
+                        <input type="email" class="form-control my-input" id="email" placeholder="Email">
                     </div>
-                </form>
+                    <div class="form-group mb-sm-2">
+                        <input type="password" id="password" class="form-control my-input" placeholder="Password">
+                    </div>
+                    <div class="text-center" style="color: red;" id="create-account-msg"></div>
+                    <div class="text-center">
+                        <button type="button" class=" btn btn-info text-light" id="create-account-btn">Create</button>
+                    </div>
             </div>
+
+            <script>
+                $('#create-account-btn').on('click', (e) => {
+                    failed = false
+
+                    $.ajax({
+                        url: '/account/check/exist/username',
+                        type: 'POST',
+                        data: { username: $('#username').val() },
+                        async: false,
+                        success: (data) => {
+                            if (data.status) {
+                                failed = true
+                                return $('#create-account-msg').text('Username ' + $('#username').val() + ' is already existed.')
+                            }
+                        }
+                    })
+
+                    if (!failed) $.ajax({
+                        url: '/account/check/exist/email',
+                        type: 'POST',
+                        data: { email: $('#email').val() },
+                        async: false,
+                        success: (data) => {
+                            if (data.status) {
+                                failed = true
+                                return $('#create-account-msg').text('Email ' + $('#email').val() + ' is already registered.')
+                            }
+                        }
+                    })
+
+                    if (!failed) {
+                        $.ajax({
+                            url: '/account/register',
+                            type: 'POST',
+                            data: {
+                            	fullname: $('#fullname').val(),
+                                username: $('#username').val(),
+                                email: $('#email').val(),
+                                password: $('#password').val(),
+                                verified: true
+                            },
+                            async: false
+                        })
+                        location.reload()
+                    }
+                })
+            </script>
         {{/if}}
 
         <div class="col">
@@ -66,16 +116,16 @@
 
         <nav class="pagination-margin">
             <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_first}}disabled{{/if}}">
-                    <a class="page-link" href="?page={{this.prev_page}}{{#if this.sort}}&sort={{this.sort}}{{/if}}">Previous</a>
+                <li class="page-item {{#unless this.credentials}}disabled{{/unless}} {{#if this.is_first}}disabled{{/if}}">
+                    <a class="page-link" href="?page={{this.prev_page}}">Previous</a>
                 </li>
                 {{#each page_numbers}}
                     <li class="page-item {{#if this.isCurrentPage}}disabled{{/if}}">
-                    <a class="page-link active" href="{{#unless this.isCurrentPage}}?page={{value}}{{#if ../sort}}&sort={{../sort}}{{/if}}{{/unless}}">{{this.value}}</a>
+                    <a class="page-link active" href="{{#unless this.isCurrentPage}}?page={{value}}{{/unless}}">{{this.value}}</a>
                     </li>
                 {{/each}}
-                <li class="page-item {{#unless this.courses}}disabled{{/unless}} {{#if this.is_last}}disabled{{/if}}">
-                    <a class="page-link" href="?page={{this.next_page}}{{#if this.sort}}&sort={{this.sort}}{{/if}}">Next</a>
+                <li class="page-item {{#unless this.credentials}}disabled{{/unless}} {{#if this.is_last}}disabled{{/if}}">
+                    <a class="page-link" href="?page={{this.next_page}}">Next</a>
                 </li>
             </ul>
         </nav>

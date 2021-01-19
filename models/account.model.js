@@ -31,7 +31,7 @@ module.exports = {
 	async add(user) {
 		const [rows] = await db.query(`
 			insert into general_credential(username, permission, password_hash, fullname, email, secret_key)
-			values ('${user.username}', 'STUDENT', '${user.password_hash}', '${user.fullname}', '${user.email}', '${user.secret_key}')
+			values ('${user.username}', '${user.permission}', '${user.password_hash}', '${user.fullname}', '${user.email}', '${user.secret_key}')
 		`)
 		return rows
 	},
