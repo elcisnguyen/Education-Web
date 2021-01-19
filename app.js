@@ -26,6 +26,7 @@ app.engine('hbs', exphbs({
 	helpers: {
 		section: exphbsSection(),
 		formatNum(val) { return numeral(val).format('0.0') },
+		add(a, b) { return a + b },
 		isEqual(a, b, opts) {
 			if (a === b) return opts.fn(this)
 			return opts.inverse(this)

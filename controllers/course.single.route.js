@@ -2,7 +2,7 @@ const express = require('express')
 const courseModel = require('../models/course.model')
 const accountModel = require('../models/account.model')
 const Str = require('@supercharge/strings')
-const { isStudent } = require('../middlewares/utils.mdw')
+const { isStudent, isTeacher } = require('../middlewares/utils.mdw')
 
 
 const router = express.Router({ mergeParams: true })
@@ -35,10 +35,6 @@ router.get('/:id', async (req, res) => {
 	res.render('course-detail')
 })
 
-// router.delete('/:id', (req, res) => {
-// 	res.send(`Delete req to delete course #${req.params.id}`)
-// })
-
 router.post('/:id/wishlist', isStudent, async (req, res) => {
 	await courseModel.addToWishlist(req.session.user.username, req.params.id)
 	return res.json({ status: true })
@@ -60,13 +56,44 @@ router.post('/:id/rate', isStudent, async (req, res) => {
 	return res.json({ status: true })
 })
 
-// router.route('/:id/edit')
-// 	.get((req, res) => {
-// 		res.send(`Edit course #${req.params.id} view`)
-// 	})
-// 	.post((req, res) => {
-// 		res.send(`Post req to edit course #${req.params.id}`)
-// 	})
+router.get('/:id/edit', isTeacher, async (req, res) => {
+	res.locals.course = await courseModel.single(req.params.id)
+	if (res.locals.course) res.locals.course.is_complete = res.locals.course.status === 'COMPLETE'
+	res.locals.syllabus = await courseModel.syllabus(req.params.id)
+	if (res.locals.syllabus) res.locals.syllabus.forEach(e => e.randomID = Str.random())
+	res.locals.edit = true
+	res.locals.subcats = []
+	res.locals.categories.forEach(c => {
+		if (c.children) c.children.forEach(child => {
+			if (child.id === res.locals.course.cat_id) child.is_selected = true
+			res.locals.subcats.push(child)
+		})
+	})
+	res.render('create-new-course')
+})
+
+router.post('/:id/check/available/title', isTeacher, async (req, res) => {
+	let course
+	if (!req.body.noExclude) course = await courseModel.singleByName(req.body.title, req.params.id)
+	else course = await courseModel.singleByName(req.body.title)
+	if (course) return res.json({ status: false })
+	return res.json({ status: true })
+})
+
+router.post('/:id/edit', isTeacher, async (req, res) => {
+	console.info(req.body)
+	await courseModel.editCourse(req.params.id, req.body)
+	return res.json({ status: true })
+})
+
+router.post('/:id/edit/lesson', isTeacher, async (req, res) => {
+	await courseModel.addLesson(req.params.id, {
+		serial: req.body.serial,
+		title: req.body.title,
+		vid_link: req.body.vid_link
+	})
+	return res.json({ status: true })
+})
 
 
 module.exports = router

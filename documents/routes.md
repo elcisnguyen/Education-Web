@@ -32,7 +32,9 @@
 **Teacher add new course view:** /course/new
 * **Send new course data:** POST /course/new
 * **Edit course view:** /course/single/:id/edit
+  * **Is a new course title available:** POST /course/single/:id/check/available/title
   * **Send edited data:** POST /course/single/:id/edit
+  * **Add a new lesson:** POST /course/single/:id/edit/lesson
 
 **Admin routes:** /admin
 * **List of student:** /admin/student

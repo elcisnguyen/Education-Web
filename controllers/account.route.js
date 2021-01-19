@@ -89,15 +89,13 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
 	req.session.user = await accountModel.singleByUsername(req.body.username)
-	res.redirect(req.session.returnUrl || '/')
+	res.redirect('/')
 })
 
 router.post('/logout', (req, res) => {
 	req.session.user = null
-	req.session.returnUrl = null
 	req.session.destroy()
-
-	res.redirect(req.headers.referer || '/')
+	res.redirect('/')
 })
 
 router.use('/profile', require('./account.profile.route'))

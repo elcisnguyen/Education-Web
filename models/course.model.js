@@ -1,5 +1,6 @@
 const db = require('../utils/db')
 const moment = require('moment')
+const { v4: uuidv4 } = require('uuid')
 
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
 			from(
 				select res.*, avg(f.rate) as rate, count(f.rate) as num_rate
 				from(
-					select c.id, c.title, cat.id as cat_id, cat.title as cat_title, g.fullname, g.email, c.final_price, c.discount, c.small_description, c.full_description, c.last_modified, c.ava_link
+					select c.id, c.title, cat.id as cat_id, cat.title as cat_title, g.fullname, g.email, c.price, c.final_price, c.discount, c.small_description, c.full_description, c.last_modified, c.ava_link
 					from course c, category cat, general_credential g
 					where c.id = '${id}' and c.cat_id = cat.id and c.teacher_id = g.username
 				) as res
@@ -21,6 +22,42 @@ module.exports = {
 		`)
 		if (rows.length === 0) return null
 		return rows[0]
+	},
+
+	async singleByName(name, excludeID) {
+		let rows
+
+		if (excludeID) [rows] = await db.query(`
+			select *
+			from course
+			where title = '${name}' and id != '${excludeID}'
+		`)
+		else [rows] = await db.query(`
+			select *
+			from course
+			where title = '${name}'
+		`)
+		if (rows.length === 0) return null
+		return rows[0]
+	},
+
+	async editCourse(id, course) {
+		await db.query(`
+			update course set cat_id = '${course.cat_id}', title = '${course.title}', ava_link = '${course.ava_link}', price = ${course.price}, discount = ${course.discount}, small_description = '${course.small_description}', full_description = '${course.full_description}', status = '${course.status}' where id = '${id}'
+		`)
+	},
+
+	async addCourse(course) {
+		await db.query(`
+			insert into course(id, cat_id, title, teacher_id, ava_link, price, discount, small_description, full_description, date_created, last_modified, status) 
+			values('${uuidv4()}', '${course.cat_id}', '${course.title}', '${course.teacher_id}',  '${course.ava_link}', ${course.price}, ${course.discount}, '${course.small_description}', '${course.full_description}', '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}', '${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}', '${course.status}')
+		`)
+	},
+
+	async addLesson(id, data) {
+		await db.query(`
+			insert into course_material(course_id, serial, title, vid_link) values('${id}', '${data.serial}', '${data.title}', '${data.vid_link}')
+		`)
 	},
 
 	async numPageAll(opts) {

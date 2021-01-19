@@ -3,11 +3,6 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-    {{!-- <link rel="stylesheet" href="/public/owlcarousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="/public/owlcarousel/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-
-    <script src="/public/owlcarousel/owl.carousel.min.js"></script> --}}
     <link rel="stylesheet" href="/public/css/course-detail.css">
 {{/section}}
 {{!-- --------------------------------------------------------------- --}}
@@ -19,45 +14,43 @@
           <div class="col-7">
               <form action="" method="post">
                   <div class="mb-sm-2 w-75">
-                      <input type="text" name="course-name"  class="form-control" id="course-name" placeholder="Course name">
+                      <input type="text" name="course-name" class="form-control" id="course-name" placeholder="Course name" {{#if course}}value="{{course.title}}"{{/if}} required>
                   </div>
 
                   <div class="mb-sm-2 w-75">
-                    <input type="url" name="avatar" id="avatar"  class="form-control" placeholder="Avatar URL">
+                    <input type="url" name="ava-link" id="ava_link"  class="form-control" placeholder="Avatar URL" {{#if course}}value="{{course.ava_link}}"{{/if}} required>
                   </div>
 
-                  <select class="form-select mb-sm-2 w-50">
-                    <option selected disabled>Category</option>
-                    <option value="1">Android Development</option>
-                    <option value="2">Business analytics & Intelligence</option>
+                  <select class="form-select mb-sm-2 w-50" id="cat-select" required>
+                      <option {{#unless course}}selected{{/unless}} disabled>Category</option>
+                      {{#each subcats}}
+                          <option value="{{this.id}}" {{#if this.is_selected}}selected{{/if}}>{{this.title}}</option>
+                      {{/each}}
                   </select>
 
                   <div class="row w-50">
                     <div class="col-7 mb-sm-2">
-                      <input type="number"  min="0.00" step="1.00" name="price" id="price"  class="form-control" placeholder="Price in number">
+                      <input type="number"  min="0" step="1" name="price" id="price"  class="form-control" placeholder="Price" {{#if course}}value="{{course.price}}"{{/if}} required>
                     </div>
                     <div class="col mb-sm-2">
-                      <input type="number"  min="0" step="1" name="discount" id="discount"  class="form-control" placeholder="% Discount">
+                        <input required type="number"  min="0" step="1" name="discount" id="discount"  class="form-control" placeholder="% Discount" {{#if course}}value="{{course.discount}}"{{else}}value="0"{{/if}}>
                     </div>
                   </div>
 
                   <div class="mb-sm-2">
-                      <input type="text" name="short-description" class="form-control w-75" id="short-description" placeholder="Short description">
+                      <input required type="text" name="short-description" class="form-control w-75" id="short-description" placeholder="Short description" {{#if course}}value="{{course.small_description}}"{{/if}}>
                   </div>
               </form>
 
-              <select class="form-select w-25">
-                <option selected disabled>Status</option>
-                <option value="1">On going</option>
-                <option value="2">Complete</option>
+              <select class="form-select w-25" id="status-select" required>
+                <option {{#unless course}}selected{{/unless}} disabled>Status</option>
+                <option {{#unless course.is_complete}}selected{{/unless}} value="INCOMPLETE">On going</option>
+                <option {{#if course.is_complete}}selected{{/if}} value="COMPLETE">Complete</option>
               </select>
           </div>
 
-          {{!-- <div class="col-1">
-          </div> --}}
-
           <div class="col">
-              <img src="/public/img/python-ava.jpg" alt="Course avatar" width="350px"; height="260px">
+              <img src="{{#if course}}{{course.ava_link}}{{else}}https://res.cloudinary.com/eduwebcloud/image/upload/v1610895593/ava/online-3412473_1920_1_wxcd5l.jpg{{/if}}" alt="Course avatar" width="350px"; height="260px">
           </div>
       </div>
   </div>
@@ -82,30 +75,59 @@
   <div class="tab-content p-4" id="myTabContent">
       <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
           <div id="summernote"></div>
-
       </div>
 
       <div class="tab-pane fade" id="syllabus" role="tabpanel" aria-labelledby="syllabus-tab">
           <div style="width:50%">
-            <h4>Courses content</h4>
-            <form>
+              <h4>Courses content</h4>
               <ul>
-                <li>
-                  <input type="text" name="lesson-title" class="form-control mb-sm-2" id="lesson-title1" placeholder="Lesson title">
-                  <input type="text" name="video-url" class="form-control mb-sm-2" id="video-url1" placeholder="Video url">
-                </li>
-                <li>
-                  <input type="text" name="lesson-title" class="form-control mb-sm-2" id="lesson-title2" placeholder="Lesson title">
-                  <input type="text" name="video-url" class="form-control mb-sm-2" id="video-url2" placeholder="Video url">
-                </li>
-                <li>
-                  <input type="text" name="lesson-title" class="form-control mb-sm-2" id="lesson-title3" placeholder="Lesson title">
-                  <input type="text" name="video-url" class="form-control mb-sm-2" id="video-url3" placeholder="Video url">
-                </li>
-                <a href=""><button type="submit" class="btn mb-sm-2" style="background-color: #e74c3c; color: #fff;">New lesson</button></a>
+                  {{#if syllabus}}
+                      {{#each syllabus}}
+                          <div>Lesson {{add @index 1}}</div>
+                          <input type="text" name="lesson-title" class="form-control mb-sm-2" id="lesson-title1" value="{{this.title}}">
+                          <input type="text" name="video-url" class="form-control mb-sm-2" id="video-url1" value="{{this.vid_link}}">
+                          <br>
+                      {{/each}}
+                  {{/if}}
+                  <hr>
+                  <input type="text" name="lesson-title" class="form-control mb-sm-2" id="add-lesson-title" placeholder="Lesson title">
+                  <input type="text" name="video-url" class="form-control mb-sm-2" id="add-lesson-url" placeholder="Video url">
+                  <div style="color: red;" id="add-lesson-msg"></div>
+                  <button type="button" class="btn mb-sm-2" style="background-color: #e74c3c; color: #fff;" id="add-lesson-btn">Add lesson</button>
+
+                  <script>
+                      $('#add-lesson-btn').on('click', (e) => {
+                          failed = false
+
+                          if ($('#add-lesson-title').val() === '') {
+                              failed = true
+                              return $('#add-lesson-msg').text('Title can not be empty.')
+                          }
+
+                          if (!failed) {
+                              if ($('#add-lesson-url').val() === '') {
+                                  failed = true
+                                  return $('#add-lesson-msg').text('URL can not be empty.')
+                              }
+                          }
+
+                          if (!failed) {
+                              $.ajax({
+                                  url: '/course/single/{{course.id}}/edit/lesson',
+                                  type: 'POST',
+                                  data: {
+                                  	  title: $('#add-lesson-title').val(),
+                                      vid_link: $('#add-lesson-url').val(),
+                                      serial: {{syllabus.length}} + 1
+                                  },
+                                  async: false
+                              })
+                              location.reload()
+                          }
+                      })
+                  </script>
               </ul>
-            </form>
-           </div>
+          </div>
 
       </div>
   </div> <!--End of tab content-->
@@ -113,7 +135,86 @@
 </div>
 
 <div class="body">
-  <a href=""><button type="submit" class="btn" style="background-color: #e74c3c; color: #fff;">Save</button></a>
+    <div id="save-msg" class="text-success"></div>
+    <button type="button" id="save-btn" class="btn" style="background-color: #e74c3c; color: #fff;">Save</button>
+
+    {{#if edit}}
+        <script>
+            $('#save-btn').on('click', () => {
+                let failed = false
+
+                $.ajax({
+                    url: '/course/single/{{course.id}}/check/available/title',
+                    type: 'POST',
+                    data: { title: $('#course-name').val() },
+                    async: false,
+                    success: (data) => {
+                        if (!data.status) {
+                            failed = true
+                            return $('#save-msg').text('Course title ' + $('#course-name').val() + ' already existed.')
+                        }
+                    }
+                })
+
+                if (!failed) {
+                    $.ajax({
+                        url: '/course/single/{{course.id}}/edit',
+                        type: 'POST',
+                        data: {
+                            cat_id: $('#cat-select').val(),
+                            title: $('#course-name').val(),
+                            ava_link: $('#ava_link').val(),
+                            price: $('#price').val(),
+                            discount: $('#discount').val(),
+                            small_description: $('#short-description').val(),
+                            full_description: $('#summernote').summernote('code'),
+                            status: $('#status-select').val()
+                        },
+                        async: false,
+                    })
+                    location.reload()
+                }
+            })
+        </script>
+    {{else}}
+        <script>
+            $('#save-btn').on('click', () => {
+                let failed = false
+
+                $.ajax({
+                    url: '/course/single/{{course.id}}/check/available/title',
+                    type: 'POST',
+                    data: { title: $('#course-name').val(), noExclude: true },
+                    async: false,
+                    success: (data) => {
+                        if (!data.status) {
+                            failed = true
+                            return $('#save-msg').text('Course title ' + $('#course-name').val() + ' already existed.')
+                        }
+                    }
+                })
+
+                if (!failed) {
+                    $.ajax({
+                        url: '/course/new',
+                        type: 'POST',
+                        data: {
+                            cat_id: $('#cat-select').val(),
+                            title: $('#course-name').val(),
+                            ava_link: $('#ava_link').val(),
+                            price: $('#price').val(),
+                            discount: $('#discount').val(),
+                            small_description: $('#short-description').val(),
+                            full_description: $('#summernote').summernote('code'),
+                            status: $('#status-select').val()
+                        },
+                        async: false,
+                    })
+                    location.reload()
+                }
+            })
+        </script>
+    {{/if}}
 </div>
 
 
@@ -133,6 +234,12 @@
       ['insert', ['link', 'picture', 'video']],
       ['view', ['fullscreen', 'codeview', 'help']]
     ]
-  });
+  })
 </script>
+
+{{#if course}}
+    <script>
+        $('#summernote').summernote('code', '{{{course.full_description}}}')
+    </script>
+{{/if}}
 {{!-- --------------------------------------------------------------- --}}
