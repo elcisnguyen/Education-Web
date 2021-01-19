@@ -28,6 +28,16 @@ module.exports = {
 		return rows[0]
 	},
 
+	async allTeacher() {
+		const [rows] = await db.query(`
+			select * 
+			from general_credential
+			where permission = 'TEACHER'
+		`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
 	async add(user) {
 		const [rows] = await db.query(`
 			insert into general_credential(username, permission, password_hash, fullname, email, secret_key)

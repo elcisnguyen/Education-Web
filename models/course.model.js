@@ -23,6 +23,63 @@ module.exports = {
 		return rows[0]
 	},
 
+	async numPageAll(opts) {
+		let rows
+		if (!opts) [rows] = await db.query(`
+			select count(*) as length
+			from course
+		`)
+		else [rows] = await db.query(`
+			select count(*) as length
+			from course
+			where ?
+		`, opts)
+		if (rows.length === 0) return null
+		return Math.ceil(rows[0].length / process.env.PAGINATE)
+	},
+
+	async pageAll(pageNum, opts) {
+		const offset = (pageNum - 1) * +process.env.PAGINATE
+		let rows
+
+		if (opts) [rows] = await db.query(`
+			 select *
+			 from (
+				 select res.*, avg(f.rate) as rate, count(f.rate) as num_rate
+				 from (
+					  select c.id, c.disabled, c.title, cat.title as cat_title, cat.id as cat_id, g.fullname, c.final_price, c.discount, c.ava_link, c.small_description, c.total_sub, c.date_created
+					  from course c, category cat, general_credential g
+					  where c.cat_id = cat.id and c.teacher_id = g.username
+				 ) as res
+				 left join student_feedback f on res.id = f.course_id
+				 group by res.id, res.total_sub
+			 ) as \`r.*rnr\`
+			 where ?
+			 limit ${+process.env.PAGINATE} offset ${offset}
+		`, opts)
+		else [rows] = await db.query(`
+			 select res.*, avg(f.rate) as rate, count(f.rate) as num_rate
+			 from (
+				  select c.id, c.disabled, c.title, cat.title as cat_title, cat.id as cat_id, g.fullname, c.final_price, c.discount, c.ava_link, c.small_description, c.total_sub, c.date_created
+				  from course c, category cat, general_credential g
+				  where c.cat_id = cat.id and c.teacher_id = g.username
+			 ) as res
+			 left join student_feedback f on res.id = f.course_id
+			 group by res.id, res.total_sub
+			 limit ${+process.env.PAGINATE} offset ${offset}
+		`)
+		if (rows.length === 0) return null
+		return rows
+	},
+
+	async block(id) {
+		await db.query(`update course set disabled = 1 where id = '${id}'`)
+	},
+
+	async unblock(id) {
+		await db.query(`update course set disabled = 0 where id = '${id}'`)
+	},
+
 	async syllabus(id) {
 		const [rows] = await db.query(`
 			select *
